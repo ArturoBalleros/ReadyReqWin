@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Icon="/Images/Grupo.png" ResizeMode="CanMinimize" Height="500" SizeToContent="Width" Loaded="WLoaded" Closing="WClosing">
+        Icon="/Image/Grupo.png" ResizeMode="CanMinimize" Height="500" SizeToContent="Width" Loaded="WLoaded" Closing="WClosing">
     <Window.Resources>
-        <ResourceDictionary Source="/Util/Estilos.xaml"/>
+        <ResourceDictionary Source="/Util/Style.xaml"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

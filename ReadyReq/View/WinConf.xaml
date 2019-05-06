@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Height="300" Width="400" Loaded="WLoaded">
     <Window.Resources>
-        <ResourceDictionary Source="/Util/Estilos.xaml"/>
+        <ResourceDictionary Source="/Util/Style.xaml"/>
     </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1">
         <Grid>
