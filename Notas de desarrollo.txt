@@ -1,0 +1,9 @@
+En nuevo rpoyecto preguntar si predeterminar YAAAA
+AL elegir base de datos pedir el puerto YAAAA
+Integrar Funciones de sql YAAAA
+Al cambiar de pestañas que el primero no salga seleccionado "NO SE"
+Tablas de trazabilidad corregidas
+
+
+
+Inhabilitar los botones al presionarlos
