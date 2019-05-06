@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        ResizeMode="CanMinimize" Icon="/Imagenes/Add.png" WindowStartupLocation="CenterOwner" Height="300" Width="400" Loaded="WLoaded">
+        ResizeMode="CanMinimize" Icon="/Images/Add.png" WindowStartupLocation="CenterOwner" Height="300" Width="400" Loaded="WLoaded">
     <Window.Resources>
         <ResourceDictionary Source="Estilos.xaml"/>
     </Window.Resources>

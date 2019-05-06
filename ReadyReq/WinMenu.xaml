@@ -23,13 +23,13 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="ButGru" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Grupo.png" Margin="35"/>
+                    <Image Source="/Images/Grupo.png" Margin="35"/>
                     <TextBlock x:Name="TxtGru" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButPaq" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Paquetes.png" Margin="35"/>
+                    <Image Source="/Images/Paquetes.png" Margin="35"/>
                     <TextBlock x:Name="TxtPaq" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
@@ -41,13 +41,13 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="ButObj" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Objetivos.png" Margin="35"/>
+                    <Image Source="/Images/Objetivos.png" Margin="35"/>
                     <TextBlock x:Name="TxtObj" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButAct" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Actor.png" Margin="35"/>
+                    <Image Source="/Images/Actor.png" Margin="35"/>
                     <TextBlock x:Name="TxtAct" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
@@ -60,19 +60,19 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="ButRIn" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/RI.png" Margin="35"/>
+                    <Image Source="/Images/RI.png" Margin="35"/>
                     <TextBlock x:Name="TxtRIn" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButRNF" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/RN.png" Margin="35"/>
+                    <Image Source="/Images/RN.png" Margin="35"/>
                     <TextBlock x:Name="TxtRNF" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButRFu" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/RF.png" Margin="35"/>
+                    <Image Source="/Images/RF.png" Margin="35"/>
                     <TextBlock x:Name="TxtRFu" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
@@ -85,19 +85,19 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="ButEstim" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Importar.png" Margin="35"/>
+                    <Image Source="/Images/Importar.png" Margin="35"/>
                     <TextBlock x:Name="TxtEstim" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButImp" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Importar.png" Margin="35"/>
+                    <Image Source="/Images/Importar.png" Margin="35"/>
                     <TextBlock x:Name="TxtImp" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButExp" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Exportar.png" Margin="35"/>
+                    <Image Source="/Images/Exportar.png" Margin="35"/>
                     <TextBlock x:Name="TxtExp" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
@@ -111,19 +111,19 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="ButWord" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Word.png" Margin="35"/>
+                    <Image Source="/Images/Word.png" Margin="35"/>
                     <TextBlock x:Name="TxtWord" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButNuP" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Add.png" Margin="35"/>
+                    <Image Source="/Images/Add.png" Margin="35"/>
                     <TextBlock x:Name="TxtNuP" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ButCon" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2" Click="Click">
                 <DockPanel>
-                    <Image Source="/Imagenes/Configuracion.png" Margin="35"/>
+                    <Image Source="/Images/Configuracion.png" Margin="35"/>
                     <TextBlock x:Name="TxtCon" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>

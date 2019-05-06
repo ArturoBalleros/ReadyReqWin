@@ -291,25 +291,25 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\Add.png" />
-    <Resource Include="Imagenes\RF.png" />
-    <Resource Include="Imagenes\RI.png" />
-    <Resource Include="Imagenes\Importar.png" />
-    <Resource Include="Imagenes\RN.png" />
-    <Resource Include="Imagenes\Exportar.png" />
-    <Resource Include="Imagenes\Word.png" />
+    <Resource Include="Images\Add.png" />
+    <Resource Include="Images\RF.png" />
+    <Resource Include="Images\RI.png" />
+    <Resource Include="Images\Importar.png" />
+    <Resource Include="Images\RN.png" />
+    <Resource Include="Images\Exportar.png" />
+    <Resource Include="Images\Word.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\IconoRR.ico" />
+    <Resource Include="Images\IconoRR.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\Grupo.png" />
+    <Resource Include="Images\Grupo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\Actor.png" />
-    <Resource Include="Imagenes\Configuracion.png" />
-    <Resource Include="Imagenes\Objetivos.png" />
-    <Resource Include="Imagenes\Paquetes.png" />
+    <Resource Include="Images\Actor.png" />
+    <Resource Include="Images\Configuracion.png" />
+    <Resource Include="Images\Objetivos.png" />
+    <Resource Include="Images\Paquetes.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="IconoRR.ico" />
