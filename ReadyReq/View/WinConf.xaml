@@ -1,0 +1,93 @@
+﻿<Window x:Class="ReadyReq.ViewModel.WinConf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStyle="None" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Height="300" Width="400" Loaded="WLoaded">
+    <Window.Resources>
+        <ResourceDictionary Source="/Util/Estilos.xaml"/>
+    </Window.Resources>
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LblEspF" Margin="55,5"/>
+                <Label x:Name="LblEsp" Margin="60,10" PreviewMouseDown="LblClick"/>
+                <Label x:Name="LblIngF" Margin="55,5" Grid.Column="1"/>
+                <Label x:Name="LblIng" Margin="60,10" Grid.Column="1" PreviewMouseDown="LblClick"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="RBSql" Style="{StaticResource Radio}" Content="MySql" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True" Checked="Checked"/>
+                <RadioButton x:Name="RBAccess" Style="{StaticResource Radio}" Content="Access" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="Checked"/>
+            </Grid>
+            <Grid x:Name="GridSql" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LblHost" Margin="30,3,5,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                <Label x:Name="LblUsu" Margin="30,3,5,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Row="1"/>
+                <Label x:Name="LblPassSql" Margin="30,3,5,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Row="2"/>
+                <Label x:Name="LblBDSql" Margin="30,3,5,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Row="3"/>
+                <Label x:Name="LblPortSql" Margin="30,3,5,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Row="4"/>
+                <TextBox x:Name="TxtHost" Style="{StaticResource Text}" Grid.Column="1" Margin="5,3,30,3" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar"/>
+                <TextBox x:Name="TxtUsu" Grid.Column="1" Style="{StaticResource Text}" Margin="5,3,30,3" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" Grid.Row="1" KeyDown="Presionar"/>
+                <PasswordBox x:Name="TxtPassMS" Grid.Column="1" Style="{StaticResource Pass}" Margin="5,3,30,3" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" Grid.Row="2" KeyDown="Presionar"/>
+                <TextBox x:Name="TxtBDMS" Grid.Column="1" Style="{StaticResource Text}" Margin="5,3,30,3" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" Grid.Row="3" KeyDown="Presionar"/>
+                <TextBox x:Name="TxtPortMS" Grid.Column="1" Style="{StaticResource Text}" Margin="5,3,30,3" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" Grid.Row="4" KeyDown="Presionar"/>
+            </Grid>
+            <Grid x:Name="GridAccess" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="LblRuta" Margin="30,5,5,5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                    <Button x:Name="ButRuta" Style="{StaticResource Button}" Grid.Column="1" Margin="55,10" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButClick"/>
+                </Grid>
+                <Label x:Name="LblRutaBD" Margin="30,5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Row="1"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="LblPassBD" Margin="30,5,5,5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                    <PasswordBox x:Name="TxtPassBD" Style="{StaticResource Pass}" Grid.Column="1" Margin="5,14,30,14" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.7*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ButSalir" Style="{StaticResource Button}" Grid.Column="1" Margin="35,10" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButClick"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

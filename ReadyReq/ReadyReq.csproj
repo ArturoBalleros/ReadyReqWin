@@ -54,7 +54,7 @@
     <StartupObject>ReadyReq.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>IconoRR.ico</ApplicationIcon>
+    <ApplicationIcon>Images\IconoRR.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -86,61 +86,33 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClsActor.cs" />
-    <Compile Include="ClsBaseDatos.cs" />
-    <Compile Include="ClsConf.cs" />
-    <Compile Include="ClsDatDG.cs" />
-    <Compile Include="ClsEstim.cs" />
-    <Compile Include="ClsGrupo.cs" />
-    <Compile Include="ClsNuePro.cs" />
-    <Compile Include="ClsObjetivo.cs" />
-    <Compile Include="ClsPaq.cs" />
-    <Compile Include="ClsReqFun.cs" />
-    <Compile Include="ClsReqInfo.cs" />
-    <Compile Include="ClsReqNFun.cs" />
-    <Compile Include="ClsWord.cs" />
-    <Compile Include="WinActores.xaml.cs">
-      <DependentUpon>WinActores.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinConf.xaml.cs">
-      <DependentUpon>WinConf.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinEstim.xaml.cs">
-      <DependentUpon>WinEstim.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinExpor.xaml.cs">
-      <DependentUpon>WinExpor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinGrupo.xaml.cs">
-      <DependentUpon>WinGrupo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinImpor.xaml.cs">
-      <DependentUpon>WinImpor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinMenu.xaml.cs">
-      <DependentUpon>WinMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinNuePro.xaml.cs">
-      <DependentUpon>WinNuePro.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinObjetivos.xaml.cs">
-      <DependentUpon>WinObjetivos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinPaq.xaml.cs">
-      <DependentUpon>WinPaq.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinReqFun.xaml.cs">
-      <DependentUpon>WinReqFun.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinReqInfo.xaml.cs">
-      <DependentUpon>WinReqInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinReqNFun.xaml.cs">
-      <DependentUpon>WinReqNFun.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WinWord.xaml.cs">
-      <DependentUpon>WinWord.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\WinConf.xaml.cs" />
+    <Compile Include="ViewModel\WinEstim.xaml.cs" />
+    <Compile Include="ViewModel\WinExpor.xaml.cs" />
+    <Compile Include="ViewModel\WinGrupo.xaml.cs" />
+    <Compile Include="ViewModel\WinImpor.xaml.cs" />
+    <Compile Include="ViewModel\WinMenu.xaml.cs" />
+    <Compile Include="ViewModel\WinNuePro.xaml.cs" />
+    <Compile Include="ViewModel\WinObjetivos.xaml.cs" />
+    <Compile Include="ViewModel\WinPaq.xaml.cs" />
+    <Compile Include="ViewModel\WinReqFun.xaml.cs" />
+    <Compile Include="ViewModel\WinReqInfo.xaml.cs" />
+    <Compile Include="ViewModel\WinReqNFun.xaml.cs" />
+    <Compile Include="ViewModel\WinWord.xaml.cs" />
+    <Compile Include="Model\ClsActor.cs" />
+    <Compile Include="Model\ClsBaseDatos.cs" />
+    <Compile Include="Model\ClsConf.cs" />
+    <Compile Include="Model\ClsDatDG.cs" />
+    <Compile Include="Model\ClsEstim.cs" />
+    <Compile Include="Model\ClsGrupo.cs" />
+    <Compile Include="Model\ClsNuePro.cs" />
+    <Compile Include="Model\ClsObjetivo.cs" />
+    <Compile Include="Model\ClsPaq.cs" />
+    <Compile Include="Model\ClsReqFun.cs" />
+    <Compile Include="Model\ClsReqInfo.cs" />
+    <Compile Include="Model\ClsReqNFun.cs" />
+    <Compile Include="Model\ClsWord.cs" />
+    <Compile Include="ViewModel\WinActores.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -167,68 +139,70 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Estilos.xaml">
+    <Page Include="Util\Estilos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WinActores.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinActores.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinConf.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinConf.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinEstim.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinEstim.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinExpor.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinExpor.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinGrupo.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinGrupo.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinImpor.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinImpor.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinMenu.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinNuePro.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinNuePro.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinObjetivos.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinObjetivos.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinPaq.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinPaq.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinReqFun.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinReqFun.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinReqInfo.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinReqInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinReqNFun.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinReqNFun.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="WinWord.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\WinWord.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +285,7 @@
     <Resource Include="Images\Objetivos.png" />
     <Resource Include="Images\Paquetes.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="IconoRR.ico" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
