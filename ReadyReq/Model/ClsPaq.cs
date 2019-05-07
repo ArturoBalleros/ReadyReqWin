@@ -17,11 +17,15 @@ namespace ReadyReq.Model
         public int Guardar()
         {
             if (Id != 0)
+            {
                 if (!ClsBaseDatos.BDBool("Update Paquetes Set Nombre = '" + Nombre + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
                     return -1;
-                else
+            }
+            else
+            {
                 if (!ClsBaseDatos.BDBool("Insert into Paquetes(Nombre,Categoria,Comentario) values ('" + Nombre + "'," + Categoria + ",'" + Comentario + "');"))
                     return -2;
+            }
             return 0;
         }
         public void Borrar()

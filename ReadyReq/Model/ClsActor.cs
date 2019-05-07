@@ -1,135 +1,79 @@
-﻿using System.Data;
+﻿using ReadyReq.Interface;
+using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsActor
+    public class ClsActor:ClsObjBase, IObjEstandar
     {
-        DataTable DTBuscar = new DataTable();
-        int IntId;
-        string StrNom;
-        string StrDesc;
-        int IntCompl;
-        string StrDescCompl;
-        int IntCate;
-        string StrComen;
-        DataTable DTBAutor = new DataTable();
-        DataTable DTBFuentes = new DataTable();
-        DataTable DTAutor = new DataTable();
-        DataTable DTFuentes = new DataTable();
-        public DataTable Buscador
-        {
-            get { return DTBuscar; }
-            set { DTBuscar = value; }
-        }
-        public string Nombre
-        {
-            get { return StrNom; }
-            set { StrNom = value; }
-        }
-        public string Descripcion
-        {
-            get { return StrDesc; }
-            set { StrDesc = value; }
-        }
-        public int Complejidad
-        {
-            get { return IntCompl; }
-            set { IntCompl = value; }
-        }
-        public string DescComplejidad
-        {
-            get { return StrDescCompl; }
-            set { StrDescCompl = value; }
-        }
-        public int Categoria
-        {
-            get { return IntCate; }
-            set { IntCate = value; }
-        }
-        public string Comentario
-        {
-            get { return StrComen; }
-            set { StrComen = value; }
-        }
-        public DataTable Autores
-        {
-            get { return DTAutor; }
-            set { DTAutor = value; }
-        }
-        public DataTable Fuentes
-        {
-            get { return DTFuentes; }
-            set { DTFuentes = value; }
-        }
-        public DataTable BGrupo
-        {
-            get { return DTBAutor; }
-            set { DTBAutor = value; }
-        }
-        public DataTable BFuentes
-        {
-            get { return DTBFuentes; }
-            set { DTBFuentes = value; }
-        }
+        //Propiedades
+        public string Descripcion        { get; set; }
+        public int Complejidad        { get; set; }
+        public string DescComplejidad        { get; set; }
+        public DataTable Autores        { get; set; } = new DataTable();
+        public DataTable Fuentes    { get; set; } = new DataTable();
+        public DataTable BGrupo        { get; set; } = new DataTable();
+        public DataTable BFuentes        { get; set; } = new DataTable();
+
+        //Métodos
         public void IniciarValores()
         {
-            DTBuscar.Rows.Clear();
-            IntId = 0;
-            StrNom = string.Empty;
-            StrDesc = string.Empty;
-            IntCompl = 0;
-            StrDescCompl = string.Empty;
-            IntCate = 0;
-            StrComen = string.Empty;
-            DTBAutor.Rows.Clear();
-            DTBFuentes.Rows.Clear();
-            DTAutor.Rows.Clear();
-            DTFuentes.Rows.Clear();
+            Buscador.Rows.Clear();
+            Id = 0;
+            Nombre = string.Empty;
+            Descripcion = string.Empty;
+            Complejidad = 0;
+            DescComplejidad = string.Empty;
+            Categoria = 0;
+            Comentario = string.Empty;
+            BGrupo.Rows.Clear();
+            BFuentes.Rows.Clear();
+            Autores.Rows.Clear();
+            Fuentes.Rows.Clear();
         }
         public int Guardar()
         {
-            if (IntId != 0)
+            if (Id != 0)
             {
-                if (ClsBaseDatos.BDBool("Update Actores Set Nombre = '" + StrNom + "', Descripcion = '" + StrDesc + "', Complejidad = " + IntCompl + ", DescComple = '" + StrDescCompl + "', Categoria = " + IntCate + ", Comentario = '" + StrComen + "' where Id = " + IntId + ";") == false)
+                if (!ClsBaseDatos.BDBool("Update Actores Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Complejidad = " + Complejidad + ", DescComple = '" + DescComplejidad + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
                     return -1;
-                ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + IntId + ";");
-                ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + IntId + ";");
-                if (GuardarTablas(IntId) == -1)
+                ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + Id + ";");
+                ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + Id + ";");
+                if (GuardarTablas(Id) == -1)
                     return -1;
             }
             else
             {
-                if (ClsBaseDatos.BDBool("Insert into Actores(Nombre,Descripcion,Complejidad,DescComple,Categoria,Comentario) values ('" + StrNom + "','" + StrDesc + "'," + IntCompl + ",'" + StrDescCompl + "'," + IntCate + ",'" + StrComen + "');") == false)
+                if (!ClsBaseDatos.BDBool("Insert into Actores(Nombre,Descripcion,Complejidad,DescComple,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Complejidad + ",'" + DescComplejidad + "'," + Categoria + ",'" + Comentario + "');"))
                     return -2;
                 if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Actores order by Id Desc;")) == -1)
                     return -2;
             }
             return 0;
         }
-        private int GuardarTablas(int Id)
+        private int GuardarTablas(int id)
         {
             DataRow Fila;
-            for (int i = 0; i <= (DTAutor.Rows.Count - 1); i++)
+            for (int i = 0; i <= (Autores.Rows.Count - 1); i++)
             {
-                Fila = DTAutor.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ActAuto(IdAutor, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + Id + ");") == false)
+                Fila = Autores.Rows[i];
+                if (ClsBaseDatos.BDBool("Insert into ActAuto(IdAutor, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
                 {
-                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + Id + ";");
-                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + Id + ";");
-                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + Id + ";");
+                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + id + ";");
                     return -1;
                 }
             }
 
-            for (int i = 0; i <= (DTFuentes.Rows.Count - 1); i++)
+            for (int i = 0; i <= (Fuentes.Rows.Count - 1); i++)
             {
-                Fila = DTFuentes.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ActFuen(IdFuen, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + Id + ");") == false)
+                Fila = Fuentes.Rows[i];
+                if (ClsBaseDatos.BDBool("Insert into ActFuen(IdFuen, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
                 {
-                    ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + Id + ";");
-                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + Id + ";");
-                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + Id + ";");
-                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + Id + ";");
+                    ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + id + ";");
                     return -1;
                 }
             }
@@ -137,42 +81,42 @@ namespace ReadyReq.Model
         }
         public void Borrar()
         {
-            if (IntId != 0)
+            if (Id != 0)
             {
-                ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + IntId + ";");
-                ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + IntId + ";");
-                ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + IntId + ";");
-                ClsBaseDatos.BDBool("Delete from Actores where Id = " + IntId + ";");
+                ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + Id + ";");
+                ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + Id + ";");
+                ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + Id + ";");
+                ClsBaseDatos.BDBool("Delete from Actores where Id = " + Id + ";");
                 IniciarValores();
             }
         }
         public void Buscar(string valor)
         {
-            DTBuscar = ClsBaseDatos.BDTable("Select Nombre,Id from Actores where Nombre LIKE '%" + valor + "%' Order By Categoria Desc, Nombre;");
+            Buscador = ClsBaseDatos.BDTable("Select Nombre,Id from Actores where Nombre LIKE '%" + valor + "%' Order By Categoria Desc, Nombre;");
         }
-        public void Cargar(int Id)
+        public void Cargar(int id)
         {
-            DataRow Actor = ClsBaseDatos.BDTable("Select * from Actores where Id = " + Id + ";").Rows[0];
-            IntId = int.Parse(Actor[0].ToString());
-            StrNom = Actor[1].ToString();
-            StrDesc = Actor[2].ToString();
-            IntCompl = int.Parse(Actor[3].ToString());
-            StrDescCompl = Actor[4].ToString();
-            IntCate = int.Parse(Actor[5].ToString());
-            StrComen = Actor[6].ToString();
-            DTAutor = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + IntId + " Order By Categoria Desc, Nombre;");
-            DTFuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + IntId + " Order By Categoria Desc, Nombre;");
+            DataRow Actor = ClsBaseDatos.BDTable("Select * from Actores where Id = " + id + ";").Rows[0];
+            Id = int.Parse(Actor[0].ToString());
+            Nombre = Actor[1].ToString();
+            Descripcion = Actor[2].ToString();
+            Complejidad = int.Parse(Actor[3].ToString());
+            DescComplejidad = Actor[4].ToString();
+            Categoria = int.Parse(Actor[5].ToString());
+            Comentario = Actor[6].ToString();
+            Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
+            Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
 
-            DTBAutor = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdAutor from ActAuto where idAct = " + IntId + ") Order By Categoria Desc, Nombre;");
-            DTBFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdFuen from ActFuen where idAct = " + IntId + ") Order By Categoria Desc, Nombre;");
+            BGrupo = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdAutor from ActAuto where idAct = " + Id + ") Order By Categoria Desc, Nombre;");
+            BFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdFuen from ActFuen where idAct = " + Id + ") Order By Categoria Desc, Nombre;");
 
         }
         public void CargarTablas()
         {
-            DTBAutor = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo Order By Categoria Desc, Nombre;");
-            DTBFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo Order By Categoria Desc, Nombre;");
-            DTAutor = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + IntId + " Order By Categoria Desc, Nombre;");
-            DTFuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + IntId + " Order By Categoria Desc, Nombre;");
+            BGrupo = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo Order By Categoria Desc, Nombre;");
+            BFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo Order By Categoria Desc, Nombre;");
+            Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
+            Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
         }
     }
 }

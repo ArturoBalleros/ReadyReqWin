@@ -27,11 +27,15 @@ namespace ReadyReq.Model
             int intDesarrollador;
             if (Desarrollador) intDesarrollador = 1; else intDesarrollador = 0;
             if (Id != 0)
+            {
                 if (!ClsBaseDatos.BDBool("Update Grupo Set Nombre = '" + Nombre + "', Organizacion = '" + Organizacion + "', Rol = '" + Rol + "', Desarrollador = " + intDesarrollador + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
                     return -1;
-                else
+            }
+            else
+            {
                 if (!ClsBaseDatos.BDBool("Insert into Grupo(Nombre,Organizacion,Rol,Desarrollador,Categoria,Comentario) values ('" + Nombre + "','" + Organizacion + "','" + Rol + "'," + intDesarrollador + "," + Categoria + ",'" + Comentario + "');"))
                     return -2;
+            }
             return 0;
         }
         public void Borrar()
@@ -56,9 +60,9 @@ namespace ReadyReq.Model
         {
             Buscador = ClsBaseDatos.BDTable("Select Nombre,Id from Grupo where Nombre LIKE '%" + valor + "%' Order By Categoria Desc, Nombre;");
         }
-        public void Cargar(int Id)
+        public void Cargar(int id)
         {
-            DataRow Trabajador = ClsBaseDatos.BDTable("Select * from Grupo where Id = " + Id + ";").Rows[0];
+            DataRow Trabajador = ClsBaseDatos.BDTable("Select * from Grupo where Id = " + id + ";").Rows[0];
             Id = int.Parse(Trabajador[0].ToString());
             Nombre = Trabajador[1].ToString();
             Organizacion = Trabajador[2].ToString();
