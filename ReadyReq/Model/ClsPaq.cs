@@ -1,76 +1,49 @@
-﻿using System.Data;
+﻿using ReadyReq.Interface;
+using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsPaq
+    public class ClsPaq : ClsObjBase, IObjBase
     {
-        private DataTable DTBuscar = new DataTable();
-        private int IntId;
-        private string StrNom;
-        private int IntCate;
-        private string StrComen;
-        public DataTable Buscador
-        {
-            get { return DTBuscar; }
-            set { DTBuscar = value; }
-        }
-        public string Nombre
-        {
-            get { return StrNom; }
-            set { StrNom = value; }
-        }
-        public int Categoria
-        {
-            get { return IntCate; }
-            set { IntCate = value; }
-        }
-        public string Comentario
-        {
-            get { return StrComen; }
-            set { StrComen = value; }
-        }
+        //Métodos
         public void IniciarValores()
         {
-            IntId = 0;
-            StrNom = string.Empty;
-            IntCate = 1;
-            StrComen = string.Empty;
-            DTBuscar.Rows.Clear();
+            Id = 0;
+            Nombre = string.Empty;
+            Categoria = 1;
+            Comentario = string.Empty;
+            Buscador.Rows.Clear();
         }
         public int Guardar()
         {
-            if (IntId != 0)
-            {
-                if (ClsBaseDatos.BDBool("Update Paquetes Set Nombre = '" + StrNom + "', Categoria = " + IntCate + ", Comentario = '" + StrComen + "' where Id = " + IntId + ";") == false)
+            if (Id != 0)
+                if (!ClsBaseDatos.BDBool("Update Paquetes Set Nombre = '" + Nombre + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
                     return -1;
-            }
-            else
-            {
-                if (ClsBaseDatos.BDBool("Insert into Paquetes(Nombre,Categoria,Comentario) values ('" + StrNom + "'," + IntCate + ",'" + StrComen + "');") == false)
+                else
+                if (!ClsBaseDatos.BDBool("Insert into Paquetes(Nombre,Categoria,Comentario) values ('" + Nombre + "'," + Categoria + ",'" + Comentario + "');"))
                     return -2;
-            }
             return 0;
         }
         public void Borrar()
         {
-            if (IntId != 0)
+            if (Id != 0)
             {
-                ClsBaseDatos.BDBool("UPDATE ReqFun SET Paquete = " + ClsBaseDatos.BDString("Select Id from Paquetes Where Nombre = 'No Asignado';") + " Where Paquete = " + IntId + ";");
-                ClsBaseDatos.BDBool("Delete from Paquetes where Id = " + IntId + ";");
+                ClsBaseDatos.BDBool("UPDATE ReqFun SET Paquete = " + ClsBaseDatos.BDString("Select Id from Paquetes Where Nombre = 'No Asignado';") + " Where Paquete = " + Id + ";");
+                ClsBaseDatos.BDBool("Delete from Paquetes where Id = " + Id + ";");
                 IniciarValores();
             }
         }
         public void Buscar(string valor)
         {
-            DTBuscar = ClsBaseDatos.BDTable("Select Nombre,Id from Paquetes where Nombre LIKE '%" + valor + "%' and Nombre <> 'No Asignado' Order By Categoria Desc, Nombre;");
+            Buscador = ClsBaseDatos.BDTable("Select Nombre,Id from Paquetes where Nombre LIKE '%" + valor + "%' and Nombre <> 'No Asignado' Order By Categoria Desc, Nombre;");
         }
-        public void Cargar(int Id)
+        public void Cargar(int id)
         {
-            DataRow Paquete = ClsBaseDatos.BDTable("Select * from Paquetes where Id = " + Id + ";").Rows[0];
-            IntId = int.Parse(Paquete[0].ToString());
-            StrNom = Paquete[1].ToString();
-            IntCate = int.Parse(Paquete[2].ToString());
-            StrComen = Paquete[3].ToString();
+            DataRow Paquete = ClsBaseDatos.BDTable("Select * from Paquetes where Id = " + id + ";").Rows[0];
+            Id = int.Parse(Paquete[0].ToString());
+            Nombre = Paquete[1].ToString();
+            Categoria = int.Parse(Paquete[2].ToString());
+            Comentario = Paquete[3].ToString();
         }
     }
 }
