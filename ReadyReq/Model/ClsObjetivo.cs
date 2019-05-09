@@ -117,7 +117,7 @@ namespace ReadyReq.Model
             for (int i = 0; i <= (Fuentes.Rows.Count - 1); i++)
             {
                 Fila = Fuentes.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ObjFuen(IdFuen, IdObj) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
+                if (!ClsBaseDatos.BDBool("Insert into ObjFuen(IdFuen, IdObj) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");"))
                 {
                     ClsBaseDatos.BDBool("Delete from ObjFuen where IdObj = " + id + ";");
                     ClsBaseDatos.BDBool("Delete from ObjAuto where IdObj = " + id + ";");
@@ -131,7 +131,7 @@ namespace ReadyReq.Model
             for (int i = 0; i <= (Objetivos.Rows.Count - 1); i++)
             {
                 Fila = Objetivos.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ObjSubobj(IdSubobj, IdObj) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
+                if (!ClsBaseDatos.BDBool("Insert into ObjSubobj(IdSubobj, IdObj) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");"))
                 {
                     ClsBaseDatos.BDBool("Delete from ObjSubobj where IdObj = " + id + ";");
                     ClsBaseDatos.BDBool("Delete from ObjFuen where IdObj = " + id + ";");

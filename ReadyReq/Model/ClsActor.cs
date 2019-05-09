@@ -75,12 +75,12 @@ namespace ReadyReq.Model
             DescComplejidad = Actor[4].ToString();
             Categoria = int.Parse(Actor[5].ToString());
             Comentario = Actor[6].ToString();
+
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
 
             BGrupo = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdAutor from ActAuto where idAct = " + Id + ") Order By Categoria Desc, Nombre;");
             BFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdFuen from ActFuen where idAct = " + Id + ") Order By Categoria Desc, Nombre;");
-
         }
         public void CargarTablas()
         {
@@ -97,7 +97,7 @@ namespace ReadyReq.Model
             for (int i = 0; i <= (Autores.Rows.Count - 1); i++)
             {
                 Fila = Autores.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ActAuto(IdAutor, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
+                if (!ClsBaseDatos.BDBool("Insert into ActAuto(IdAutor, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");"))
                 {
                     ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
                     ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
@@ -109,7 +109,7 @@ namespace ReadyReq.Model
             for (int i = 0; i <= (Fuentes.Rows.Count - 1); i++)
             {
                 Fila = Fuentes.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ActFuen(IdFuen, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
+                if (!ClsBaseDatos.BDBool("Insert into ActFuen(IdFuen, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");"))
                 {
                     ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + id + ";");
                     ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");

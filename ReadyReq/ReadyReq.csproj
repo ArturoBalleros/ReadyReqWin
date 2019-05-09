@@ -86,6 +86,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Interface\IObjBase.cs" />
+    <Compile Include="Interface\IObjEstandar.cs" />
+    <Compile Include="Interface\IObjReq.cs" />
+    <Compile Include="Model\ClsObjBase.cs" />
+    <Compile Include="Model\ClsObjEstandar.cs" />
     <Compile Include="ViewModel\WinConf.xaml.cs" />
     <Compile Include="ViewModel\WinEstim.xaml.cs" />
     <Compile Include="ViewModel\WinExpor.xaml.cs" />
