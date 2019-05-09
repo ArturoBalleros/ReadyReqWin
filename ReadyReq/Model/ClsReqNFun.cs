@@ -6,8 +6,8 @@ namespace ReadyReq.Model
     public class ClsReqNFun : ClsObjEstandar, IObjReq
     {
         //Propiedades
-        public DataTable Requisitos { get; set; }
-        public DataTable BRequisitos { get; set; }
+        public DataTable Requisitos { get; set; } = new DataTable();
+        public DataTable BRequisitos { get; set; } = new DataTable();
 
         //Métodos de Interfaz
         public void IniciarValores()
