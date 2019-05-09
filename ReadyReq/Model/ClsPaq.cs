@@ -3,7 +3,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsPaq : ClsObjBase, IObjBase
+    public sealed class ClsPaq : ClsObjBase, IObjBase
     {
         //Métodos
         public void IniciarValores()

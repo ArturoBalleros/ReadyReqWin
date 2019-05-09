@@ -105,9 +105,9 @@
     <Compile Include="ViewModel\WinReqNFun.xaml.cs" />
     <Compile Include="ViewModel\WinWord.xaml.cs" />
     <Compile Include="Model\ClsActor.cs" />
-    <Compile Include="Model\ClsBaseDatos.cs" />
-    <Compile Include="Model\ClsConf.cs" />
-    <Compile Include="Model\ClsDatDG.cs" />
+    <Compile Include="Util\ClsBaseDatos.cs" />
+    <Compile Include="Util\ClsConf.cs" />
+    <Compile Include="Util\ClsDatDG.cs" />
     <Compile Include="Model\ClsEstim.cs" />
     <Compile Include="Model\ClsGrupo.cs" />
     <Compile Include="Model\ClsNuePro.cs" />

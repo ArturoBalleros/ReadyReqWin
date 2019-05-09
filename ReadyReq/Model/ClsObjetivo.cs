@@ -3,7 +3,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsObjetivo : ClsObjEstandar, IObjEstandar
+    public sealed class ClsObjetivo : ClsObjEstandar, IObjEstandar
     {
         //Métodos de Interfaz
         public void IniciarValores()

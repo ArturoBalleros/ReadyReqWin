@@ -4,7 +4,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsReqInfo : ClsObjEstandar, IObjReq
+    public sealed class ClsReqInfo : ClsObjEstandar, IObjReq
     {
         //Propiedades
         public int TiempoMedio { get; set; }

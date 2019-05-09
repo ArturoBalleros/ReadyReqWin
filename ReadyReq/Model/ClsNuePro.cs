@@ -2,7 +2,7 @@
 
 namespace ReadyReq.Model
 {
-    public class ClsNuePro
+    public sealed class ClsNuePro
     {
         MySqlConnectionStringBuilder BuilderMySql = new MySqlConnectionStringBuilder();
         public string TipoBD { get; set; }

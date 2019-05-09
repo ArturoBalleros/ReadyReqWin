@@ -3,7 +3,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsActor : ClsObjBase, IObjEstandar
+    public sealed class ClsActor : ClsObjBase, IObjEstandar
     {
         //Propiedades
         public string Descripcion { get; set; }

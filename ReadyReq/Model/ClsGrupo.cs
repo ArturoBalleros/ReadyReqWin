@@ -3,7 +3,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsGrupo : ClsObjBase, IObjBase
+    public sealed class ClsGrupo : ClsObjBase, IObjBase
     {
         //Propiedades
         public string Organizacion { get; set; }

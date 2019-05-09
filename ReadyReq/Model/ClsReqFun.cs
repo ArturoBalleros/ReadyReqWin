@@ -4,7 +4,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsReqFun : ClsObjEstandar, IObjReq
+    public sealed class ClsReqFun : ClsObjEstandar, IObjReq
     {
         //Propiedades
         public string Paquete { get; set; }

@@ -2,7 +2,7 @@
 
 namespace ReadyReq.Model
 {
-    public class ClsEstim
+    public sealed class ClsEstim
     {
         private int IntDSR;
         private int IntRTII;

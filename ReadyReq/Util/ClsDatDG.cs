@@ -2,11 +2,11 @@
 
 namespace ReadyReq.Model
 {
-    public class ClsDatDG
+    public sealed class ClsDatDG
     {
         public string Descrip { get; set; }
     }
-    public class ClsDatDGCollection : ObservableCollection<ClsDatDG>
+    public sealed class ClsDatDGCollection : ObservableCollection<ClsDatDG>
     {
         public ClsDatDGCollection() { }
     }

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsWord
+    public sealed class ClsWord
     {
         public static void Grupo(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila)
         {

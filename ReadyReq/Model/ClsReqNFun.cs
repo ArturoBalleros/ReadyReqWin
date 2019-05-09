@@ -3,7 +3,7 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsReqNFun : ClsObjEstandar, IObjReq
+    public sealed class ClsReqNFun : ClsObjEstandar, IObjReq
     {
         //Propiedades
         public DataTable Requisitos { get; set; } = new DataTable();
