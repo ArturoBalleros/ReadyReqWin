@@ -251,7 +251,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-   <local:ClsDatDGCollection x:Key="DatEsp"/>
+    <local:ClsDatDGCollection x:Key="DatEsp"/>
     <local:ClsDatDGCollection x:Key="SecNor"/>
     <local:ClsDatDGCollection x:Key="SecExc"/>
 </ResourceDictionary>

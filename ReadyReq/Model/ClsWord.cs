@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
 using System.Collections;
 using System.Data;
+using DataTable = System.Data.DataTable;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ReadyReq.Model
 {
     public sealed class ClsWord
     {
-        public static void Grupo(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila)
+        public static void Grupo(Application oWord, Document oDoc, DataRow fila)
         {
-            Microsoft.Office.Interop.Word.Table oTable;
+            Table oTable;
 
             oTable = oDoc.Tables.Add(oDoc.Bookmarks["\\endofdoc"].Range, 5, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
@@ -38,13 +40,13 @@ namespace ReadyReq.Model
             Negrita(oTable, 5);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
-            oTable.Columns[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
         }
-        public static void Objetivos(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] SubObj)
+        public static void Objetivos(Application oWord, Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] SubObj)
         {
-            Microsoft.Office.Interop.Word.Table oTable;
+            Table oTable;
 
             oTable = oDoc.Tables.Add(oDoc.Bookmarks["\\endofdoc"].Range, 10, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
@@ -88,13 +90,13 @@ namespace ReadyReq.Model
             Negrita(oTable, 10);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
-            oTable.Columns[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
         }
-        public static void Actores(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen)
+        public static void Actores(Application oWord, Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen)
         {
-            Microsoft.Office.Interop.Word.Table oTable;
+            Table oTable;
 
             oTable = oDoc.Tables.Add(oDoc.Bookmarks["\\endofdoc"].Range, 6, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
@@ -126,13 +128,13 @@ namespace ReadyReq.Model
             Negrita(oTable, 6);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
-            oTable.Columns[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
         }
-        public static void ReqNFun(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] Obj, ArrayList Req)
+        public static void ReqNFun(Application oWord, Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] Obj, ArrayList Req)
         {
-            Microsoft.Office.Interop.Word.Table oTable;
+            Table oTable;
 
             oTable = oDoc.Tables.Add(oDoc.Bookmarks["\\endofdoc"].Range, 10, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
@@ -179,13 +181,13 @@ namespace ReadyReq.Model
             Negrita(oTable, 10);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
-            oTable.Columns[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
         }
-        public static void ReqInfo(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] Obj, ArrayList Req, DataTable DatEsp)
+        public static void ReqInfo(Application oWord, Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] Obj, ArrayList Req, DataTable DatEsp)
         {
-            Microsoft.Office.Interop.Word.Table oTable;
+            Table oTable;
             oTable = oDoc.Tables.Add(oDoc.Bookmarks["\\endofdoc"].Range, 14, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
             oTable.Borders.Enable = 1;
@@ -242,11 +244,11 @@ namespace ReadyReq.Model
             Negrita(oTable, 14);
             oTable.Columns[1].Width = oWord.InchesToPoints(1.25f);
             oTable.Columns[2].Width = oWord.InchesToPoints(4.75f);
-            oTable.Columns[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
         }
-        public static void ReqFun(Microsoft.Office.Interop.Word.Application oWord, Microsoft.Office.Interop.Word.Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] Obj, ArrayList Req, DataRow[] Act, DataTable SecNor, DataTable SecExc)
+        public static void ReqFun(Application oWord, Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] Obj, ArrayList Req, DataRow[] Act, DataTable SecNor, DataTable SecExc)
         {
             Microsoft.Office.Interop.Word.Table oTable;
             oTable = oDoc.Tables.Add(oDoc.Bookmarks["\\endofdoc"].Range, 16, 2);
@@ -309,13 +311,13 @@ namespace ReadyReq.Model
             Negrita(oTable, 16);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
-            oTable.Columns[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray125;
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
         }
         private static string GeneraInfo(object o, string Tipo = "DataRow")
         {
-            string resultado = String.Empty;
+            string resultado = string.Empty;
             if (Tipo == "DataRow")
             {
                 DataRow[] Filas = (DataRow[])o;
@@ -354,13 +356,13 @@ namespace ReadyReq.Model
                 else return "-";
             }
         }
-        private static void Negrita(Microsoft.Office.Interop.Word.Table oTable, int num)
+        private static void Negrita(Table oTable, int num)
         {
             oTable.Cell(1, 2).Range.Font.Bold = 1;
             for (int i = 0; i < num; i++)
                 oTable.Cell(i + 1, 1).Range.Font.Bold = 1;
         }
-        public static void RellenarFila(Microsoft.Office.Interop.Excel.Range aRange, DataTable tabla, int nFila, string Req)
+        public static void RellenarFila(Excel.Range aRange, DataTable tabla, int nFila, string Req)
         {
             DataRow fila;
             aRange.Cells[nFila, 1].Value2 = Req;//IRQ/UC..
@@ -373,7 +375,7 @@ namespace ReadyReq.Model
         public static DataTable ObjRelacionados(DataTable DTObjRel, DataTable DTObj)
         {
             DataTable tabla = new DataTable(); DataRow fila, fila2, filaN;
-            tabla.Columns.Add("Pos", typeof(Double));
+            tabla.Columns.Add("Pos", typeof(double));
 
             for (int i = 0; i <= (DTObjRel.Rows.Count - 1); i++)
             {
@@ -391,21 +393,20 @@ namespace ReadyReq.Model
                 }
             }
 
-
             return tabla;
         }
-        public static Microsoft.Office.Interop.Excel.Range DarFormatoExcel(Microsoft.Office.Interop.Excel.Worksheet ws, DataTable tabla, int numObj)
+        public static Excel.Range DarFormatoExcel(Excel.Worksheet ws, DataTable tabla, int numObj)
         {
-            Microsoft.Office.Interop.Excel.Range aRange;
+            Excel.Range aRange;
 
             //Bordes
             aRange = ws.get_Range("A1", letraColumna(numObj) + (tabla.Rows.Count + 1));
-            aRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            aRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeTop).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            aRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeLeft).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            aRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeRight).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            aRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlInsideHorizontal).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            aRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlInsideVertical).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            aRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeBottom).LineStyle = Excel.XlLineStyle.xlContinuous;
+            aRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeTop).LineStyle = Excel.XlLineStyle.xlContinuous;
+            aRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeLeft).LineStyle = Excel.XlLineStyle.xlContinuous;
+            aRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeRight).LineStyle = Excel.XlLineStyle.xlContinuous;
+            aRange.Borders.get_Item(Excel.XlBordersIndex.xlInsideHorizontal).LineStyle = Excel.XlLineStyle.xlContinuous;
+            aRange.Borders.get_Item(Excel.XlBordersIndex.xlInsideVertical).LineStyle = Excel.XlLineStyle.xlContinuous;
 
             //Fila uno
             aRange = ws.get_Range("A1", letraColumna(numObj) + 1);
@@ -418,7 +419,7 @@ namespace ReadyReq.Model
             //Formato columnas 2...
             aRange = ws.get_Range("B1", letraColumna(numObj) + (tabla.Rows.Count + 1));
             aRange.ColumnWidth = 3;
-            aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
+            aRange.HorizontalAlignment = Excel.Constants.xlCenter;
             //Cabeceras columnas 2...
             aRange = ws.get_Range("B1", letraColumna(numObj) + 1);
             for (int i = 1; (i <= numObj - 1); i++)
