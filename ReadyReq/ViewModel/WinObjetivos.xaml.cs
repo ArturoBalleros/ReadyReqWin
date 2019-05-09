@@ -113,14 +113,14 @@ namespace ReadyReq.ViewModel
                     Fila[0] = Convert.ToString(((DataRowView)DGGruAut.Items[DGGruAut.SelectedIndex]).Row.ItemArray[0]);
                     Objetivo.Autores.Rows.Add(Fila);
                 }
-                Objetivo.BTrabajadores.Rows.RemoveAt(DGGruAut.SelectedIndex);
+                Objetivo.BGrupo.Rows.RemoveAt(DGGruAut.SelectedIndex);
             }
             if (ctrl.Name == "DGAutores")
             {
-                Fila = Objetivo.BTrabajadores.NewRow();
+                Fila = Objetivo.BGrupo.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGAutores.Items[DGAutores.SelectedIndex]).Row.ItemArray[1]);
                 Fila[0] = Convert.ToString(((DataRowView)DGAutores.Items[DGAutores.SelectedIndex]).Row.ItemArray[0]);
-                Objetivo.BTrabajadores.Rows.Add(Fila);
+                Objetivo.BGrupo.Rows.Add(Fila);
                 Objetivo.Autores.Rows.RemoveAt(DGAutores.SelectedIndex);
             }
             if (ctrl.Name == "DGGruFuen")
@@ -158,11 +158,11 @@ namespace ReadyReq.ViewModel
             if (ctrl.Name == "DGObjObj")
             {
                 bool existe = false;
-                if (Objetivo.Subobjetivos.Rows.Count > 0)
+                if (Objetivo.Objetivos.Rows.Count > 0)
                 {
-                    for (int i = 0; i <= (Objetivo.Subobjetivos.Rows.Count - 1); i++)
+                    for (int i = 0; i <= (Objetivo.Objetivos.Rows.Count - 1); i++)
                     {
-                        Fila = Objetivo.Subobjetivos.Rows[i];
+                        Fila = Objetivo.Objetivos.Rows[i];
                         if (Fila[0].ToString() == Convert.ToString(((DataRowView)DGObjObj.Items[DGObjObj.SelectedIndex]).Row.ItemArray[0]))
                         {
                             existe = true;
@@ -172,10 +172,10 @@ namespace ReadyReq.ViewModel
                 }
                 if (existe == false)
                 {
-                    Fila = Objetivo.Subobjetivos.NewRow();
+                    Fila = Objetivo.Objetivos.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGObjObj.Items[DGObjObj.SelectedIndex]).Row.ItemArray[1]);
                     Fila[0] = Convert.ToString(((DataRowView)DGObjObj.Items[DGObjObj.SelectedIndex]).Row.ItemArray[0]);
-                    Objetivo.Subobjetivos.Rows.Add(Fila);
+                    Objetivo.Objetivos.Rows.Add(Fila);
                 }
                 Objetivo.BObjetivos.Rows.RemoveAt(DGObjObj.SelectedIndex);
             }
@@ -185,7 +185,7 @@ namespace ReadyReq.ViewModel
                 Fila[1] = Convert.ToString(((DataRowView)DGSubobj.Items[DGSubobj.SelectedIndex]).Row.ItemArray[1]);
                 Fila[0] = Convert.ToString(((DataRowView)DGSubobj.Items[DGSubobj.SelectedIndex]).Row.ItemArray[0]);
                 Objetivo.BObjetivos.Rows.Add(Fila);
-                Objetivo.Subobjetivos.Rows.RemoveAt(DGSubobj.SelectedIndex);
+                Objetivo.Objetivos.Rows.RemoveAt(DGSubobj.SelectedIndex);
             }
         }
         private void Presionar(object sender, KeyEventArgs e)
@@ -226,11 +226,11 @@ namespace ReadyReq.ViewModel
             CmbCat.Text = Objetivo.Categoria.ToString();
             TxtCom.Text = Objetivo.Comentario;
 
-            DGSubobj.ItemsSource = Objetivo.Subobjetivos.DefaultView;
+            DGSubobj.ItemsSource = Objetivo.Objetivos.DefaultView;
             DGFuentes.ItemsSource = Objetivo.Fuentes.DefaultView;
             DGAutores.ItemsSource = Objetivo.Autores.DefaultView;
 
-            DGGruAut.ItemsSource = Objetivo.BTrabajadores.DefaultView;
+            DGGruAut.ItemsSource = Objetivo.BGrupo.DefaultView;
             DGGruFuen.ItemsSource = Objetivo.BFuentes.DefaultView;
             DGObjObj.ItemsSource = Objetivo.BObjetivos.DefaultView;
 
@@ -351,10 +351,10 @@ namespace ReadyReq.ViewModel
         private void IniciarTablas()
         {
             Objetivo.CargarTablas();
-            DGGruAut.ItemsSource = Objetivo.BTrabajadores.DefaultView;
+            DGGruAut.ItemsSource = Objetivo.BGrupo.DefaultView;
             DGGruFuen.ItemsSource = Objetivo.BFuentes.DefaultView;
             DGObjObj.ItemsSource = Objetivo.BObjetivos.DefaultView;
-            DGSubobj.ItemsSource = Objetivo.Subobjetivos.DefaultView;
+            DGSubobj.ItemsSource = Objetivo.Objetivos.DefaultView;
             DGFuentes.ItemsSource = Objetivo.Fuentes.DefaultView;
             DGAutores.ItemsSource = Objetivo.Autores.DefaultView;
         }

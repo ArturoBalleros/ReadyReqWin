@@ -3,18 +3,18 @@ using System.Data;
 
 namespace ReadyReq.Model
 {
-    public class ClsActor:ClsObjBase, IObjEstandar
+    public class ClsActor : ClsObjBase, IObjEstandar
     {
         //Propiedades
-        public string Descripcion        { get; set; }
-        public int Complejidad        { get; set; }
-        public string DescComplejidad        { get; set; }
-        public DataTable Autores        { get; set; } = new DataTable();
-        public DataTable Fuentes    { get; set; } = new DataTable();
-        public DataTable BGrupo        { get; set; } = new DataTable();
-        public DataTable BFuentes        { get; set; } = new DataTable();
+        public string Descripcion { get; set; }
+        public int Complejidad { get; set; }
+        public string DescComplejidad { get; set; }
+        public DataTable Autores { get; set; } = new DataTable();
+        public DataTable Fuentes { get; set; } = new DataTable();
+        public DataTable BGrupo { get; set; } = new DataTable();
+        public DataTable BFuentes { get; set; } = new DataTable();
 
-        //Métodos
+        //Métodos de Interfaz
         public void IniciarValores()
         {
             Buscador.Rows.Clear();
@@ -47,35 +47,6 @@ namespace ReadyReq.Model
                     return -2;
                 if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Actores order by Id Desc;")) == -1)
                     return -2;
-            }
-            return 0;
-        }
-        private int GuardarTablas(int id)
-        {
-            DataRow Fila;
-            for (int i = 0; i <= (Autores.Rows.Count - 1); i++)
-            {
-                Fila = Autores.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ActAuto(IdAutor, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
-                {
-                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
-                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
-                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + id + ";");
-                    return -1;
-                }
-            }
-
-            for (int i = 0; i <= (Fuentes.Rows.Count - 1); i++)
-            {
-                Fila = Fuentes.Rows[i];
-                if (ClsBaseDatos.BDBool("Insert into ActFuen(IdFuen, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
-                {
-                    ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + id + ";");
-                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
-                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
-                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + id + ";");
-                    return -1;
-                }
             }
             return 0;
         }
@@ -117,6 +88,37 @@ namespace ReadyReq.Model
             BFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo Order By Categoria Desc, Nombre;");
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
+        }
+
+        //Métodos Privados
+        private int GuardarTablas(int id)
+        {
+            DataRow Fila;
+            for (int i = 0; i <= (Autores.Rows.Count - 1); i++)
+            {
+                Fila = Autores.Rows[i];
+                if (ClsBaseDatos.BDBool("Insert into ActAuto(IdAutor, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
+                {
+                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + id + ";");
+                    return -1;
+                }
+            }
+
+            for (int i = 0; i <= (Fuentes.Rows.Count - 1); i++)
+            {
+                Fila = Fuentes.Rows[i];
+                if (ClsBaseDatos.BDBool("Insert into ActFuen(IdFuen, IdAct) values (" + int.Parse(Fila[0].ToString()) + "," + id + ");") == false)
+                {
+                    ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from ReqAct where IdAct = " + id + ";");
+                    ClsBaseDatos.BDBool("Delete from Actores where Id = " + id + ";");
+                    return -1;
+                }
+            }
+            return 0;
         }
     }
 }
