@@ -4,253 +4,80 @@ namespace ReadyReq.Model
 {
     public sealed class ClsEstim
     {
-        private int IntDSR;
-        private int IntRTII;
-        private int IntEUE;
-        private int IntCIPR;
-        private int IntRCMBAF;
-        private int IntIE;
-        private int IntU;
-        private int IntCPS;
-        private int IntETC;
-        private int IntHC;
-        private int IntCS;
-        private int IntDOTPC;
-        private int IntUT;
+        //Propiedades
+        public int DSR { get; set; }
+        public int RTII { get; set; }
+        public int EUE { get; set; }
+        public int CIPR { get; set; }
+        public int RCMBAF { get; set; }
+        public int IE { get; set; }
+        public int U { get; set; }
+        public int CPS { get; set; }
+        public int ETC { get; set; }
+        public int HC { get; set; }
+        public int CS { get; set; }
+        public int DOTPC { get; set; }
+        public int UT { get; set; }
+        public int FWTP { get; set; }
+        public int AE { get; set; }
+        public int OOPE { get; set; }
+        public int LAC { get; set; }
+        public int M { get; set; }
+        public int SR { get; set; }
+        public int PTS { get; set; }
+        public int DPL { get; set; }
+        public int UUCPSim { get; set; }
+        public int UUCPMed { get; set; }
+        public int UUCPMax { get; set; }
+        public int AWSim { get; set; }
+        public int AWMed { get; set; }
+        public int AWMax { get; set; }
+        public double TCF { get; set; }
+        public double EF { get; set; }
+        public int UUCP { get; set; }
+        public int AW { get; set; }
+        public double UCP { get; set; }
+        public double Ratio { get; set; }
+        public double HE { get; set; }
 
-        private int IntFWTP;
-        private int IntAE;
-        private int IntOOPE;
-        private int IntLAC;
-        private int IntM;
-        private int IntSR;
-        private int IntPTS;
-        private int IntDPL;
-
-        private int IntUUCPSim;
-        private int IntUUCPMed;
-        private int IntUUCPMax;
-
-        private int IntAWSim;
-        private int IntAWMed;
-        private int IntAWMax;
-
-        private double DouTCF;
-        private double DouEF;
-        private int IntUUCP;
-        private int IntAW;
-
-        private double DouUCP;
-        private double DouRatio;
-        private double DouHE;
-
-        public int DSR
-        {
-            get { return IntDSR; }
-            set { IntDSR = value; }
-        }
-        public int RTII
-        {
-            get { return IntRTII; }
-            set { IntRTII = value; }
-        }
-        public int EUE
-        {
-            get { return IntEUE; }
-            set { IntEUE = value; }
-        }
-        public int CIPR
-        {
-            get { return IntCIPR; }
-            set { IntCIPR = value; }
-        }
-        public int RCMBAF
-        {
-            get { return IntRCMBAF; }
-            set { IntRCMBAF = value; }
-        }
-        public int IE
-        {
-            get { return IntIE; }
-            set { IntIE = value; }
-        }
-        public int U
-        {
-            get { return IntU; }
-            set { IntU = value; }
-        }
-        public int CPS
-        {
-            get { return IntCPS; }
-            set { IntCPS = value; }
-        }
-        public int ETC
-        {
-            get { return IntETC; }
-            set { IntETC = value; }
-        }
-        public int HC
-        {
-            get { return IntHC; }
-            set { IntHC = value; }
-        }
-        public int CS
-        {
-            get { return IntCS; }
-            set { IntCS = value; }
-        }
-        public int DOTPC
-        {
-            get { return IntDOTPC; }
-            set { IntDOTPC = value; }
-        }
-        public int UT
-        {
-            get { return IntUT; }
-            set { IntUT = value; }
-        }
-        public int FWTP
-        {
-            get { return IntFWTP; }
-            set { IntFWTP = value; }
-        }
-        public int AE
-        {
-            get { return IntAE; }
-            set { IntAE = value; }
-        }
-        public int OOPE
-        {
-            get { return IntOOPE; }
-            set { IntOOPE = value; }
-        }
-        public int LAC
-        {
-            get { return IntLAC; }
-            set { IntLAC = value; }
-        }
-        public int M
-        {
-            get { return IntM; }
-            set { IntM = value; }
-        }
-        public int SR
-        {
-            get { return IntSR; }
-            set { IntSR = value; }
-        }
-        public int PTS
-        {
-            get { return IntPTS; }
-            set { IntPTS = value; }
-        }
-        public int DPL
-        {
-            get { return IntDPL; }
-            set { IntDPL = value; }
-        }
-        public int UUCPSim
-        {
-            get { return IntUUCPSim; }
-            set { IntUUCPSim = value; }
-        }
-        public int UUCPMed
-        {
-            get { return IntUUCPMed; }
-            set { IntUUCPMed = value; }
-        }
-        public int UUCPMax
-        {
-            get { return IntUUCPMax; }
-            set { IntUUCPMax = value; }
-        }
-        public int AWSim
-        {
-            get { return IntAWSim; }
-            set { IntAWSim = value; }
-        }
-        public int AWMed
-        {
-            get { return IntAWMed; }
-            set { IntAWMed = value; }
-        }
-        public int AWMax
-        {
-            get { return IntAWMax; }
-            set { IntAWMax = value; }
-        }
-        public double TCF
-        {
-            get { return DouTCF; }
-            set { DouTCF = value; }
-        }
-        public double EF
-        {
-            get { return DouEF; }
-            set { DouEF = value; }
-        }
-        public int UUCP
-        {
-            get { return IntUUCP; }
-            set { IntUUCP = value; }
-        }
-        public int AW
-        {
-            get { return IntAW; }
-            set { IntAW = value; }
-        }
-        public double UCP
-        {
-            get { return DouUCP; }
-            set { DouUCP = value; }
-        }
-        public double Ratio
-        {
-            get { return DouRatio; }
-            set { DouRatio = value; }
-        }
-        public double HE
-        {
-            get { return DouHE; }
-            set { DouHE = value; }
-        }
+        //Métodos
         public void CalcValores()
         {
             //Calcular TCF
-            DouTCF = IntDSR * 2;
-            DouTCF += IntRTII;
-            DouTCF += IntEUE;
-            DouTCF += IntCIPR;
-            DouTCF += IntRCMBAF;
-            DouTCF += (IntIE * 0.5);
-            DouTCF += (IntU * 0.5);
-            DouTCF += (IntCPS * 2);
-            DouTCF += IntETC;
-            DouTCF += IntHC;
-            DouTCF += IntCS;
-            DouTCF += IntDOTPC;
-            DouTCF += IntUT;
-            DouTCF /= 100;
-            DouTCF += 0.6;
+            TCF = DSR * 2;
+            TCF += RTII;
+            TCF += EUE;
+            TCF += CIPR;
+            TCF += RCMBAF;
+            TCF += (IE * 0.5);
+            TCF += (U * 0.5);
+            TCF += (CPS * 2);
+            TCF += ETC;
+            TCF += HC;
+            TCF += CS;
+            TCF += DOTPC;
+            TCF += UT;
+            TCF /= 100;
+            TCF += 0.6;
 
             //Calcular EF
-            DouEF = IntFWTP * 1.5;
-            DouEF += (IntAE * 0.5);
-            DouEF += IntOOPE;
-            DouEF += (IntLAC * 0.5);
-            DouEF += IntM;
-            DouEF += (IntSR * 2);
-            DouEF += (IntPTS * -1);
-            DouEF += (IntDPL * -1);
-            DouEF *= 0.03;
-            DouEF -= 1.4;
-            DouEF *= -1;
+            EF = FWTP * 1.5;
+            EF += (AE * 0.5);
+            EF += OOPE;
+            EF += (LAC * 0.5);
+            EF += M;
+            EF += (SR * 2);
+            EF += (PTS * -1);
+            EF += (DPL * -1);
+            EF *= 0.03;
+            EF -= 1.4;
+            EF *= -1;
 
             //Calcular UUCP
-            IntUUCP = (IntUUCPSim * 5) + (IntUUCPMed * 10) + (IntUUCPMax * 15);
+            UUCP = (UUCPSim * 5) + (UUCPMed * 10) + (UUCPMax * 15);
 
             //Calcular AW
-            IntAW = IntAWSim + (IntAWMed * 2) + (IntAWMax * 3);
+            AW = AWSim + (AWMed * 2) + (AWMax * 3);
 
             //Calcular UCP
             UCP = (UUCP + AW) * TCF * EF;
@@ -289,14 +116,14 @@ namespace ReadyReq.Model
             DPL = Convert.ToInt32(ClsBaseDatos.BDDouble("Select ValEst From Estim where NomEst = 'DPL'"));
 
             //UUCP
-            IntUUCPSim = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From ReqFun where Complejidad = 1")); //Simple
-            IntUUCPMed = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From ReqFun where Complejidad = 2")); //Media
-            IntUUCPMax = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From ReqFun where Complejidad = 3")); //Alta
+            UUCPSim = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From ReqFun where Complejidad = 1")); //Simple
+            UUCPMed = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From ReqFun where Complejidad = 2")); //Media
+            UUCPMax = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From ReqFun where Complejidad = 3")); //Alta
 
             //AW
-            IntAWSim = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From Actores where Complejidad = 1")); //Simple
-            IntAWMed = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From Actores where Complejidad = 2")); //Media
-            IntAWMax = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From Actores where Complejidad = 3")); //Alta
+            AWSim = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From Actores where Complejidad = 1")); //Simple
+            AWMed = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From Actores where Complejidad = 2")); //Media
+            AWMax = Convert.ToInt32(ClsBaseDatos.BDDouble("Select Count(*) From Actores where Complejidad = 3")); //Alta
         }
         public bool GuardarDSR()
         {
