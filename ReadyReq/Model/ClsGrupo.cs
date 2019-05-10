@@ -24,18 +24,13 @@ namespace ReadyReq.Model
         }
         public int Guardar()
         {
-            int intDesarrollador;
-            if (Desarrollador) intDesarrollador = 1; else intDesarrollador = 0;
+            int intDesarrollador = (Desarrollador) ? 1 : 0;
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Grupo Set Nombre = '" + Nombre + "', Organizacion = '" + Organizacion + "', Rol = '" + Rol + "', Desarrollador = " + intDesarrollador + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
-                    return -1;
+                if (!ClsBaseDatos.BDBool("Update Grupo Set Nombre = '" + Nombre + "', Organizacion = '" + Organizacion + "', Rol = '" + Rol + "', Desarrollador = " + intDesarrollador + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
             }
             else
-            {
-                if (!ClsBaseDatos.BDBool("Insert into Grupo(Nombre,Organizacion,Rol,Desarrollador,Categoria,Comentario) values ('" + Nombre + "','" + Organizacion + "','" + Rol + "'," + intDesarrollador + "," + Categoria + ",'" + Comentario + "');"))
-                    return -2;
-            }
+                if (!ClsBaseDatos.BDBool("Insert into Grupo(Nombre,Organizacion,Rol,Desarrollador,Categoria,Comentario) values ('" + Nombre + "','" + Organizacion + "','" + Rol + "'," + intDesarrollador + "," + Categoria + ",'" + Comentario + "');")) return -2;
             return 0;
         }
         public void Borrar()
@@ -67,7 +62,7 @@ namespace ReadyReq.Model
             Nombre = Trabajador[1].ToString();
             Organizacion = Trabajador[2].ToString();
             Rol = Trabajador[3].ToString();
-            if ((int)Trabajador[4] == 1) Desarrollador = true; else Desarrollador = false;
+            Desarrollador = ((int)Trabajador[4] == 1) ? true : false;
             Categoria = int.Parse(Trabajador[5].ToString());
             Comentario = Trabajador[6].ToString();
         }
