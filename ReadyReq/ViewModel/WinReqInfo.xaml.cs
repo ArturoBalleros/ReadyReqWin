@@ -1,4 +1,5 @@
 ﻿using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Data;
 using System.Windows;
@@ -30,37 +31,33 @@ namespace ReadyReq.ViewModel
         public WinReqInfo()
         {
             InitializeComponent();
-            this.DGDatEsp.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(DGDatEsp_PreviewMouseLeftButtonDown);
-            this.DGDatEsp.Drop += new DragEventHandler(DGDatEsp_Drop);
+            DGDatEsp.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(DGDatEsp_PreviewMouseLeftButtonDown);
+            DGDatEsp.Drop += new DragEventHandler(DGDatEsp_Drop);
         }
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             Idioma();
-            for (int i = 1; (i <= 10); i++)
-                CmbCat.Items.Add(i);
+            for (int i = 1; (i <= 10); i++) CmbCat.Items.Add(i);
             CmbCat.Text = CmbCat.Items[0].ToString();
             IniciarTablas();
         }
         private void WClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (Activo == true)
-                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    return;
-                else
-                    e.Cancel = true;
+            if (Activo)
+                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) return;
+                else e.Cancel = true;
         }
         private void Click(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButBusc")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButBusc"))
             {
                 Requisito.Buscar(TxtBus.Text);
                 TxtBus.Text = string.Empty;
                 DGBuscar.ItemsSource = Requisito.Buscador.DefaultView;
             }
-            if (ctrl.Name == "ButAcep")
-            {
-                if (string.IsNullOrEmpty(TxtNom.Text) == false)
+            if (ctrl.Name.Equals("ButAcep"))
+                if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
                     Requisito.Nombre = TxtNom.Text;
                     Requisito.Descripcion = TxtDesc.Text;
@@ -76,19 +73,14 @@ namespace ReadyReq.ViewModel
                     if (resultado == -2) MessageBox.Show(StrMenEGuar);
                     VaciarInterfaz();
                 }
-                else
-                {
-                    MessageBox.Show(StrMenGuar);
-                }
-            }
-            if (ctrl.Name == "ButBorr")
+                else MessageBox.Show(StrMenGuar);
+            if (ctrl.Name.Equals("ButBorr"))
             {
-                if (Base == true)
-                    if (MessageBox.Show(StrMenBorr, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                        Requisito.Borrar();
+                if (Base)
+                    if (MessageBox.Show(StrMenBorr, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) Requisito.Borrar();
                 VaciarInterfaz();
             }
-            if (ctrl.Name == "ButBorrLin")
+            if (ctrl.Name.Equals("ButBorrLin"))
             {
                 LinDatEsp = -1;
                 TxtDat.Text = string.Empty;
@@ -96,24 +88,19 @@ namespace ReadyReq.ViewModel
         }
         private void Seleccionar(object sender, SelectedCellsChangedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "DGBuscar")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("DGBuscar"))
             {
-                if (Activo == true && DGBuscar.SelectedIndex > -1)
+                if (Activo && DGBuscar.SelectedIndex > -1)
                 {
-                    if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                        CargarRequisito();
+                    if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) CargarRequisito();
                 }
-                else
-                {
-                    CargarRequisito();
-                }
+                else CargarRequisito();
             }
-            if (ctrl.Name == "DGGruAut")
+            if (ctrl.Name.Equals("DGGruAut"))
             {
                 bool existe = false;
                 if (Requisito.Autores.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Requisito.Autores.Rows.Count - 1); i++)
                     {
                         Fila = Requisito.Autores.Rows[i];
@@ -123,8 +110,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Requisito.Autores.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGGruAut.Items[DGGruAut.SelectedIndex]).Row.ItemArray[1]);
@@ -133,7 +119,7 @@ namespace ReadyReq.ViewModel
                 }
                 Requisito.BGrupo.Rows.RemoveAt(DGGruAut.SelectedIndex);
             }
-            if (ctrl.Name == "DGAutores")
+            if (ctrl.Name.Equals("DGAutores"))
             {
                 Fila = Requisito.BGrupo.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGAutores.Items[DGAutores.SelectedIndex]).Row.ItemArray[1]);
@@ -141,11 +127,10 @@ namespace ReadyReq.ViewModel
                 Requisito.BGrupo.Rows.Add(Fila);
                 Requisito.Autores.Rows.RemoveAt(DGAutores.SelectedIndex);
             }
-            if (ctrl.Name == "DGGruFuen")
+            if (ctrl.Name.Equals("DGGruFuen"))
             {
                 bool existe = false;
                 if (Requisito.Fuentes.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Requisito.Fuentes.Rows.Count - 1); i++)
                     {
                         Fila = Requisito.Fuentes.Rows[i];
@@ -155,8 +140,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Requisito.Fuentes.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGGruFuen.Items[DGGruFuen.SelectedIndex]).Row.ItemArray[1]);
@@ -165,7 +149,7 @@ namespace ReadyReq.ViewModel
                 }
                 Requisito.BFuentes.Rows.RemoveAt(DGGruFuen.SelectedIndex);
             }
-            if (ctrl.Name == "DGFuentes")
+            if (ctrl.Name.Equals("DGFuentes"))
             {
                 Fila = Requisito.BFuentes.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGFuentes.Items[DGFuentes.SelectedIndex]).Row.ItemArray[1]);
@@ -173,11 +157,10 @@ namespace ReadyReq.ViewModel
                 Requisito.BFuentes.Rows.Add(Fila);
                 Requisito.Fuentes.Rows.RemoveAt(DGFuentes.SelectedIndex);
             }
-            if (ctrl.Name == "DGObjObj")
+            if (ctrl.Name.Equals("DGObjObj"))
             {
                 bool existe = false;
                 if (Requisito.Objetivos.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Requisito.Objetivos.Rows.Count - 1); i++)
                     {
                         Fila = Requisito.Objetivos.Rows[i];
@@ -187,8 +170,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Requisito.Objetivos.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGObjObj.Items[DGObjObj.SelectedIndex]).Row.ItemArray[1]);
@@ -197,7 +179,7 @@ namespace ReadyReq.ViewModel
                 }
                 Requisito.BObjetivos.Rows.RemoveAt(DGObjObj.SelectedIndex);
             }
-            if (ctrl.Name == "DGObjetivos")
+            if (ctrl.Name.Equals("DGObjetivos"))
             {
                 Fila = Requisito.BObjetivos.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGObjetivos.Items[DGObjetivos.SelectedIndex]).Row.ItemArray[1]);
@@ -205,11 +187,10 @@ namespace ReadyReq.ViewModel
                 Requisito.BObjetivos.Rows.Add(Fila);
                 Requisito.Objetivos.Rows.RemoveAt(DGObjetivos.SelectedIndex);
             }
-            if (ctrl.Name == "DGRequi")
+            if (ctrl.Name.Equals("DGRequi"))
             {
                 bool existe = false;
                 if (Requisito.Requisitos.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Requisito.Requisitos.Rows.Count - 1); i++)
                     {
                         Fila = Requisito.Requisitos.Rows[i];
@@ -219,8 +200,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Requisito.Requisitos.NewRow();
                     Fila[2] = Convert.ToString(((DataRowView)DGRequi.Items[DGRequi.SelectedIndex]).Row.ItemArray[1]);
@@ -230,7 +210,7 @@ namespace ReadyReq.ViewModel
                 }
                 Requisito.BRequisitos.Rows.RemoveAt(DGRequi.SelectedIndex);
             }
-            if (ctrl.Name == "DGReqRel")
+            if (ctrl.Name.Equals("DGReqRel"))
             {
                 if (int.Parse(Convert.ToString(((DataRowView)DGReqRel.Items[DGReqRel.SelectedIndex]).Row.ItemArray[1])) == TipoReq)
                 {
@@ -244,21 +224,17 @@ namespace ReadyReq.ViewModel
         }
         private void Presionar(object sender, KeyEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if ((ctrl.Name == "TxtNom") && (Activo == false))
-                Activo = true;
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
             {
-                if ((ctrl.Name == "TxtNom") && (string.IsNullOrEmpty(TxtNom.Text) == false)) TxtDesc.Focus();
-                if ((ctrl.Name == "TxtDesc") && (string.IsNullOrEmpty(TxtDesc.Text) == false)) TxtCom.Focus();
-                if (ctrl.Name == "TxtBus") ButBusc.Focus();
-                if ((ctrl.Name == "TxtDat") && (string.IsNullOrEmpty(TxtDat.Text) == false))
+                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text)) TxtDesc.Focus();
+                if (ctrl.Name.Equals("TxtDesc") && !string.IsNullOrEmpty(TxtDesc.Text)) TxtCom.Focus();
+                if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();
+                if (ctrl.Name.Equals("TxtDat") && !string.IsNullOrEmpty(TxtDat.Text))
                 {
-                    if (LinDatEsp == -1)
-                        Requisito.DatosEspeci.Add(new ClsDatDG() { Descrip = TxtDat.Text });
-                    else
-                        Requisito.DatosEspeci.Insert(LinDatEsp, new ClsDatDG() { Descrip = TxtDat.Text });
-
+                    if (LinDatEsp == -1) Requisito.DatosEspeci.Add(new ClsDatDG() { Descrip = TxtDat.Text });
+                    else Requisito.DatosEspeci.Insert(LinDatEsp, new ClsDatDG() { Descrip = TxtDat.Text });
                     LinDatEsp = -1;
                     TxtDat.Text = string.Empty;
                 }
@@ -266,10 +242,10 @@ namespace ReadyReq.ViewModel
         }
         private void Checked(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "RBReqInf") TipoReq = 1;
-            if (ctrl.Name == "RBReqNFun") TipoReq = 2;
-            if (ctrl.Name == "RBReqFun") TipoReq = 3;
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("RBReqInf")) TipoReq = 1;
+            if (ctrl.Name.Equals("RBReqNFun")) TipoReq = 2;
+            if (ctrl.Name.Equals("RBReqFun")) TipoReq = 3;
             try
             {
                 Requisito.CargarTablaReqRel(TipoReq);
@@ -289,21 +265,15 @@ namespace ReadyReq.ViewModel
         }
         private void DGDatEsp_Drop(object sender, DragEventArgs e)
         {
-            if (FilaPrev < 0)
-                return;
-
-            int index = this.GetDataGridItemCurrentRowIndex(e.GetPosition);
-
-            if (index < 0)
-                return;
-            if (index == FilaPrev)
-                return;
+            if (FilaPrev < 0) return;
+            int index = GetDataGridItemCurrentRowIndex(e.GetPosition);
+            if (index < 0) return;
+            if (index == FilaPrev) return;
             if (index == DGDatEsp.Items.Count - 1)
             {
                 MessageBox.Show(StrMenDrop);
                 return;
             }
-
             ClsDatDG movedEmps = Requisito.DatosEspeci[FilaPrev];
             Requisito.DatosEspeci.RemoveAt(FilaPrev);
             Requisito.DatosEspeci.Insert(index, movedEmps);
@@ -311,20 +281,12 @@ namespace ReadyReq.ViewModel
         private void DGDatEsp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             FilaPrev = GetDataGridItemCurrentRowIndex(e.GetPosition);
-
-            if (FilaPrev < 0)
-                return;
+            if (FilaPrev < 0) return;
             DGDatEsp.SelectedIndex = FilaPrev;
-
             ClsDatDG selectedEmp = DGDatEsp.Items[FilaPrev] as ClsDatDG;
-
-            if (selectedEmp == null)
-                return;
-
+            if (selectedEmp == null) return;
             DragDropEffects dragdropeffects = DragDropEffects.Move;
-
-            if (DragDrop.DoDragDrop(DGDatEsp, selectedEmp, dragdropeffects) != DragDropEffects.None)
-                DGDatEsp.SelectedItem = selectedEmp;
+            if (DragDrop.DoDragDrop(DGDatEsp, selectedEmp, dragdropeffects) != DragDropEffects.None) DGDatEsp.SelectedItem = selectedEmp;
         }
         private bool IsTheMouseOnTargetRow(Visual theTarget, GetDragDropPosition pos)
         {
@@ -334,9 +296,7 @@ namespace ReadyReq.ViewModel
         }
         private DataGridRow GetDataGridRowItem(int index)
         {
-            if (DGDatEsp.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
-                return null;
-
+            if (DGDatEsp.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated) return null;
             return DGDatEsp.ItemContainerGenerator.ContainerFromIndex(index) as DataGridRow;
         }
         private int GetDataGridItemCurrentRowIndex(GetDragDropPosition pos)
@@ -407,139 +367,101 @@ namespace ReadyReq.ViewModel
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //DataGrid
-                DGBuscar.Columns[0].Header = "Requirements";
-                DGGruAut.Columns[0].Header = "Workers of the Working Group";
-                DGAutores.Columns[0].Header = "Authors";
-                DGGruFuen.Columns[0].Header = "Workers of the Working Group";
-                DGFuentes.Columns[0].Header = "Sources";
-                DGObjObj.Columns[0].Header = "Objectives";
-                DGObjetivos.Columns[0].Header = "Related objectives";
-                DGRequi.Columns[0].Header = "Requirements";
-                DGReqRel.Columns[0].Header = "Related requirements";
-                DGDatEsp.Columns[0].Header = "Specific dates";
-
-                //Botones
-                ButBusc.Content = "Search";
-                ButAcep.Content = "Save";
-                ButBorr.Content = "Delete";
-
-                //Label
-                LblNom.Content = "Name";
-                LblDes.Content = "Description";
-                LblPri.Content = "Priority";
-                LblUrg.Content = "Urgency";
-                LblEst.Content = "Stability";
-                LblEsta.Content = "State";
-                LblCat.Content = "Category";
-                LblCom.Content = "Commentary";
-                LblTie.Content = "Time of life";
-                LblOcu.Content = "Occurrences";
-                LblTM.Content = LblOcM.Content = "Medium";
-                LblTMX.Content = LblOcMX.Content = "Maximum";
-                LblBus.Text = "Search Engine";
-
-                //RadioButton
-                RBPMB.Content = RBUMB.Content = RBEMB.Content = "Very low";
-                RBPB.Content = RBUB.Content = RBEB.Content = "Low";
-                RBPM.Content = RBUM.Content = RBEM.Content = "Medium";
-                RBPA.Content = RBUA.Content = RBEA.Content = "High";
-                RBPMA.Content = RBUMA.Content = RBEMA.Content = "Very high";
-                RBVer.Content = "Verified";
-                RBNVer.Content = "Not verified";
-                RBReqInf.Content = "Information Req.";
-                RBReqNFun.Content = "Non-Functional Req.";
-                RBReqFun.Content = "Functional Req.";
-
-                //Window
-                Title = "Project Information Requirements";
-
-                //TabItem
-                TabDat.Header = "Data";
-                TabAut.Header = "Authors";
-                TabFue.Header = "Sources";
-                TabObj.Header = "Objectives";
-                TabReq.Header = "Requirem.";
-                TabDatE.Header = "Specific D.";
-                TabDatN.Header = "Num. D.";
-
-                //Mensajes
-                StrConf = "Confirmation";
-                StrMenGuar = "The requirement must have an assigned name";
-                StrMenBorr = "The requirement will be deleted, do you wish to continue?";
-                StrMenPrev = "The unsaved progress will be deleted, do you wish to continue?";
-                StrMenDrop = "This row-index cannot be used for Drop Operations";
-                StrMenEGuar = "The requirement could not be saved";
-                StrMenEMod = "The requirement could not be modified, so it was deleted so as not to cause instability in the database";
+                DGBuscar.Columns[0].Header = DGRequi.Columns[0].Header = Ingles.Requirements;
+                DGGruAut.Columns[0].Header = DGGruFuen.Columns[0].Header = Ingles.WorkGrup;
+                DGAutores.Columns[0].Header = TabAut.Header = Ingles.Authors;
+                DGFuentes.Columns[0].Header = TabFue.Header = Ingles.Sources;
+                DGObjObj.Columns[0].Header = TabObj.Header = Ingles.Objectives;
+                DGObjetivos.Columns[0].Header = Ingles.RelObjet;
+                DGReqRel.Columns[0].Header = Ingles.RelRequi;
+                DGDatEsp.Columns[0].Header = Ingles.SpeDat;
+                ButBusc.Content = Ingles.Search;
+                ButAcep.Content = Ingles.Save;
+                ButBorr.Content = Ingles.Delete;
+                LblNom.Content = Ingles.Name;
+                LblDes.Content = Ingles.Description;
+                LblPri.Content = Ingles.Priority;
+                LblUrg.Content = Ingles.Urgency;
+                LblEst.Content = Ingles.Stability;
+                LblEsta.Content = Ingles.State;
+                LblCat.Content = Ingles.Category;
+                LblCom.Content = Ingles.Commentary;
+                LblTie.Content = Ingles.TimeLife;
+                LblOcu.Content = Ingles.Occurrences;
+                LblTMX.Content = LblOcMX.Content = Ingles.Maximum;
+                LblBus.Text = Ingles.Search_Engine;
+                RBPMB.Content = RBUMB.Content = RBEMB.Content = Ingles.VLow;
+                RBPB.Content = RBUB.Content = RBEB.Content = Ingles.Low;
+                RBPM.Content = RBUM.Content = RBEM.Content = LblTM.Content = LblOcM.Content = Ingles.Medium;
+                RBPA.Content = RBUA.Content = RBEA.Content = Ingles.High;
+                RBPMA.Content = RBUMA.Content = RBEMA.Content = Ingles.VHigh;
+                RBVer.Content = Ingles.Verified;
+                RBNVer.Content = Ingles.NVerified;
+                RBReqInf.Content = Ingles.RBReqInfo;
+                RBReqNFun.Content = Ingles.RBReqNFun;
+                RBReqFun.Content = Ingles.RBReqFun;
+                Title = Ingles.ProReqInfo;
+                TabDat.Header = Ingles.Data;
+                TabReq.Header = Ingles.TabReq;
+                TabDatE.Header = Ingles.TabSpeDat;
+                TabDatN.Header = Ingles.TabNumD;
+                StrConf = Ingles.Confirmation;
+                StrMenGuar = Ingles.ReqMenGuar;
+                StrMenBorr = Ingles.ReqMenBorr;
+                StrMenPrev = Ingles.MenPrev;
+                StrMenDrop = Ingles.MenDrop;
+                StrMenEGuar = Ingles.ReqMenEGuar;
+                StrMenEMod = Ingles.ReqMenEMod;
             }
             else
             {
-                //DataGrid
-                DGBuscar.Columns[0].Header = "Requisitos";
-                DGGruAut.Columns[0].Header = "Trabajadores del Grupo de Trabajo";
-                DGAutores.Columns[0].Header = "Autores";
-                DGGruFuen.Columns[0].Header = "Trabajadores del Grupo de Trabajo";
-                DGFuentes.Columns[0].Header = "Fuentes";
-                DGObjObj.Columns[0].Header = "Objetivos";
-                DGObjetivos.Columns[0].Header = "Objetivos relacionados";
-                DGRequi.Columns[0].Header = "Requisitos";
-                DGReqRel.Columns[0].Header = "Requisitos relacionados";
-                DGDatEsp.Columns[0].Header = "Datos específicos";
-
-                //Botones
-                ButBusc.Content = "Buscar";
-                ButAcep.Content = "Guardar";
-                ButBorr.Content = "Borrar";
-
-                //Label
-                LblNom.Content = "Nombre";
-                LblDes.Content = "Descripción";
-                LblPri.Content = "Prioridad";
-                LblUrg.Content = "Urgencia";
-                LblEst.Content = "Estabilidad";
-                LblEsta.Content = "Estado";
-                LblCat.Content = "Categoría";
-                LblCom.Content = "Comentario";
-                LblTie.Content = "Tiempo de vida";
-                LblOcu.Content = "Ocurrencias";
-                LblTM.Content = LblOcM.Content = "Medio";
-                LblTMX.Content = LblOcMX.Content = "Máximo";
-                LblBus.Text = "Buscador";
-
-                //RadioButton
-                RBPMB.Content = RBUMB.Content = RBEMB.Content = "Muy baja";
-                RBPB.Content = RBUB.Content = RBEB.Content = "Baja";
-                RBPM.Content = RBUM.Content = RBEM.Content = "Media";
-                RBPA.Content = RBUA.Content = RBEA.Content = "Alta";
-                RBPMA.Content = RBUMA.Content = RBEMA.Content = "Muy Alta";
-                RBVer.Content = "Verificado";
-                RBNVer.Content = "No verificado";
-                RBReqInf.Content = "Req. Información";
-                RBReqNFun.Content = "Req. No Funcionales";
-                RBReqFun.Content = "Req. Funcionales";
-
-                //Window
-                Title = "Requisitos de Información del Proyecto";
-
-                //TabItem
-                TabDat.Header = "Datos";
-                TabAut.Header = "Autores";
-                TabFue.Header = "Fuentes";
-                TabObj.Header = "Objetivos";
-                TabReq.Header = "Requisitos";
-                TabDatE.Header = "Dat.Espec.";
-                TabDatN.Header = "Datos N.";
-
-                //Mensajes
-                StrConf = "Confirmación";
-                StrMenGuar = "El actor debe de tener un nombre asignado";
-                StrMenBorr = "Se borrará el requisito, ¿Desea continuar?";
-                StrMenPrev = "Se borrará el progreso no guardado, ¿Desea continuar?";
-                StrMenDrop = "Este índice de fila no se puede usar para operaciones de colocación";
-                StrMenEGuar = "No se pudo guardar el requisito";
-                StrMenEMod = "No se pudo modificar el requisito, por lo que se eliminó para no ocasionar inestabilidad en la base de datos";
+                DGBuscar.Columns[0].Header = DGRequi.Columns[0].Header = TabReq.Header = Español.Requisitos;
+                DGGruAut.Columns[0].Header = DGGruFuen.Columns[0].Header = Español.TrabGrup;
+                DGAutores.Columns[0].Header = TabAut.Header = Español.Autores;
+                DGFuentes.Columns[0].Header = TabFue.Header = Español.Fuentes;
+                DGObjObj.Columns[0].Header = TabObj.Header = Español.Objetivos;
+                DGObjetivos.Columns[0].Header = Español.RelObjet;
+                DGReqRel.Columns[0].Header = Español.RelRequi;
+                DGDatEsp.Columns[0].Header = Español.DatSpe;
+                ButBusc.Content = Español.Buscar;
+                ButAcep.Content = Español.Guardar;
+                ButBorr.Content = Español.Borrar;
+                LblNom.Content = Español.Nombre;
+                LblDes.Content = Español.Descripción;
+                LblPri.Content = Español.Prioridad;
+                LblUrg.Content = Español.Urgencia;
+                LblEst.Content = Español.Estabilidad;
+                LblEsta.Content = Español.Estado;
+                LblCat.Content = Español.Categoría;
+                LblCom.Content = Español.Comentario;
+                LblTie.Content = Español.TiemVida;
+                LblOcu.Content = Español.Ocurrencias;
+                LblTM.Content = LblOcM.Content = Español.Medio;
+                LblTMX.Content = LblOcMX.Content = Español.Máximo;
+                LblBus.Text = Español.Buscador;
+                RBPMB.Content = RBUMB.Content = RBEMB.Content = Español.MBaja;
+                RBPB.Content = RBUB.Content = RBEB.Content = Español.Baja;
+                RBPM.Content = RBUM.Content = RBEM.Content = Español.Media;
+                RBPA.Content = RBUA.Content = RBEA.Content = Español.Alta;
+                RBPMA.Content = RBUMA.Content = RBEMA.Content = Español.MAlta;
+                RBVer.Content = Español.Verificado;
+                RBNVer.Content = Español.NVerificado;
+                RBReqInf.Content = Español.RBReqInfo;
+                RBReqNFun.Content = Español.RBReqNFun;
+                RBReqFun.Content = Español.RBReqFun;
+                Title = Español.ProReqInfo;
+                TabDat.Header = Español.Datos;
+                TabDatE.Header = Español.TabDatSpe;
+                TabDatN.Header = Español.TabNumD;
+                StrConf = Español.Confirmación;
+                StrMenGuar = Español.ReqMenGuar;
+                StrMenBorr = Español.ReqMenBorr;
+                StrMenPrev = Español.MenPrev;
+                StrMenDrop = Español.MenDrop;
+                StrMenEGuar = Español.ReqMenEGuar;
+                StrMenEMod = Español.ReqMenEMod;
             }
         }
         private void IniciarTablas()
@@ -560,87 +482,53 @@ namespace ReadyReq.ViewModel
         }
         private void RadioButtonValor(bool ValorRB)
         {
-            if (ValorRB == true)
+            if (ValorRB)
             {
                 //Prioridad
-                if (RBPMB.IsChecked == true)
-                    Requisito.Prioridad = 1;
-                else if (RBPB.IsChecked == true)
-                    Requisito.Prioridad = 2;
-                else if (RBPM.IsChecked == true)
-                    Requisito.Prioridad = 3;
-                else if (RBPA.IsChecked == true)
-                    Requisito.Prioridad = 4;
-                else if (RBPMA.IsChecked == true)
-                    Requisito.Prioridad = 5;
+                if (RBPMB.IsChecked == true) Requisito.Prioridad = 1;
+                else if (RBPB.IsChecked == true) Requisito.Prioridad = 2;
+                else if (RBPM.IsChecked == true) Requisito.Prioridad = 3;
+                else if (RBPA.IsChecked == true) Requisito.Prioridad = 4;
+                else if (RBPMA.IsChecked == true) Requisito.Prioridad = 5;
                 //Urgencia
-                if (RBUMB.IsChecked == true)
-                    Requisito.Urgencia = 1;
-                else if (RBUB.IsChecked == true)
-                    Requisito.Urgencia = 2;
-                else if (RBUM.IsChecked == true)
-                    Requisito.Urgencia = 3;
-                else if (RBUA.IsChecked == true)
-                    Requisito.Urgencia = 4;
-                else if (RBUMA.IsChecked == true)
-                    Requisito.Urgencia = 5;
+                if (RBUMB.IsChecked == true) Requisito.Urgencia = 1;
+                else if (RBUB.IsChecked == true) Requisito.Urgencia = 2;
+                else if (RBUM.IsChecked == true) Requisito.Urgencia = 3;
+                else if (RBUA.IsChecked == true) Requisito.Urgencia = 4;
+                else if (RBUMA.IsChecked == true) Requisito.Urgencia = 5;
                 //Estabilidad
-                if (RBEMB.IsChecked == true)
-                    Requisito.Estabilidad = 1;
-                else if (RBEB.IsChecked == true)
-                    Requisito.Estabilidad = 2;
-                else if (RBEM.IsChecked == true)
-                    Requisito.Estabilidad = 3;
-                else if (RBEA.IsChecked == true)
-                    Requisito.Estabilidad = 4;
-                else if (RBEMA.IsChecked == true)
-                    Requisito.Estabilidad = 5;
+                if (RBEMB.IsChecked == true) Requisito.Estabilidad = 1;
+                else if (RBEB.IsChecked == true) Requisito.Estabilidad = 2;
+                else if (RBEM.IsChecked == true) Requisito.Estabilidad = 3;
+                else if (RBEA.IsChecked == true) Requisito.Estabilidad = 4;
+                else if (RBEMA.IsChecked == true) Requisito.Estabilidad = 5;
                 //Estado
-                if (RBVer.IsChecked == true)
-                    Requisito.Estado = true;
-                else
-                    Requisito.Estado = false;
+                if (RBVer.IsChecked == true) Requisito.Estado = true;
+                else Requisito.Estado = false;
             }
             else
             {
                 //Prioridad
-                if (Requisito.Prioridad == 1)
-                    RBPMB.IsChecked = true;
-                else if (Requisito.Prioridad == 2)
-                    RBPB.IsChecked = true;
-                else if (Requisito.Prioridad == 3)
-                    RBPM.IsChecked = true;
-                else if (Requisito.Prioridad == 4)
-                    RBPA.IsChecked = true;
-                else if (Requisito.Prioridad == 5)
-                    RBPMA.IsChecked = true;
+                if (Requisito.Prioridad == 1) RBPMB.IsChecked = true;
+                else if (Requisito.Prioridad == 2) RBPB.IsChecked = true;
+                else if (Requisito.Prioridad == 3) RBPM.IsChecked = true;
+                else if (Requisito.Prioridad == 4) RBPA.IsChecked = true;
+                else if (Requisito.Prioridad == 5) RBPMA.IsChecked = true;
                 //Urgencia
-                if (Requisito.Urgencia == 1)
-                    RBUMB.IsChecked = true;
-                else if (Requisito.Urgencia == 2)
-                    RBUB.IsChecked = true;
-                else if (Requisito.Urgencia == 3)
-                    RBUM.IsChecked = true;
-                else if (Requisito.Urgencia == 4)
-                    RBUA.IsChecked = true;
-                else if (Requisito.Urgencia == 5)
-                    RBUMA.IsChecked = true;
+                if (Requisito.Urgencia == 1) RBUMB.IsChecked = true;
+                else if (Requisito.Urgencia == 2) RBUB.IsChecked = true;
+                else if (Requisito.Urgencia == 3) RBUM.IsChecked = true;
+                else if (Requisito.Urgencia == 4) RBUA.IsChecked = true;
+                else if (Requisito.Urgencia == 5) RBUMA.IsChecked = true;
                 //Estabilidad
-                if (Requisito.Estabilidad == 1)
-                    RBEMB.IsChecked = true;
-                else if (Requisito.Estabilidad == 2)
-                    RBEB.IsChecked = true;
-                else if (Requisito.Estabilidad == 3)
-                    RBEM.IsChecked = true;
-                else if (Requisito.Estabilidad == 4)
-                    RBEA.IsChecked = true;
-                else if (Requisito.Estabilidad == 5)
-                    RBEMA.IsChecked = true;
+                if (Requisito.Estabilidad == 1) RBEMB.IsChecked = true;
+                else if (Requisito.Estabilidad == 2) RBEB.IsChecked = true;
+                else if (Requisito.Estabilidad == 3) RBEM.IsChecked = true;
+                else if (Requisito.Estabilidad == 4) RBEA.IsChecked = true;
+                else if (Requisito.Estabilidad == 5) RBEMA.IsChecked = true;
                 //Estado
-                if (Requisito.Estado == true)
-                    RBVer.IsChecked = true;
-                else
-                    RBNVer.IsChecked = true;
+                if (Requisito.Estado) RBVer.IsChecked = true;
+                else RBNVer.IsChecked = true;
             }
         }
     }

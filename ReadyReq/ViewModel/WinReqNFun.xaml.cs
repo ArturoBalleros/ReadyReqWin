@@ -414,7 +414,7 @@ namespace ReadyReq.ViewModel
                 else if (Requisito.Estabilidad == 4) RBEA.IsChecked = true;
                 else if (Requisito.Estabilidad == 5) RBEMA.IsChecked = true;
                 //Estado
-                if (Requisito.Estado == true) RBVer.IsChecked = true;
+                if (Requisito.Estado) RBVer.IsChecked = true;
                 else RBNVer.IsChecked = true;
             }
         }

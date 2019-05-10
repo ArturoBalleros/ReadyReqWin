@@ -350,7 +350,7 @@ namespace ReadyReq.ViewModel
                 else if (Objetivo.Estabilidad == 4) RBEA.IsChecked = true;
                 else if (Objetivo.Estabilidad == 5) RBEMA.IsChecked = true;
                 //Estado
-                if (Objetivo.Estado == true) RBVer.IsChecked = true;
+                if (Objetivo.Estado) RBVer.IsChecked = true;
                 else RBNVer.IsChecked = true;
             }
         }

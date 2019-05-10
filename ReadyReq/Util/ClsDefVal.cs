@@ -94,23 +94,18 @@
         public const string ReqMenBorr = "Se borrará el requisito, ¿Desea continuar?";
         public const string ReqMenEGuar = "No se pudo guardar el requisito";
         public const string ReqMenEMod = "No se pudo modificar el requisito, por lo que se eliminó para no ocasionar inestabilidad en la base de datos";
+        public const string MenDrop = "Este índice de fila no se puede usar para operaciones de colocación";
 
-
-
-        //public const string aaa = "Arturo";
-        //               public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
+        //WinReqInfo
+        public const string DatSpe = "Datos específicos";
+        public const string TiemVida = "Tiempo de vida";
+        public const string Ocurrencias = "Ocurrencias";
+        public const string Medio = "Medio";
+        public const string Máximo = "Máximo";
+        public const string ProReqInfo = "Requisitos de Información del Proyecto";
+        public const string TabReq = "Requirem.";
+        public const string TabDatSpe = "Dat.Espec.";
+        public const string TabNumD = "Datos N.";
 
     }
 
@@ -162,7 +157,7 @@
         public const string NVerified = "Not verified";
         public const string WorkGrup = "Workers of the Working Group";
 
-        
+
 
         //WinGrupo
         public const string Workers = "Workers";
@@ -209,8 +204,20 @@
         public const string ReqMenBorr = "The requirement will be deleted, do you wish to continue?";
         public const string ReqMenEGuar = "The requirement could not be saved";
         public const string ReqMenEMod = "The requirement could not be modified, so it was deleted so as not to cause instability in the database";
-        //public const string aaa = "Arturo";
+        public const string MenDrop = "This row-index cannot be used for Drop Operations";
 
+        //WinReqInfo
+        public const string SpeDat = "Specific dates";
+        public const string TimeLife = "Time of life";
+        public const string Occurrences = "Occurrences";
+        public const string Maximum = "Maximum";
+        public const string ProReqInfo = "Project Information Requirements";
+        public const string TabReq = "Requirem.";
+        public const string TabSpeDat = "Specific D.";
+        public const string TabNumD = "Num. D.";
+
+        //public const string aaa = "Arturo";
+        //public const string aaa = "Arturo";
 
     }
 

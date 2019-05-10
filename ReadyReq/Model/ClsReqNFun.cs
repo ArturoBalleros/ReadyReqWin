@@ -33,8 +33,7 @@ namespace ReadyReq.Model
         }
         public int Guardar()
         {
-            int intEstado;
-            if (Estado) intEstado = 1; else intEstado = 0;
+            int intEstado = (Estado) ? 1 : 0;
             if (Id != 0)
             {
                 if (!ClsBaseDatos.BDBool("Update ReqNFunc Set Nombre = '" + Nombre + "',Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;

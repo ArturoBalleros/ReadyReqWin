@@ -44,27 +44,21 @@ namespace ReadyReq.Model
         }
         public int Guardar()
         {
-            int intEstado;
-            if (Estado) intEstado = 1; else intEstado = 0;
-
+            int intEstado = (Estado) ? 1 : 0;
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update ReqInfo Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', TiemMed = " + TiempoMedio + ", TiemMax = " + TiempoMaximo + ", OcuMed = " + OcurreMedio + ", OcuMax = " + OcurreMaximo + ", Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
-                    return -1;
+                if (!ClsBaseDatos.BDBool("Update ReqInfo Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', TiemMed = " + TiempoMedio + ", TiemMax = " + TiempoMaximo + ", OcuMed = " + OcurreMedio + ", OcuMax = " + OcurreMaximo + ", Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))                    return -1;
                 ClsBaseDatos.BDBool("Delete from ReqIAuto where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqIFuen where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqIObj where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqIReqR where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqIDatEsp where IdReq = " + Id + ";");
-                if (GuardarTablas(Id) == -1)
-                    return -1;
+                if (GuardarTablas(Id) == -1)                    return -1;
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into ReqInfo(Nombre,Descripcion,TiemMed,TiemMax,OcuMed,OcuMax,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + TiempoMedio + "," + TiempoMaximo + "," + OcurreMedio + "," + OcurreMaximo + "," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');"))
-                    return -2;
-                if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from ReqInfo order by Id Desc;")) == -1)
-                    return -2;
+                if (!ClsBaseDatos.BDBool("Insert into ReqInfo(Nombre,Descripcion,TiemMed,TiemMax,OcuMed,OcuMax,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + TiempoMedio + "," + TiempoMaximo + "," + OcurreMedio + "," + OcurreMaximo + "," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');"))                    return -2;
+                if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from ReqInfo order by Id Desc;")) == -1)                    return -2;
             }
             return 0;
         }
@@ -108,7 +102,7 @@ namespace ReadyReq.Model
             Prioridad = int.Parse(Requisito[7].ToString());
             Urgencia = int.Parse(Requisito[8].ToString());
             Estabilidad = int.Parse(Requisito[9].ToString());
-            if ((int)Requisito[10] == 1) Estado = true; else Estado = false;
+            Estado = ((int)Requisito[10] == 1) ? true : false;
             Categoria = int.Parse(Requisito[11].ToString());
             Comentario = Requisito[12].ToString();
 
@@ -126,12 +120,9 @@ namespace ReadyReq.Model
             }
 
             Requisitos.Rows.Clear();
-            TablaAux = ClsBaseDatos.BDTable("Select rn.Id as Id, r.TipoReq as Tipo, rn.Nombre as Nombre from ReqInfo rn, ReqIReqR r where rn.Id = r.IdReqr and r.IdReq = " + Id + " and r.TipoReq = 1 Order By Categoria Desc, Nombre;");
-            CargarTablaReq(TablaAux);
-            TablaAux = ClsBaseDatos.BDTable("Select rn.Id as Id, r.TipoReq as Tipo, rn.Nombre as Nombre from ReqNFunc rn, ReqIReqR r where rn.Id = r.IdReqr and r.IdReq = " + Id + " and r.TipoReq = 2 Order By Categoria Desc, Nombre;");
-            CargarTablaReq(TablaAux);
-            TablaAux = ClsBaseDatos.BDTable("Select rn.Id as Id, r.TipoReq as Tipo, rn.Nombre as Nombre from ReqFun rn, ReqIReqR r where rn.Id = r.IdReqr and r.IdReq = " + Id + " and r.TipoReq = 3 Order By Categoria Desc, Nombre;");
-            CargarTablaReq(TablaAux);
+            TablaAux = ClsBaseDatos.BDTable("Select rn.Id as Id, r.TipoReq as Tipo, rn.Nombre as Nombre from ReqInfo rn, ReqIReqR r where rn.Id = r.IdReqr and r.IdReq = " + Id + " and r.TipoReq = 1 Order By Categoria Desc, Nombre;");            CargarTablaReq(TablaAux);
+            TablaAux = ClsBaseDatos.BDTable("Select rn.Id as Id, r.TipoReq as Tipo, rn.Nombre as Nombre from ReqNFunc rn, ReqIReqR r where rn.Id = r.IdReqr and r.IdReq = " + Id + " and r.TipoReq = 2 Order By Categoria Desc, Nombre;");            CargarTablaReq(TablaAux);
+            TablaAux = ClsBaseDatos.BDTable("Select rn.Id as Id, r.TipoReq as Tipo, rn.Nombre as Nombre from ReqFun rn, ReqIReqR r where rn.Id = r.IdReqr and r.IdReq = " + Id + " and r.TipoReq = 3 Order By Categoria Desc, Nombre;");            CargarTablaReq(TablaAux);
 
             BObjetivos = ClsBaseDatos.BDTable("Select Id,Nombre from Objetivos where Id not IN (select idObj from ReqIObj where idReq = " + Id + ") Order By Categoria Desc, Nombre;");
             BGrupo = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdAutor from ReqIAuto where idReq = " + Id + ") Order By Categoria Desc, Nombre;");
@@ -144,12 +135,9 @@ namespace ReadyReq.Model
         }
         public void CargarTablaReqRel(int TipoReq)
         {
-            if (TipoReq == 1)
-                BRequisitos = ClsBaseDatos.BDTable("Select Id,Nombre from ReqInfo where Id not IN (select IdReqr from ReqIReqR where idReq = " + Id + " and TipoReq = 1) and Id <> " + Id + " Order By Categoria Desc, Nombre;");
-            else if (TipoReq == 2)
-                BRequisitos = ClsBaseDatos.BDTable("Select Id,Nombre from ReqNFunc where Id not IN (select IdReqr from ReqIReqR where idReq = " + Id + " and TipoReq = 2) Order By Categoria Desc, Nombre;");
-            else if (TipoReq == 3)
-                BRequisitos = ClsBaseDatos.BDTable("Select Id,Nombre from ReqFun where Id not IN (select IdReqr from ReqIReqR where idReq = " + Id + " and TipoReq = 3) Order By Categoria Desc, Nombre;");
+            if (TipoReq == 1)                BRequisitos = ClsBaseDatos.BDTable("Select Id,Nombre from ReqInfo where Id not IN (select IdReqr from ReqIReqR where idReq = " + Id + " and TipoReq = 1) and Id <> " + Id + " Order By Categoria Desc, Nombre;");
+            else if (TipoReq == 2)                BRequisitos = ClsBaseDatos.BDTable("Select Id,Nombre from ReqNFunc where Id not IN (select IdReqr from ReqIReqR where idReq = " + Id + " and TipoReq = 2) Order By Categoria Desc, Nombre;");
+            else if (TipoReq == 3)                BRequisitos = ClsBaseDatos.BDTable("Select Id,Nombre from ReqFun where Id not IN (select IdReqr from ReqIReqR where idReq = " + Id + " and TipoReq = 3) Order By Categoria Desc, Nombre;");
         }
                
         //Métodos Privados
@@ -229,8 +217,7 @@ namespace ReadyReq.Model
         }
         private void CargarTablaReq(DataTable tablaAux)
         {
-            DataRow Fila;
-            DataRow FilaNueva;
+            DataRow Fila, FilaNueva;
             for (int i = 0; i <= (tablaAux.Rows.Count - 1); i++)
             {
                 Fila = tablaAux.Rows[i];
