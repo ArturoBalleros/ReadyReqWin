@@ -91,6 +91,7 @@
     <Compile Include="Interface\IObjReq.cs" />
     <Compile Include="Model\ClsObjBase.cs" />
     <Compile Include="Model\ClsObjEstandar.cs" />
+    <Compile Include="Util\ClsDefVal.cs" />
     <Compile Include="ViewModel\WinConf.xaml.cs" />
     <Compile Include="ViewModel\WinEstim.xaml.cs" />
     <Compile Include="ViewModel\WinExpor.xaml.cs" />
