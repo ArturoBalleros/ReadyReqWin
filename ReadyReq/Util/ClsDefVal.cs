@@ -107,6 +107,17 @@
         public const string TabDatSpe = "Dat.Espec.";
         public const string TabNumD = "Datos N.";
 
+        //WinReqFun
+        public const string RelAct = "Actores relacionados";
+        public const string SecNor = "Secuencia normal";
+        public const string SecExc = "Secuencia de excepciones";
+        public const string Precondición = "Precondición";
+        public const string Postcondición = "Postcondición";
+        public const string Paquete = "Paquete";
+        public const string ProReqFun = "Requisitos Funcionales del Proyecto";
+        public const string TabSecNor = "Sec. Normal";
+        public const string TabSecExc = "Sec. Exc.";
+
     }
 
     public struct Ingles
@@ -215,6 +226,17 @@
         public const string TabReq = "Requirem.";
         public const string TabSpeDat = "Specific D.";
         public const string TabNumD = "Num. D.";
+
+        //WinReqFun
+        public const string RelAct = "Related actors";
+        public const string SecNor = "Normal sequence";
+        public const string SecExc = "Sequence of exceptions";
+        public const string Precondición = "Precondition";
+        public const string Postcondición = "Postcondition";
+        public const string Paquete = "Package";
+        public const string ProReqFun = "Functional Project Requirements";
+        public const string TabSecNor = "Normal Seq.";
+        public const string TabSecExc = "Seq. Exc.";
 
         //public const string aaa = "Arturo";
         //public const string aaa = "Arturo";
