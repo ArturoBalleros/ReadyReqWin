@@ -1,4 +1,5 @@
 ﻿using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Data;
 using System.Windows;
@@ -26,30 +27,27 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             Idioma();
-            for (int i = 1; (i <= 10); i++)
-                CmbCat.Items.Add(i);
+            for (int i = 1; (i <= 10); i++) CmbCat.Items.Add(i);
             CmbCat.Text = CmbCat.Items[0].ToString();
         }
         private void WClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (Activo == true)
-                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    return;
-                else
-                    e.Cancel = true;
+            if (Activo)
+                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) return;
+                else e.Cancel = true;
         }
         private void Click(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButBusc")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButBusc"))
             {
                 Paquete.Buscar(TxtBus.Text);
                 TxtBus.Text = string.Empty;
                 DGBuscar.ItemsSource = Paquete.Buscador.DefaultView;
             }
-            if (ctrl.Name == "ButAcep")
+            if (ctrl.Name.Equals("ButAcep"))
             {
-                if (string.IsNullOrEmpty(TxtNom.Text) == false)
+                if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
                     Paquete.Nombre = TxtNom.Text;
                     Paquete.Categoria = int.Parse(CmbCat.Text);
@@ -59,40 +57,32 @@ namespace ReadyReq.ViewModel
                     if (resultado == -2) MessageBox.Show(StrMenEGuar);
                     VaciarInterfaz();
                 }
-                else
-                {
-                    MessageBox.Show(StrMenGuar);
-                }
+                else MessageBox.Show(StrMenGuar);
+
             }
-            if (ctrl.Name == "ButBorr")
+            if (ctrl.Name.Equals("ButBorr"))
             {
-                if (Base == true)
-                    if (MessageBox.Show(StrMenBorr, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                        Paquete.Borrar();
+                if (Base)
+                    if (MessageBox.Show(StrMenBorr, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) Paquete.Borrar();
                 VaciarInterfaz();
             }
         }
         private void Seleccionar(object sender, SelectedCellsChangedEventArgs e)
         {
-            if (Activo == true && DGBuscar.SelectedIndex > -1)
+            if (Activo && DGBuscar.SelectedIndex > -1)
             {
-                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    CargarPaquete();
+                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) CargarPaquete();
             }
-            else
-            {
-                CargarPaquete();
-            }
+            else CargarPaquete();
         }
         private void Presionar(object sender, KeyEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if ((ctrl.Name == "TxtNom") && (Activo == false))
-                Activo = true;
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
             {
-                if ((ctrl.Name == "TxtNom") && (string.IsNullOrEmpty(TxtNom.Text) == false)) TxtCom.Focus();
-                if (ctrl.Name == "TxtBus") ButBusc.Focus();
+                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text)) TxtCom.Focus();
+                if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();
             }
         }
         private void VaciarInterfaz()
@@ -117,59 +107,59 @@ namespace ReadyReq.ViewModel
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
                 //DataGrid
-                DGBuscar.Columns[0].Header = "Packages";
+                DGBuscar.Columns[0].Header = Ingles.Packages;
 
                 //Botones
-                ButBusc.Content = "Search";
-                ButAcep.Content = "Save";
-                ButBorr.Content = "Delete";
+                ButBusc.Content = Ingles.Search;
+                ButAcep.Content = Ingles.Save;
+                ButBorr.Content = Ingles.Delete;
 
                 //Label
-                LblNom.Content = "Name";
-                LblCat.Content = "Category";
-                LblCom.Content = "Commentary";
-                LblBus.Text = "Search Engine";
+                LblNom.Content = Ingles.Name;
+                LblCat.Content = Ingles.Category;
+                LblCom.Content = Ingles.Commentary;
+                LblBus.Text = Ingles.Search_Engine;
 
                 //Window
-                Title = "Project Packages";
+                Title = Ingles.ProPack;
 
                 //Mensajes
-                StrConf = "Confirmation";
-                StrMenGuar = "The package must have an assigned name";
-                StrMenBorr = "The package will be deleted, do you wish to continue?";
-                StrMenPrev = "The unsaved progress will be deleted, do you wish to continue?";
-                StrMenEGuar = "The package could not be saved";
-                StrMenEMod = "The package could not be modified, so it was deleted so as not to cause instability in the database";
+                StrConf = Ingles.Confirmation;
+                StrMenGuar = Ingles.PacMenGuar;
+                StrMenBorr = Ingles.PacMenBorr;
+                StrMenPrev = Ingles.PacMenPrev;
+                StrMenEGuar = Ingles.PacMenEGuar;
+                StrMenEMod = Ingles.PacMenEMod;
             }
             else
             {
                 //DataGrid
-                DGBuscar.Columns[0].Header = "Paquetes";
+                DGBuscar.Columns[0].Header = Español.Paquetes;
 
                 //Botones
-                ButBusc.Content = "Buscar";
-                ButAcep.Content = "Guardar";
-                ButBorr.Content = "Borrar";
+                ButBusc.Content = Español.Buscar;
+                ButAcep.Content = Español.Guardar;
+                ButBorr.Content = Español.Borrar;
 
                 //Label
-                LblNom.Content = "Nombre";
-                LblCat.Content = "Categoría";
-                LblCom.Content = "Comentario";
-                LblBus.Text = "Buscador";
+                LblNom.Content = Español.Nombre;
+                LblCat.Content = Español.Categoría;
+                LblCom.Content = Español.Comentario;
+                LblBus.Text = Español.Buscador;
 
                 //Window
-                Title = "Paquetes del Proyecto";
+                Title = Español.PaqPro;
 
                 //Mensajes
-                StrConf = "Confirmación";
-                StrMenGuar = "El paquete debe de tener un nombre asignado";
-                StrMenBorr = "Se borrará el paquete, ¿Desea continuar?";
-                StrMenPrev = "Se borrará el progreso no guardado, ¿Desea continuar?";
-                StrMenEGuar = "No se pudo guardar el paquete";
-                StrMenEMod = "No se pudo modificar el paquete, por lo que se eliminó para no ocasionar inestabilidad en la base de datos";
+                StrConf = Español.Confirmación;
+                StrMenGuar = Español.PacMenGuar;
+                StrMenBorr = Español.PacMenBorr;
+                StrMenPrev = Español.PacMenPrev;
+                StrMenEGuar = Español.PacMenEGuar;
+                StrMenEMod = Español.PacMenEMod;
             }
         }
     }
