@@ -46,7 +46,6 @@ namespace ReadyReq.ViewModel
                 DGBuscar.ItemsSource = Trabajador.Buscador.DefaultView;
             }
             if (ctrl.Name.Equals("ButAcep"))
-            {
                 if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
                     Trabajador.Nombre = TxtNom.Text;
@@ -61,8 +60,6 @@ namespace ReadyReq.ViewModel
                     VaciarInterfaz();
                 }
                 else MessageBox.Show(StrMenGuar);
-
-            }
             if (ctrl.Name.Equals("ButBorr"))
             {
                 if (Base)

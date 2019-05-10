@@ -82,7 +82,18 @@
         public const string ObjMenEGuar = "No se pudo guardar el objetivo";
         public const string ObjMenEMod = "No se pudo modificar el objetivo, por lo que se eliminó para no ocasionar inestabilidad en la base de datos";
 
-
+        //WinRequisitos
+        public const string Requisitos = "Requisitos";
+        public const string RelObjet = "Objetivos relacionados";
+        public const string RelRequi = "Requisitos relacionados";
+        public const string RBReqInfo = "Req. Información";
+        public const string RBReqFun = "Req. Funcionales";
+        public const string RBReqNFun = "Req. No Funcionales";
+        public const string RFunPro = "Requisitos No Funcionales del Proyecto";
+        public const string ReqMenGuar = "El requisito debe de tener un nombre asignado";
+        public const string ReqMenBorr = "Se borrará el requisito, ¿Desea continuar?";
+        public const string ReqMenEGuar = "No se pudo guardar el requisito";
+        public const string ReqMenEMod = "No se pudo modificar el requisito, por lo que se eliminó para no ocasionar inestabilidad en la base de datos";
 
 
 
@@ -151,6 +162,7 @@
         public const string NVerified = "Not verified";
         public const string WorkGrup = "Workers of the Working Group";
 
+        
 
         //WinGrupo
         public const string Workers = "Workers";
@@ -185,6 +197,18 @@
         public const string ObjMenEGuar = "The objective could not be saved";
         public const string ObjMenEMod = "The objective could not be modified, so it was deleted so as not to cause instability in the database";
 
+        //WinRequisitos
+        public const string Requirements = "Requirements";
+        public const string RelObjet = "Related objectives";
+        public const string RelRequi = "Related requirements";
+        public const string RBReqInfo = "Information Req.";
+        public const string RBReqFun = "Functional Req.";
+        public const string RBReqNFun = "Non-Functional Req.";
+        public const string RNFunPro = "Non-Functional Project Requirements";
+        public const string ReqMenGuar = "The requirement must have an assigned name";
+        public const string ReqMenBorr = "The requirement will be deleted, do you wish to continue?";
+        public const string ReqMenEGuar = "The requirement could not be saved";
+        public const string ReqMenEMod = "The requirement could not be modified, so it was deleted so as not to cause instability in the database";
         //public const string aaa = "Arturo";
 
 
