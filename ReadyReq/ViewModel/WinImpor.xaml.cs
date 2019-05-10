@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Collections;
 using System.IO;
@@ -21,7 +22,7 @@ namespace ReadyReq.ViewModel
         }
         private void WLoaded(object sender, RoutedEventArgs e)
         {
-            ClsConf.Idioma = "Español"; Idioma();
+            ClsConf.Idioma = DefValues.Español; Idioma();
             GridProg.Visibility = Visibility.Hidden;
         }
         public static void DoEvents()
@@ -30,18 +31,16 @@ namespace ReadyReq.ViewModel
         }
         private void ButClick(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButRuta")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButRuta"))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = StrMenArc + "|*.RR";
                 openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                if (openFileDialog.ShowDialog() == true)
-                    LblRutaBD.Content = openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() == true) LblRutaBD.Content = openFileDialog.FileName;
             }
-            if (ctrl.Name == "ButCrear")
-            {
-                if (string.IsNullOrEmpty(LblRutaBD.Content + "") == false)
+            if (ctrl.Name.Equals("ButCrear"))
+                if (!string.IsNullOrEmpty(LblRutaBD.Content + ""))
                 {
                     GridControl.Visibility = Visibility.Hidden;
                     GridProg.Visibility = Visibility.Visible;
@@ -51,43 +50,28 @@ namespace ReadyReq.ViewModel
                     GridControl.Visibility = Visibility.Visible;
                     GridProg.Visibility = Visibility.Hidden;
                 }
-            }
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //Botones
-                ButRuta.Content = "Browse...";
-                ButCrear.Content = "Create";
-
-                //Label
-                LblRuta.Content = "Path";
-
-                //Window
-                Title = "Import";
-
-                //Mensajes
-                StrMenArc = "ReadyReq (.RR)";
-                StrErrFic = "Error reading the file";
-                StrErrBas = "Error when inserting into the database";
+                ButRuta.Content = Ingles.Browse;
+                ButCrear.Content = Ingles.Create;
+                LblRuta.Content = Ingles.Path;
+                Title = Ingles.Import;
+                StrMenArc = Ingles.MenArc;
+                StrErrFic = Ingles.ErrFic;
+                StrErrBas = Ingles.ErrBas;
             }
             else
             {
-                //Botones
-                ButRuta.Content = "Examinar...";
-                ButCrear.Content = "Crear";
-
-                //Label
-                LblRuta.Content = "Ruta";
-
-                //Window
-                Title = "Importar";
-
-                //Mensajes
-                StrMenArc = "ReadyReq (.RR)";
-                StrErrFic = "Error al leer el fichero";
-                StrErrBas = "Error al insertar en la base de datos";
+                ButRuta.Content = Español.Examinar;
+                ButCrear.Content = Español.Crear;
+                LblRuta.Content = Español.Ruta;
+                Title = Español.Importar;
+                StrMenArc = Español.MenArc;
+                StrErrFic = Español.ErrFic;
+                StrErrBas = Español.ErrBas;
             }
         }
         private int Importar()
@@ -98,33 +82,27 @@ namespace ReadyReq.ViewModel
             {
                 StreamReader sr = new StreamReader(LblRutaBD.Content + "");
                 string line = "";
-
                 while (line != null)
                 {
                     cont++;
                     line = sr.ReadLine();
-                    if (string.IsNullOrEmpty(line) == false) BaseDatos.Add(ClsConf.Desencriptar(line));
+                    if (!string.IsNullOrEmpty(line)) BaseDatos.Add(ClsConf.Desencriptar(line));
                 }
                 sr.Close();
             }
-            catch
-            {
-                return -1;
-            }
+            catch { return -1; }
             PBProg.Maximum = cont--;
             foreach (string line in BaseDatos)
-            {
-                if (string.IsNullOrEmpty(line) == false)
+                if (!string.IsNullOrEmpty(line))
                 {
-                    if (ClsBaseDatos.BDBool(line) == false)
-                    
-                        if (!line.Substring(0, 6).Equals("Delete")) {
+                    if (!ClsBaseDatos.BDBool(line))
+                        if (!line.Substring(0, 6).Equals("Delete"))
+                        {
                             MessageBox.Show(line);
                             return -2;
-                    }
+                        }
                     PBProg.Value++; DoEvents();
                 }
-            }
             return 0;
         }
     }

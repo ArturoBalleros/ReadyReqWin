@@ -174,6 +174,15 @@
         public const string MenPTS = "El multiplicador para este número es negativo. Los números más altos reflejan miembros del equipo que no se dedican a tiempo completo al proyecto o son externos a la entidad.";
         public const string MenDPL = "Este multiplicador también es negativo. Los idiomas más duros representan números más altos.";
 
+        //WinImpor
+        public const string Examinar = "Examinar...";
+        public const string Crear = "Crear";
+        public const string Ruta = "Ruta";
+        public const string Importar = "Importar";
+        public const string MenArc = "ReadyReq (.RR)";
+        public const string ErrFic = "Error al leer el fichero";
+        public const string ErrBas = "Error al insertar en la base de datos";
+
     }
 
     public struct Ingles
@@ -350,7 +359,14 @@
         public const string MenPTS = "The multiplier for this number is negative, the higher numbers reflect members of the team that are not dedicated full-time to the project or are external to the entity.";
         public const string MenDPL = "This multiplier is also negative, the harder languages ​​represent higher numbers.";
 
-
+        //WinImpor
+        public const string Browse = "Browse...";
+        public const string Create = "Create";
+        public const string Path = "Path";
+        public const string Import = "Import";
+        public const string MenArc = "ReadyReq (.RR)";
+        public const string ErrFic = "Error reading the file";
+        public const string ErrBas = "Error when inserting into the database";
 
 
 
@@ -363,7 +379,7 @@
     public struct DefValues
     {
         public const string Ingles = "Ingles";
-        // public const string Español = "Paquetes";
+        public const string Español = "Español";
         public const string MySql = "MySql";
         //public const string aaa = "Arturo";
         //public const string aaa = "Arturo";
