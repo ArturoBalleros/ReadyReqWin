@@ -130,7 +130,7 @@ namespace ReadyReq.ViewModel
                 StrConf = Ingles.Confirmation;
                 StrMenGuar = Ingles.PacMenGuar;
                 StrMenBorr = Ingles.PacMenBorr;
-                StrMenPrev = Ingles.PacMenPrev;
+                StrMenPrev = Ingles.MenPrev;
                 StrMenEGuar = Ingles.PacMenEGuar;
                 StrMenEMod = Ingles.PacMenEMod;
             }
@@ -157,7 +157,7 @@ namespace ReadyReq.ViewModel
                 StrConf = Español.Confirmación;
                 StrMenGuar = Español.PacMenGuar;
                 StrMenBorr = Español.PacMenBorr;
-                StrMenPrev = Español.PacMenPrev;
+                StrMenPrev = Español.MenPrev;
                 StrMenEGuar = Español.PacMenEGuar;
                 StrMenEMod = Español.PacMenEMod;
             }
