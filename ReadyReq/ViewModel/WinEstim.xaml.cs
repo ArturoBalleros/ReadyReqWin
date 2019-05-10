@@ -1,4 +1,5 @@
 ﻿using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -63,65 +64,40 @@ namespace ReadyReq.ViewModel
         }
         private void LblMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ctrlTxt = ((TextBlock)sender);
+            ctrlTxt = (TextBlock)sender;
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 //TCF
-                if (ctrlTxt.Name.Equals("LblDSR"))
-                    LblHelp.Text = strMenDSR;
-                if (ctrlTxt.Name.Equals("LblRTII"))
-                    LblHelp.Text = strMenRTII;
-                if (ctrlTxt.Name.Equals("LblEUE"))
-                    LblHelp.Text = strMenEUE;
-                if (ctrlTxt.Name.Equals("LblCIPR"))
-                    LblHelp.Text = strMenCIPR;
-
-                if (ctrlTxt.Name.Equals("LblRCMBAF"))
-                    LblHelp.Text = strMenRCMBAF;
-                if (ctrlTxt.Name.Equals("LblIE"))
-                    LblHelp.Text = strMenIE;
-                if (ctrlTxt.Name.Equals("LblU"))
-                    LblHelp.Text = strMenU;
-                if (ctrlTxt.Name.Equals("LblCPS"))
-                    LblHelp.Text = strMenCPS;
-
-                if (ctrlTxt.Name.Equals("LblETC"))
-                    LblHelp.Text = strMenETC;
-                if (ctrlTxt.Name.Equals("LblHC"))
-                    LblHelp.Text = strMenHC;
-                if (ctrlTxt.Name.Equals("LblCS"))
-                    LblHelp.Text = strMenCS;
-                if (ctrlTxt.Name.Equals("LblDOTPC"))
-                    LblHelp.Text = strMenDOTPC;
-                if (ctrlTxt.Name.Equals("LblUT"))
-                    LblHelp.Text = strMenUT;
+                if (ctrlTxt.Name.Equals("LblDSR")) LblHelp.Text = strMenDSR;
+                if (ctrlTxt.Name.Equals("LblRTII")) LblHelp.Text = strMenRTII;
+                if (ctrlTxt.Name.Equals("LblEUE")) LblHelp.Text = strMenEUE;
+                if (ctrlTxt.Name.Equals("LblCIPR")) LblHelp.Text = strMenCIPR;
+                if (ctrlTxt.Name.Equals("LblRCMBAF")) LblHelp.Text = strMenRCMBAF;
+                if (ctrlTxt.Name.Equals("LblIE")) LblHelp.Text = strMenIE;
+                if (ctrlTxt.Name.Equals("LblU")) LblHelp.Text = strMenU;
+                if (ctrlTxt.Name.Equals("LblCPS")) LblHelp.Text = strMenCPS;
+                if (ctrlTxt.Name.Equals("LblETC")) LblHelp.Text = strMenETC;
+                if (ctrlTxt.Name.Equals("LblHC")) LblHelp.Text = strMenHC;
+                if (ctrlTxt.Name.Equals("LblCS")) LblHelp.Text = strMenCS;
+                if (ctrlTxt.Name.Equals("LblDOTPC")) LblHelp.Text = strMenDOTPC;
+                if (ctrlTxt.Name.Equals("LblUT")) LblHelp.Text = strMenUT;
 
                 //EF
-                if (ctrlTxt.Name.Equals("LblFWTP"))
-                    LblHelp.Text = strMenFWTP;
-                if (ctrlTxt.Name.Equals("LblAE"))
-                    LblHelp.Text = strMenAE;
-                if (ctrlTxt.Name.Equals("LblOOPE"))
-                    LblHelp.Text = strMenOOPE;
-                if (ctrlTxt.Name.Equals("LblLAC"))
-                    LblHelp.Text = strMenLAC;
-
-                if (ctrlTxt.Name.Equals("LblM"))
-                    LblHelp.Text = strMenM;
-                if (ctrlTxt.Name.Equals("LblSR"))
-                    LblHelp.Text = strMenSR;
-                if (ctrlTxt.Name.Equals("LblPTS"))
-                    LblHelp.Text = strMenPTS;
-                if (ctrlTxt.Name.Equals("LblDPL"))
-                    LblHelp.Text = strMenDPL;
+                if (ctrlTxt.Name.Equals("LblFWTP")) LblHelp.Text = strMenFWTP;
+                if (ctrlTxt.Name.Equals("LblAE")) LblHelp.Text = strMenAE;
+                if (ctrlTxt.Name.Equals("LblOOPE")) LblHelp.Text = strMenOOPE;
+                if (ctrlTxt.Name.Equals("LblLAC")) LblHelp.Text = strMenLAC;
+                if (ctrlTxt.Name.Equals("LblM")) LblHelp.Text = strMenM;
+                if (ctrlTxt.Name.Equals("LblSR")) LblHelp.Text = strMenSR;
+                if (ctrlTxt.Name.Equals("LblPTS")) LblHelp.Text = strMenPTS;
+                if (ctrlTxt.Name.Equals("LblDPL")) LblHelp.Text = strMenDPL;
 
                 GridHelp.Visibility = Visibility.Visible;
             }
         }
         private void LblMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Released)
-                GridHelp.Visibility = Visibility.Hidden;
+            if (e.LeftButton == MouseButtonState.Released) GridHelp.Visibility = Visibility.Hidden;
         }
         public void Presionar(object sender, KeyEventArgs e)
         {
@@ -140,29 +116,23 @@ namespace ReadyReq.ViewModel
             {
                 if (TxtRatio.Text.Contains("."))
                 {
-
-                    if (!((carac == 46) ? true : false))
-                        e.Handled = false;
-                    else
-                        e.Handled = true;
+                    if (!((carac == 46) ? true : false)) e.Handled = false;
+                    else e.Handled = true;
                 }
                 else
                 {
                     if ((carac == 46) ? true : false)
-                        if (!string.IsNullOrEmpty(TxtRatio.Text))
-                            e.Handled = false;
-                        else
-                            e.Handled = true;
+                        if (!string.IsNullOrEmpty(TxtRatio.Text)) e.Handled = false;
+                        else e.Handled = true;
                     else
                         e.Handled = false;
                 }
             }
-            else
-                e.Handled = true;
+            else e.Handled = true;
         }
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ctrl = ((Control)sender);
+            ctrl = (Control)sender;
 
             //TCF
             if (ctrl.Name.Equals("SldDSR"))
@@ -288,151 +258,119 @@ namespace ReadyReq.ViewModel
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                strTecFac = "Technical Factors";
-
-                LblDSR.Text = "Distributed system required";
-                LblRTII.Text = "Response time is important";
-                LblEUE.Text = "End user efficiency";
-                LblCIPR.Text = "Complex internal processing required";
-
-                LblRCMBAF.Text = "Reusable code must be a focus";
-                LblIE.Text = "Installation ease";
-                LblU.Text = "Usability";
-                LblCPS.Text = "Cross-Platform support";
-
-                LblETC.Text = "Easy to change";
-                LblHC.Text = "Highly concurrent";
-                LblCS.Text = "Custom security";
-                LblDOTPC.Text = "Dependence on third-party code";
-                LblUT.Text = "User training";
-
-                strEnvFac = "Environmental Factors";
-
-                LblFWTP.Text = "Familiarity with the project";
-                LblAE.Text = "Application experience";
-                LblOOPE.Text = "OO programming experience";
-                LblLAC.Text = "Lead analyst capability";
-
-                LblM.Text = "Motivation";
-                LblSR.Text = "Stable requirements";
-                LblPTS.Text = "Part time staff";
-                LblDPL.Text = "Difficult programming language";
-
-                strUUCP = "Unadjusted Use Case Points";
-                strAW = "Actor Weighting";
-
-                strSim = "Simple";
-                strAve = "Average";
-                strCom = "Complex";
-
-                LblTiFC.Content = "Final Calculations";
-
-                LblUCP.Text = "Use case points";
-                LblRatio.Text = "Hours of effort per use case point";
-                LblHE.Text = "Hours of Effort";
-
-                strMenGuar = "Could not save";
-
-                strMenDSR = "Higher numbers represent a more complex architecture.";
-                strMenRTII = "Higher numbers represent an increasing importance of response time.";
-                strMenEUE = "Higher numbers represent projects that depend more on the application, to improve user efficiency.";
-                strMenCIPR = "Complex algorithms have higher numbers.";
-
-                strMenRCMBAF = "The higher numbers represent the level of reuse, the lower the number.";
-                strMenIE = "The higher numbers represent the level of competence of the users, the lower the number.";
-                strMenU = "The greater the importance of usability, the greater the number.";
-                strMenCPS = "The more platforms that have to be supported, the greater the value.";
-
-                strMenETC = "The more personalization is required in the future, the greater the value.";
-                strMenHC = "The more attention you have to dedicate to resolving conflicts in the data or the application, the greater the value.";
-                strMenCS = "The more custom security work you have to perform, the greater the value.";
-                strMenDOTPC = "The more third-party code, the smaller the number.";
-                strMenUT = "The later the users cross the suction threshold, the higher the value.";
-
-                strMenFWTP = "Higher levels of experience get a higher number.";
-                strMenAE = "Higher numbers represent more experience.";
-                strMenOOPE = "Higher numbers represent more POO experience.";
-                strMenLAC = "Higher numbers represent greater skill and knowledge.";
-
-                strMenM = "Higher numbers represent more motivation.";
-                strMenSR = "Higher numbers represent more changes.";
-                strMenPTS = "The multiplier for this number is negative, the higher numbers reflect members of the team that are not dedicated full-time to the project or are external to the entity.";
-                strMenDPL = "This multiplier is also negative, the harder languages ​​represent higher numbers.";
+                strTecFac = Ingles.TecFac;
+                LblDSR.Text = Ingles.DSR;
+                LblRTII.Text = Ingles.RTII;
+                LblEUE.Text = Ingles.EUE;
+                LblCIPR.Text = Ingles.CIPR;
+                LblRCMBAF.Text = Ingles.RCMBAF;
+                LblIE.Text = Ingles.IE;
+                LblU.Text = Ingles.U;
+                LblCPS.Text = Ingles.CPS;
+                LblETC.Text = Ingles.ETC;
+                LblHC.Text = Ingles.HC;
+                LblCS.Text = Ingles.CS;
+                LblDOTPC.Text = Ingles.DOTPC;
+                LblUT.Text = Ingles.UT;
+                strEnvFac = Ingles.EnvFac;
+                LblFWTP.Text = Ingles.FWTP;
+                LblAE.Text = Ingles.AE;
+                LblOOPE.Text = Ingles.OOPE;
+                LblLAC.Text = Ingles.LAC;
+                LblM.Text = Ingles.M;
+                LblSR.Text = Ingles.SR;
+                LblPTS.Text = Ingles.PTS;
+                LblDPL.Text = Ingles.DPL;
+                strUUCP = Ingles.UUCP;
+                strAW = Ingles.AW;
+                strSim = Ingles.Sim;
+                strAve = Ingles.Ave;
+                strCom = Ingles.Com;
+                LblTiFC.Content = Ingles.TiFC;
+                LblUCP.Text = Ingles.UCP;
+                LblRatio.Text = Ingles.Ratio;
+                LblHE.Text = Ingles.HE;
+                strMenGuar = Ingles.MenGuar;
+                strMenDSR = Ingles.MenDSR;
+                strMenRTII = Ingles.MenRTII;
+                strMenEUE = Ingles.MenEUE;
+                strMenCIPR = Ingles.MenCIPR;
+                strMenRCMBAF = Ingles.MenRCMBAF;
+                strMenIE = Ingles.MenIE;
+                strMenU = Ingles.MenU;
+                strMenCPS = Ingles.MenCPS;
+                strMenETC = Ingles.MenETC;
+                strMenHC = Ingles.MenHC;
+                strMenCS = Ingles.CS;
+                strMenDOTPC = Ingles.MenDOTPC;
+                strMenUT = Ingles.MenUT;
+                strMenFWTP = Ingles.MenFWTP;
+                strMenAE = Ingles.AE;
+                strMenOOPE = Ingles.MenOOPE;
+                strMenLAC = Ingles.MenLAC;
+                strMenM = Ingles.MenM;
+                strMenSR = Ingles.MenSR;
+                strMenPTS = Ingles.MenPTS;
+                strMenDPL = Ingles.MenDPL;
             }
             else
             {
-                strTecFac = "Factores Técnicos";
-
-                LblDSR.Text = "Sistema distribuido requerido";
-                LblRTII.Text = "El tiempo de respuesta es importante";
-                LblEUE.Text = "Eficiencia del usuario final";
-                LblCIPR.Text = "Procesamiento interno complejo requerido";
-
-                LblRCMBAF.Text = "El código reutilizable debe ser un enfoque";
-                LblIE.Text = "Facilidad de instalación";
-                LblU.Text = "Usabilidad";
-                LblCPS.Text = "Soporte multiplataforma";
-
-                LblETC.Text = "Fácil de cambiar";
-                LblHC.Text = "Altamente concurrente";
-                LblCS.Text = "Seguridad personalizada";
-                LblDOTPC.Text = "Dependencia del código de terceros";
-                LblUT.Text = "Entrenamiento de usuario";
-
-                strEnvFac = "Factores de Entorno";
-
-                LblFWTP.Text = "Familiaridad con el proyecto";
-                LblAE.Text = "Experiencia de aplicación";
-                LblOOPE.Text = "Experiencia en programación OO";
-                LblLAC.Text = "Capacidad de analista líder";
-
-                LblM.Text = "Motivación";
-                LblSR.Text = "Requisitos estables";
-                LblPTS.Text = "Personal a tiempo parcial";
-                LblDPL.Text = "Lenguaje de programación difícil";
-
-                strUUCP = "Puntos de Casos de Uso No Ajustados";
-                strAW = "Ponderación de Actores";
-
-                strSim = "Simple";
-                strAve = "Medio";
-                strCom = "Complejo";
-
-                LblTiFC.Content = "Cálculos Finales";
-
-                LblUCP.Text = "Puntos de casos de uso";
-                LblRatio.Text = "Horas de esfuerzo por UCP";
-                LblHE.Text = "Horas de Esfuerzo";
-
-                strMenGuar = "No se pudo guardar";
-
-                strMenDSR = "Los números más altos representan una arquitectura más compleja.";
-                strMenRTII = "Los números más altos representan una importancia cada vez mayor del tiempo de respuesta.";
-                strMenEUE = "Los números más altos representan proyectos que dependen más de la aplicación, para mejorar la eficiencia del usuario.";
-                strMenCIPR = "Los algoritmos complejos tienen números más altos.";
-
-                strMenRCMBAF = "Los números más altos representan el nivel de reutilización, menor será el número.";
-                strMenIE = "Los números más altos representan el nivel de competencia de los usuarios, menor será el número.";
-                strMenU = "Cuanto mayor es la importancia de la usabilidad, mayor es el número.";
-                strMenCPS = "Cuantas más plataformas haya que admitir, mayor será el valor.";
-
-                strMenETC = "Cuanto más personalización se requiera en el futuro, mayor será el valor.";
-                strMenHC = "Cuanta más atención tenga que dedicar a resolver conflictos en los datos o la aplicación, mayor será el valor.";
-                strMenCS = "Cuanto más trabajo de seguridad personalizado tenga que realizar, mayor será el valor.";
-                strMenDOTPC = "Cuanto más código de terceros, menor será el número.";
-                strMenUT = "Cuanto más tarde a los usuarios cruzar el umbral de succión, mayor será el valor.";
-
-                strMenFWTP = "Los niveles más altos de experiencia obtienen un número más alto.";
-                strMenAE = "Los números más altos representan más experiencia.";
-                strMenOOPE = "Los números más altos representan más experiencia POO.";
-                strMenLAC = "Los números más altos representan una mayor habilidad y conocimiento.";
-
-                strMenM = "Los números más altos representan más motivación.";
-                strMenSR = "Los números más altos representan más cambios.";
-                strMenPTS = "El multiplicador para este número es negativo. Los números más altos reflejan miembros del equipo que no se dedican a tiempo completo al proyecto o son externos a la entidad.";
-                strMenDPL = "Este multiplicador también es negativo. Los idiomas más duros representan números más altos.";
+                strTecFac = Español.TecFac;
+                LblDSR.Text = Español.DSR;
+                LblRTII.Text = Español.RTII;
+                LblEUE.Text = Español.EUE;
+                LblCIPR.Text = Español.CIPR;
+                LblRCMBAF.Text = Español.RCMBAF;
+                LblIE.Text = Español.IE;
+                LblU.Text = Español.U;
+                LblCPS.Text = Español.CPS;
+                LblETC.Text = Español.ETC;
+                LblHC.Text = Español.HC;
+                LblCS.Text = Español.CS;
+                LblDOTPC.Text = Español.DOTPC;
+                LblUT.Text = Español.UT;
+                strEnvFac = Español.EnvFac;
+                LblFWTP.Text = Español.FWTP;
+                LblAE.Text = Español.AE;
+                LblOOPE.Text = Español.OOPE;
+                LblLAC.Text = Español.LAC;
+                LblM.Text = Español.M;
+                LblSR.Text = Español.SR;
+                LblPTS.Text = Español.PTS;
+                LblDPL.Text = Español.DPL;
+                strUUCP = Español.UUCP;
+                strAW = Español.AW;
+                strSim = Español.Sim;
+                strAve = Español.Ave;
+                strCom = Español.Com;
+                LblTiFC.Content = Español.TiFC;
+                LblUCP.Text = Español.UCP;
+                LblRatio.Text = Español.Ratio;
+                LblHE.Text = Español.HE;
+                strMenGuar = Español.MenGuar;
+                strMenDSR = Español.MenDSR;
+                strMenRTII = Español.MenRTII;
+                strMenEUE = Español.MenEUE;
+                strMenCIPR = Español.MenCIPR;
+                strMenRCMBAF = Español.MenRCMBAF;
+                strMenIE = Español.MenIE;
+                strMenU = Español.MenU;
+                strMenCPS = Español.MenCPS;
+                strMenETC = Español.MenETC;
+                strMenHC = Español.MenHC;
+                strMenCS = Español.CS;
+                strMenDOTPC = Español.MenDOTPC;
+                strMenUT = Español.MenUT;
+                strMenFWTP = Español.MenFWTP;
+                strMenAE = Español.AE;
+                strMenOOPE = Español.MenOOPE;
+                strMenLAC = Español.MenLAC;
+                strMenM = Español.MenM;
+                strMenSR = Español.MenSR;
+                strMenPTS = Español.MenPTS;
+                strMenDPL = Español.MenDPL;
             }
 
             LblTiTec.Content = strTecFac;

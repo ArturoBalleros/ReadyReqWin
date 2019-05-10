@@ -118,6 +118,62 @@
         public const string TabSecNor = "Sec. Normal";
         public const string TabSecExc = "Sec. Exc.";
 
+        //Estimaciones
+        public const string TecFac = "Factores Técnicos";
+        public const string DSR = "Sistema distribuido requerido";
+        public const string RTII = "El tiempo de respuesta es importante";
+        public const string EUE = "Eficiencia del usuario final";
+        public const string CIPR = "Procesamiento interno complejo requerido";
+        public const string RCMBAF = "El código reutilizable debe ser un enfoque";
+        public const string IE = "Facilidad de instalación";
+        public const string U = "Usabilidad";
+        public const string CPS = "Soporte multiplataforma";
+        public const string ETC = "Fácil de cambiar";
+        public const string HC = "Altamente concurrente";
+        public const string CS = "Seguridad personalizada";
+        public const string DOTPC = "Dependencia del código de terceros";
+        public const string UT = "Entrenamiento de usuario";
+        public const string EnvFac = "Factores de Entorno";
+        public const string FWTP = "Familiaridad con el proyecto";
+        public const string AE = "Experiencia de aplicación";
+        public const string OOPE = "Experiencia en programación OO";
+        public const string LAC = "Capacidad de analista líder";
+        public const string M = "Motivación";
+        public const string SR = "Requisitos estables";
+        public const string PTS = "Personal a tiempo parcial";
+        public const string DPL = "Lenguaje de programación difícil";
+        public const string UUCP = "Puntos de Casos de Uso No Ajustados";
+        public const string AW = "Ponderación de Actores";
+        public const string Sim = "Simple";
+        public const string Ave = "Medio";
+        public const string Com = "Complejo";
+        public const string TiFC = "Cálculos Finales";
+        public const string UCP = "Puntos de casos de uso";
+        public const string Ratio = "Horas de esfuerzo por UCP";
+        public const string HE = "Horas de Esfuerzo";
+        public const string MenGuar = "No se pudo guardar";
+        public const string MenDSR = "Los números más altos representan una arquitectura más compleja.";
+        public const string MenRTII = "Los números más altos representan una importancia cada vez mayor del tiempo de respuesta.";
+        public const string MenEUE = "Los números más altos representan proyectos que dependen más de la aplicación, para mejorar la eficiencia del usuario.";
+        public const string MenCIPR = "Los algoritmos complejos tienen números más altos.";
+        public const string MenRCMBAF = "Los números más altos representan el nivel de reutilización, menor será el número.";
+        public const string MenIE = "Los números más altos representan el nivel de competencia de los usuarios, menor será el número.";
+        public const string MenU = "Cuanto mayor es la importancia de la usabilidad, mayor es el número.";
+        public const string MenCPS = "Cuantas más plataformas haya que admitir, mayor será el valor.";
+        public const string MenETC = "Cuanto más personalización se requiera en el futuro, mayor será el valor.";
+        public const string MenHC = "Cuanta más atención tenga que dedicar a resolver conflictos en los datos o la aplicación, mayor será el valor.";
+        public const string MenCS = "Cuanto más trabajo de seguridad personalizado tenga que realizar, mayor será el valor.";
+        public const string MenDOTPC = "Cuanto más código de terceros, menor será el número.";
+        public const string MenUT = "Cuanto más tarde a los usuarios cruzar el umbral de succión, mayor será el valor.";
+        public const string MenFWTP = "Los niveles más altos de experiencia obtienen un número más alto.";
+        public const string MenAE = "Los números más altos representan más experiencia.";
+        public const string MenOOPE = "Los números más altos representan más experiencia POO.";
+        public const string MenLAC = "Los números más altos representan una mayor habilidad y conocimiento.";
+        public const string MenM = "Los números más altos representan más motivación.";
+        public const string MenSR = "Los números más altos representan más cambios.";
+        public const string MenPTS = "El multiplicador para este número es negativo. Los números más altos reflejan miembros del equipo que no se dedican a tiempo completo al proyecto o son externos a la entidad.";
+        public const string MenDPL = "Este multiplicador también es negativo. Los idiomas más duros representan números más altos.";
+
     }
 
     public struct Ingles
@@ -237,6 +293,67 @@
         public const string ProReqFun = "Functional Project Requirements";
         public const string TabSecNor = "Normal Seq.";
         public const string TabSecExc = "Seq. Exc.";
+
+        //Estimaciones
+        public const string TecFac = "Technical Factors";
+        public const string DSR = "Distributed system required";
+        public const string RTII = "Response time is important";
+        public const string EUE = "End user efficiency";
+        public const string CIPR = "Complex internal processing required";
+        public const string RCMBAF = "Reusable code must be a focus";
+        public const string IE = "Installation ease";
+        public const string U = "Usability";
+        public const string CPS = "Cross-Platform support";
+        public const string ETC = "Easy to change";
+        public const string HC = "Highly concurrent";
+        public const string CS = "Custom security";
+        public const string DOTPC = "Dependence on third-party code";
+        public const string UT = "User training";
+        public const string EnvFac = "Environmental Factors";
+        public const string FWTP = "Familiarity with the project";
+        public const string AE = "Application experience";
+        public const string OOPE = "OO programming experience";
+        public const string LAC = "Lead analyst capability";
+        public const string M = "Motivation";
+        public const string SR = "Stable requirements";
+        public const string PTS = "Part time staff";
+        public const string DPL = "Difficult programming language";
+        public const string UUCP = "Unadjusted Use Case Points";
+        public const string AW = "Actor Weighting";
+        public const string Sim = "Simple";
+        public const string Ave = "Average";
+        public const string Com = "Complex";
+        public const string TiFC = "Final Calculations";
+        public const string UCP = "Use case points";
+        public const string Ratio = "Hours of effort per use case point";
+        public const string HE = "Hours of Effort";
+        public const string MenGuar = "Could not save";
+        public const string MenDSR = "Higher numbers represent a more complex architecture.";
+        public const string MenRTII = "Higher numbers represent an increasing importance of response time.";
+        public const string MenEUE = "Higher numbers represent projects that depend more on the application, to improve user efficiency.";
+        public const string MenCIPR = "Complex algorithms have higher numbers.";
+        public const string MenRCMBAF = "The higher numbers represent the level of reuse, the lower the number.";
+        public const string MenIE = "The higher numbers represent the level of competence of the users, the lower the number.";
+        public const string MenU = "The greater the importance of usability, the greater the number.";
+        public const string MenCPS = "The more platforms that have to be supported, the greater the value.";
+        public const string MenETC = "The more personalization is required in the future, the greater the value.";
+        public const string MenHC = "The more attention you have to dedicate to resolving conflicts in the data or the application, the greater the value.";
+        public const string MenCS = "The more custom security work you have to perform, the greater the value.";
+        public const string MenDOTPC = "The more third-party code, the smaller the number.";
+        public const string MenUT = "The later the users cross the suction threshold, the higher the value.";
+        public const string MenFWTP = "Higher levels of experience get a higher number.";
+        public const string MenAE = "Higher numbers represent more experience.";
+        public const string MenOOPE = "Higher numbers represent more POO experience.";
+        public const string MenLAC = "Higher numbers represent greater skill and knowledge.";
+        public const string MenM = "Higher numbers represent more motivation.";
+        public const string MenSR = "Higher numbers represent more changes.";
+        public const string MenPTS = "The multiplier for this number is negative, the higher numbers reflect members of the team that are not dedicated full-time to the project or are external to the entity.";
+        public const string MenDPL = "This multiplier is also negative, the harder languages ​​represent higher numbers.";
+
+
+
+
+
 
         //public const string aaa = "Arturo";
         //public const string aaa = "Arturo";
