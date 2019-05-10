@@ -1,4 +1,5 @@
 ﻿using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Data;
 using System.IO;
@@ -20,7 +21,7 @@ namespace ReadyReq.ViewModel
         }
         private void WLoaded(object sender, RoutedEventArgs e)
         {
-            ClsConf.Idioma = "Español"; Idioma();
+            ClsConf.Idioma = DefValues.Español; Idioma();
             GridProg.Visibility = Visibility.Hidden;
         }
         public static void DoEvents()
@@ -29,16 +30,16 @@ namespace ReadyReq.ViewModel
         }
         private void ButClick(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButRuta")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButRuta"))
             {
                 WinForms.FolderBrowserDialog browse = new WinForms.FolderBrowserDialog();
                 browse.ShowDialog();
                 LblRutaBD.Content = browse.SelectedPath;
             }
-            if (ctrl.Name == "ButCrear")
+            if (ctrl.Name.Equals("ButCrear"))
             {
-                if ((string.IsNullOrEmpty(TxtNomBD.Text) == false) && (string.IsNullOrEmpty(LblRutaBD.Content + "") == false))
+                if (!string.IsNullOrEmpty(TxtNomBD.Text) && !string.IsNullOrEmpty(LblRutaBD.Content + ""))
                 {
                     GridControl.Visibility = Visibility.Hidden;
                     GridProg.Visibility = Visibility.Visible;
@@ -51,42 +52,27 @@ namespace ReadyReq.ViewModel
         }
         private void Presionar(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && (string.IsNullOrEmpty(TxtNomBD.Text) == false))
-                ButCrear.Focus();
+            if (e.Key == Key.Enter && !string.IsNullOrEmpty(TxtNomBD.Text)) ButCrear.Focus();
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //Botones
-                ButRuta.Content = "Browse...";
-                ButCrear.Content = "Create";
-
-                //Label
-                LblRuta.Content = "Path";
-                LblNomBD.Content = "Name";
-
-                //Window
-                Title = "Export";
-
-                //Mensajes
-                StrErrFic = "Error when inserting into the file";
+                ButRuta.Content = Ingles.Browse;
+                ButCrear.Content = Ingles.Create;
+                LblRuta.Content = Ingles.Path;
+                LblNomBD.Content = Ingles.Name;
+                Title = Ingles.Export;
+                StrErrFic = Ingles.ExpErrFic;
             }
             else
             {
-                //Botones
-                ButRuta.Content = "Examinar...";
-                ButCrear.Content = "Crear";
-
-                //Label
-                LblRuta.Content = "Ruta";
-                LblNomBD.Content = "Nombre";
-
-                //Window
-                Title = "Exportar";
-
-                //Mensajes
-                StrErrFic = "Error al insertar en el fichero";
+                ButRuta.Content = Español.Examinar;
+                ButCrear.Content = Español.Crear;
+                LblRuta.Content = Español.Ruta;
+                LblNomBD.Content = Español.Nombre;
+                Title = Español.Exportar;
+                StrErrFic = Español.ExpErrFic;
             }
         }
         private int Exportar()
@@ -98,33 +84,33 @@ namespace ReadyReq.ViewModel
                 DataRow fila;
                 PBProg1.Maximum = 28; PBProg1.Value = 0;
 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNReqR;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNObj;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNFuen;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNAuto;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIDatEsp;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIReqR;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIObj;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIFuen;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIAuto;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqSecExc;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqSecNor;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqAct;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqReqR;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqObj;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqFuen;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqAuto;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ObjSubobj;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ObjFuen;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ObjAuto;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ActFuen;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ActAuto;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNFunc;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqFun;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from ReqInfo;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from Objetivos;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from Actores;")); 
-                sw.WriteLine(ClsConf.Encriptar("Delete from Paquetes;")); 
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNReqR;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNObj;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNFuen;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNAuto;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIDatEsp;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIReqR;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIObj;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIFuen;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqIAuto;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqSecExc;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqSecNor;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqAct;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqReqR;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqObj;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqFuen;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqAuto;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ObjSubobj;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ObjFuen;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ObjAuto;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ActFuen;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ActAuto;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqNFunc;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqFun;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from ReqInfo;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from Objetivos;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from Actores;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from Paquetes;"));
                 sw.WriteLine(ClsConf.Encriptar("Delete from Grupo;"));
                 sw.WriteLine(ClsConf.Encriptar("Delete from Estim;"));
 

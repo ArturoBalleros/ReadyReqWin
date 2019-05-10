@@ -183,6 +183,9 @@
         public const string ErrFic = "Error al leer el fichero";
         public const string ErrBas = "Error al insertar en la base de datos";
 
+        //WinExport
+        public const string Exportar = "Exportar";
+        public const string ExpErrFic = "Error al insertar en el fichero";
     }
 
     public struct Ingles
@@ -368,7 +371,9 @@
         public const string ErrFic = "Error reading the file";
         public const string ErrBas = "Error when inserting into the database";
 
-
+        //WinExport
+        public const string Export = "Export";
+        public const string ExpErrFic = "Error when inserting into the file";
 
 
         //public const string aaa = "Arturo";
