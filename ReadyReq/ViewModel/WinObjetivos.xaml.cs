@@ -1,4 +1,5 @@
 ﻿using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Data;
 using System.Windows;
@@ -27,31 +28,28 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             Idioma();
-            for (int i = 1; (i <= 10); i++)
-                CmbCat.Items.Add(i);
+            for (int i = 1; (i <= 10); i++) CmbCat.Items.Add(i);
             CmbCat.Text = CmbCat.Items[0].ToString();
             IniciarTablas();
         }
         private void WClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (Activo == true)
-                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    return;
-                else
-                    e.Cancel = true;
+            if (Activo)
+                if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) return;
+                else e.Cancel = true;
         }
         private void Click(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButBusc")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButBusc"))
             {
                 Objetivo.Buscar(TxtBus.Text);
                 TxtBus.Text = string.Empty;
                 DGBuscar.ItemsSource = Objetivo.Buscador.DefaultView;
             }
-            if (ctrl.Name == "ButAcep")
+            if (ctrl.Name.Equals("ButAcep"))
             {
-                if (string.IsNullOrEmpty(TxtNom.Text) == false)
+                if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
                     Objetivo.Nombre = TxtNom.Text;
                     Objetivo.Descripcion = TxtDes.Text;
@@ -63,39 +61,30 @@ namespace ReadyReq.ViewModel
                     if (resultado == -2) MessageBox.Show(StrMenEGuar);
                     VaciarInterfaz();
                 }
-                else
-                {
-                    MessageBox.Show(StrMenGuar);
-                }
+                else MessageBox.Show(StrMenGuar);
             }
-            if (ctrl.Name == "ButBorr")
+            if (ctrl.Name.Equals("ButBorr"))
             {
-                if (Base == true)
-                    if (MessageBox.Show(StrMenBorr, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                        Objetivo.Borrar();
+                if (Base)
+                    if (MessageBox.Show(StrMenBorr, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) Objetivo.Borrar();
                 VaciarInterfaz();
             }
         }
         private void Seleccionar(object sender, SelectedCellsChangedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "DGBuscar")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("DGBuscar"))
             {
-                if (Activo == true && DGBuscar.SelectedIndex > -1)
+                if (Activo && DGBuscar.SelectedIndex > -1)
                 {
-                    if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                        CargarObjetivo();
+                    if (MessageBox.Show(StrMenPrev, StrConf, MessageBoxButton.YesNo) == MessageBoxResult.Yes) CargarObjetivo();
                 }
-                else
-                {
-                    CargarObjetivo();
-                }
+                else CargarObjetivo();
             }
-            if (ctrl.Name == "DGGruAut")
+            if (ctrl.Name.Equals("DGGruAut"))
             {
                 bool existe = false;
                 if (Objetivo.Autores.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Objetivo.Autores.Rows.Count - 1); i++)
                     {
                         Fila = Objetivo.Autores.Rows[i];
@@ -105,8 +94,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Objetivo.Autores.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGGruAut.Items[DGGruAut.SelectedIndex]).Row.ItemArray[1]);
@@ -115,7 +103,7 @@ namespace ReadyReq.ViewModel
                 }
                 Objetivo.BGrupo.Rows.RemoveAt(DGGruAut.SelectedIndex);
             }
-            if (ctrl.Name == "DGAutores")
+            if (ctrl.Name.Equals("DGAutores"))
             {
                 Fila = Objetivo.BGrupo.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGAutores.Items[DGAutores.SelectedIndex]).Row.ItemArray[1]);
@@ -123,11 +111,10 @@ namespace ReadyReq.ViewModel
                 Objetivo.BGrupo.Rows.Add(Fila);
                 Objetivo.Autores.Rows.RemoveAt(DGAutores.SelectedIndex);
             }
-            if (ctrl.Name == "DGGruFuen")
+            if (ctrl.Name.Equals("DGGruFuen"))
             {
                 bool existe = false;
                 if (Objetivo.Fuentes.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Objetivo.Fuentes.Rows.Count - 1); i++)
                     {
                         Fila = Objetivo.Fuentes.Rows[i];
@@ -137,8 +124,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Objetivo.Fuentes.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGGruFuen.Items[DGGruFuen.SelectedIndex]).Row.ItemArray[1]);
@@ -147,7 +133,7 @@ namespace ReadyReq.ViewModel
                 }
                 Objetivo.BFuentes.Rows.RemoveAt(DGGruFuen.SelectedIndex);
             }
-            if (ctrl.Name == "DGFuentes")
+            if (ctrl.Name.Equals("DGFuentes"))
             {
                 Fila = Objetivo.BFuentes.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGFuentes.Items[DGFuentes.SelectedIndex]).Row.ItemArray[1]);
@@ -155,11 +141,10 @@ namespace ReadyReq.ViewModel
                 Objetivo.BFuentes.Rows.Add(Fila);
                 Objetivo.Fuentes.Rows.RemoveAt(DGFuentes.SelectedIndex);
             }
-            if (ctrl.Name == "DGObjObj")
+            if (ctrl.Name.Equals("DGObjObj"))
             {
                 bool existe = false;
                 if (Objetivo.Objetivos.Rows.Count > 0)
-                {
                     for (int i = 0; i <= (Objetivo.Objetivos.Rows.Count - 1); i++)
                     {
                         Fila = Objetivo.Objetivos.Rows[i];
@@ -169,8 +154,7 @@ namespace ReadyReq.ViewModel
                             break;
                         }
                     }
-                }
-                if (existe == false)
+                if (!existe)
                 {
                     Fila = Objetivo.Objetivos.NewRow();
                     Fila[1] = Convert.ToString(((DataRowView)DGObjObj.Items[DGObjObj.SelectedIndex]).Row.ItemArray[1]);
@@ -179,7 +163,7 @@ namespace ReadyReq.ViewModel
                 }
                 Objetivo.BObjetivos.Rows.RemoveAt(DGObjObj.SelectedIndex);
             }
-            if (ctrl.Name == "DGSubobj")
+            if (ctrl.Name.Equals("DGSubobj"))
             {
                 Fila = Objetivo.BObjetivos.NewRow();
                 Fila[1] = Convert.ToString(((DataRowView)DGSubobj.Items[DGSubobj.SelectedIndex]).Row.ItemArray[1]);
@@ -190,14 +174,13 @@ namespace ReadyReq.ViewModel
         }
         private void Presionar(object sender, KeyEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if ((ctrl.Name == "TxtNom") && (Activo == false))
-                Activo = true;
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
             {
-                if ((ctrl.Name == "TxtNom") && (string.IsNullOrEmpty(TxtNom.Text) == false)) TxtDes.Focus();
-                if ((ctrl.Name == "TxtDes") && (string.IsNullOrEmpty(TxtDes.Text) == false)) TxtCom.Focus();
-                if (ctrl.Name == "TxtBus") ButBusc.Focus();
+                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text)) TxtDes.Focus();
+                if (ctrl.Name.Equals("TxtDes") && !string.IsNullOrEmpty(TxtDes.Text)) TxtCom.Focus();
+                if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();
             }
         }
         private void VaciarInterfaz()
@@ -241,111 +224,75 @@ namespace ReadyReq.ViewModel
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //DataGrid
-                DGBuscar.Columns[0].Header = "Objectives";
-                DGGruAut.Columns[0].Header = "Workers of the Working Group";
-                DGAutores.Columns[0].Header = "Authors";
-                DGGruFuen.Columns[0].Header = "Workers of the Working Group";
-                DGFuentes.Columns[0].Header = "Sources";
-                DGObjObj.Columns[0].Header = "Objectives";
-                DGSubobj.Columns[0].Header = "Subobjectives";
-
-                //Botones
-                ButBusc.Content = "Search";
-                ButAcep.Content = "Save";
-                ButBorr.Content = "Delete";
-
-                //Label
-                LblNom.Content = "Name";
-                LblDes.Content = "Description";
-                LblPri.Content = "Priority";
-                LblUrg.Content = "Urgency";
-                LblEst.Content = "Stability";
-                LblEsta.Content = "State";
-                LblCat.Content = "Category";
-                LblCom.Content = "Commentary";
-                LblBus.Text = "Search Engine";
-
-                //RadioButton
-                RBPMB.Content = RBUMB.Content = RBEMB.Content = "Very low";
-                RBPB.Content = RBUB.Content = RBEB.Content = "Low";
-                RBPM.Content = RBUM.Content = RBEM.Content = "Medium";
-                RBPA.Content = RBUA.Content = RBEA.Content = "High";
-                RBPMA.Content = RBUMA.Content = RBEMA.Content = "Very high";
-                RBVer.Content = "Verified";
-                RBNVer.Content = "Not verified";
-
-                //Window
-                Title = "Objectives of the Project";
-
-                //TabItem
-                TabDat.Header = "Data";
-                TabAut.Header = "Authors";
-                TabFue.Header = "Sources";
-                TabSubObj.Header = "Subobjectives";
-
-                //Mensajes
-                StrConf = "Confirmation";
-                StrMenGuar = "The objective must have an assigned name";
-                StrMenBorr = "The objective will be deleted, do you wish to continue?";
-                StrMenPrev = "The unsaved progress will be deleted, do you wish to continue?";
-                StrMenEGuar = "The objective could not be saved";
-                StrMenEMod = "The objective could not be modified, so it was deleted so as not to cause instability in the database";
+                DGBuscar.Columns[0].Header = DGObjObj.Columns[0].Header = Ingles.Objectives;
+                DGGruAut.Columns[0].Header = DGGruFuen.Columns[0].Header = Ingles.WorkGrup;
+                DGAutores.Columns[0].Header = TabAut.Header = Ingles.Authors;
+                DGFuentes.Columns[0].Header = TabFue.Header = Ingles.Sources;
+                DGSubobj.Columns[0].Header = TabSubObj.Header = Ingles.Subobjectives;
+                ButBusc.Content = Ingles.Search;
+                ButAcep.Content = Ingles.Save;
+                ButBorr.Content = Ingles.Delete;
+                LblNom.Content = Ingles.Name;
+                LblDes.Content = Ingles.Description;
+                LblPri.Content = Ingles.Priority;
+                LblUrg.Content = Ingles.Urgency;
+                LblEst.Content = Ingles.Stability;
+                LblEsta.Content = Ingles.State;
+                LblCat.Content = Ingles.Category;
+                LblCom.Content = Ingles.Commentary;
+                LblBus.Text = Ingles.Search_Engine;
+                RBPMB.Content = RBUMB.Content = RBEMB.Content = Ingles.VLow;
+                RBPB.Content = RBUB.Content = RBEB.Content = Ingles.Low;
+                RBPM.Content = RBUM.Content = RBEM.Content = Ingles.Medium;
+                RBPA.Content = RBUA.Content = RBEA.Content = Ingles.High;
+                RBPMA.Content = RBUMA.Content = RBEMA.Content = Ingles.VHigh;
+                RBVer.Content = Ingles.Verified;
+                RBNVer.Content = Ingles.NVerified;
+                Title = Ingles.ObjPro;
+                TabDat.Header = Ingles.Data;
+                StrConf = Ingles.Confirmation;
+                StrMenGuar = Ingles.ObjMenGuar;
+                StrMenBorr = Ingles.ObjMenBorr;
+                StrMenPrev = Ingles.MenPrev;
+                StrMenEGuar = Ingles.ObjMenEGuar;
+                StrMenEMod = Ingles.ObjMenEMod;
             }
             else
             {
-                //DataGrid
-                DGBuscar.Columns[0].Header = "Objetivos";
-                DGGruAut.Columns[0].Header = "Trabajadores del Grupo de Trabajo";
-                DGAutores.Columns[0].Header = "Autores";
-                DGGruFuen.Columns[0].Header = "Trabajadores del Grupo de Trabajo";
-                DGFuentes.Columns[0].Header = "Fuentes";
-                DGObjObj.Columns[0].Header = "Objetivos";
-                DGSubobj.Columns[0].Header = "Subobjetivos";
-
-                //Botones
-                ButBusc.Content = "Buscar";
-                ButAcep.Content = "Guardar";
-                ButBorr.Content = "Borrar";
-
-                //Label
-                LblNom.Content = "Nombre";
-                LblDes.Content = "Descripción";
-                LblPri.Content = "Prioridad";
-                LblUrg.Content = "Urgencia";
-                LblEst.Content = "Estabilidad";
-                LblEsta.Content = "Estado";
-                LblCat.Content = "Categoría";
-                LblCom.Content = "Comentario";
-                LblBus.Text = "Buscador";
-
-                //RadioButton
-                RBPMB.Content = RBUMB.Content = RBEMB.Content = "Muy baja";
-                RBPB.Content = RBUB.Content = RBEB.Content = "Baja";
-                RBPM.Content = RBUM.Content = RBEM.Content = "Media";
-                RBPA.Content = RBUA.Content = RBEA.Content = "Alta";
-                RBPMA.Content = RBUMA.Content = RBEMA.Content = "Muy Alta";
-                RBVer.Content = "Verificado";
-                RBNVer.Content = "No verificado";
-
-                //Window
-                Title = "Objetivos del Proyecto";
-
-                //TabItem
-                TabDat.Header = "Datos";
-                TabAut.Header = "Autores";
-                TabFue.Header = "Fuentes";
-                TabSubObj.Header = "Subobjetivos";
-
-                //Mensajes
-                StrConf = "Confirmación";
-                StrMenGuar = "El objetivo debe de tener un nombre asignado";
-                StrMenBorr = "Se borrará el objetivo, ¿Desea continuar?";
-                StrMenPrev = "Se borrará el progreso no guardado, ¿Desea continuar?";
-                StrMenEGuar = "No se pudo guardar el objetivo";
-                StrMenEMod = "No se pudo modificar el objetivo, por lo que se eliminó para no ocasionar inestabilidad en la base de datos";
+                DGBuscar.Columns[0].Header = DGObjObj.Columns[0].Header = Español.Objetivos;
+                DGGruAut.Columns[0].Header = DGGruFuen.Columns[0].Header = Español.TrabGrup;
+                DGAutores.Columns[0].Header = TabAut.Header = Español.Autores;
+                DGFuentes.Columns[0].Header = TabFue.Header = Español.Fuentes;
+                DGSubobj.Columns[0].Header = TabSubObj.Header = Español.Subobjetivos;
+                ButBusc.Content = Español.Buscar;
+                ButAcep.Content = Español.Guardar;
+                ButBorr.Content = Español.Borrar;
+                LblNom.Content = Español.Nombre;
+                LblDes.Content = Español.Descripción;
+                LblPri.Content = Español.Prioridad;
+                LblUrg.Content = Español.Urgencia;
+                LblEst.Content = Español.Estabilidad;
+                LblEsta.Content = Español.Estado;
+                LblCat.Content = Español.Categoría;
+                LblCom.Content = Español.Comentario;
+                LblBus.Text = Español.Buscador;
+                RBPMB.Content = RBUMB.Content = RBEMB.Content = Español.MBaja;
+                RBPB.Content = RBUB.Content = RBEB.Content = Español.Baja;
+                RBPM.Content = RBUM.Content = RBEM.Content = Español.Media;
+                RBPA.Content = RBUA.Content = RBEA.Content = Español.Alta;
+                RBPMA.Content = RBUMA.Content = RBEMA.Content = Español.MAlta;
+                RBVer.Content = Español.Verificado;
+                RBNVer.Content = Español.NVerificado;
+                Title = Español.ObjPro;
+                TabDat.Header = Español.Datos;
+                StrConf = Español.Confirmación;
+                StrMenGuar = Español.ObjMenGuar;
+                StrMenBorr = Español.ObjMenBorr;
+                StrMenPrev = Español.MenPrev;
+                StrMenEGuar = Español.ObjMenEGuar;
+                StrMenEMod = Español.ObjMenEMod;
             }
         }
         private void IniciarTablas()
@@ -360,87 +307,53 @@ namespace ReadyReq.ViewModel
         }
         private void RadioButtonValor(bool ValorRB)
         {
-            if (ValorRB == true)
+            if (ValorRB)
             {
                 //Prioridad
-                if (RBPMB.IsChecked == true)
-                    Objetivo.Prioridad = 1;
-                else if (RBPB.IsChecked == true)
-                    Objetivo.Prioridad = 2;
-                else if (RBPM.IsChecked == true)
-                    Objetivo.Prioridad = 3;
-                else if (RBPA.IsChecked == true)
-                    Objetivo.Prioridad = 4;
-                else if (RBPMA.IsChecked == true)
-                    Objetivo.Prioridad = 5;
+                if (RBPMB.IsChecked == true) Objetivo.Prioridad = 1;
+                else if (RBPB.IsChecked == true) Objetivo.Prioridad = 2;
+                else if (RBPM.IsChecked == true) Objetivo.Prioridad = 3;
+                else if (RBPA.IsChecked == true) Objetivo.Prioridad = 4;
+                else if (RBPMA.IsChecked == true) Objetivo.Prioridad = 5;
                 //Urgencia
-                if (RBUMB.IsChecked == true)
-                    Objetivo.Urgencia = 1;
-                else if (RBUB.IsChecked == true)
-                    Objetivo.Urgencia = 2;
-                else if (RBUM.IsChecked == true)
-                    Objetivo.Urgencia = 3;
-                else if (RBUA.IsChecked == true)
-                    Objetivo.Urgencia = 4;
-                else if (RBUMA.IsChecked == true)
-                    Objetivo.Urgencia = 5;
+                if (RBUMB.IsChecked == true) Objetivo.Urgencia = 1;
+                else if (RBUB.IsChecked == true) Objetivo.Urgencia = 2;
+                else if (RBUM.IsChecked == true) Objetivo.Urgencia = 3;
+                else if (RBUA.IsChecked == true) Objetivo.Urgencia = 4;
+                else if (RBUMA.IsChecked == true) Objetivo.Urgencia = 5;
                 //Estabilidad
-                if (RBEMB.IsChecked == true)
-                    Objetivo.Estabilidad = 1;
-                else if (RBEB.IsChecked == true)
-                    Objetivo.Estabilidad = 2;
-                else if (RBEM.IsChecked == true)
-                    Objetivo.Estabilidad = 3;
-                else if (RBEA.IsChecked == true)
-                    Objetivo.Estabilidad = 4;
-                else if (RBEMA.IsChecked == true)
-                    Objetivo.Estabilidad = 5;
+                if (RBEMB.IsChecked == true) Objetivo.Estabilidad = 1;
+                else if (RBEB.IsChecked == true) Objetivo.Estabilidad = 2;
+                else if (RBEM.IsChecked == true) Objetivo.Estabilidad = 3;
+                else if (RBEA.IsChecked == true) Objetivo.Estabilidad = 4;
+                else if (RBEMA.IsChecked == true) Objetivo.Estabilidad = 5;
                 //Estado
-                if (RBVer.IsChecked == true)
-                    Objetivo.Estado = true;
-                else
-                    Objetivo.Estado = false;
+                if (RBVer.IsChecked == true) Objetivo.Estado = true;
+                else Objetivo.Estado = false;
             }
             else
             {
                 //Prioridad
-                if (Objetivo.Prioridad == 1)
-                    RBPMB.IsChecked = true;
-                else if (Objetivo.Prioridad == 2)
-                    RBPB.IsChecked = true;
-                else if (Objetivo.Prioridad == 3)
-                    RBPM.IsChecked = true;
-                else if (Objetivo.Prioridad == 4)
-                    RBPA.IsChecked = true;
-                else if (Objetivo.Prioridad == 5)
-                    RBPMA.IsChecked = true;
+                if (Objetivo.Prioridad == 1) RBPMB.IsChecked = true;
+                else if (Objetivo.Prioridad == 2) RBPB.IsChecked = true;
+                else if (Objetivo.Prioridad == 3) RBPM.IsChecked = true;
+                else if (Objetivo.Prioridad == 4) RBPA.IsChecked = true;
+                else if (Objetivo.Prioridad == 5) RBPMA.IsChecked = true;
                 //Urgencia
-                if (Objetivo.Urgencia == 1)
-                    RBUMB.IsChecked = true;
-                else if (Objetivo.Urgencia == 2)
-                    RBUB.IsChecked = true;
-                else if (Objetivo.Urgencia == 3)
-                    RBUM.IsChecked = true;
-                else if (Objetivo.Urgencia == 4)
-                    RBUA.IsChecked = true;
-                else if (Objetivo.Urgencia == 5)
-                    RBUMA.IsChecked = true;
+                if (Objetivo.Urgencia == 1) RBUMB.IsChecked = true;
+                else if (Objetivo.Urgencia == 2) RBUB.IsChecked = true;
+                else if (Objetivo.Urgencia == 3) RBUM.IsChecked = true;
+                else if (Objetivo.Urgencia == 4) RBUA.IsChecked = true;
+                else if (Objetivo.Urgencia == 5) RBUMA.IsChecked = true;
                 //Estabilidad
-                if (Objetivo.Estabilidad == 1)
-                    RBEMB.IsChecked = true;
-                else if (Objetivo.Estabilidad == 2)
-                    RBEB.IsChecked = true;
-                else if (Objetivo.Estabilidad == 3)
-                    RBEM.IsChecked = true;
-                else if (Objetivo.Estabilidad == 4)
-                    RBEA.IsChecked = true;
-                else if (Objetivo.Estabilidad == 5)
-                    RBEMA.IsChecked = true;
+                if (Objetivo.Estabilidad == 1) RBEMB.IsChecked = true;
+                else if (Objetivo.Estabilidad == 2) RBEB.IsChecked = true;
+                else if (Objetivo.Estabilidad == 3) RBEM.IsChecked = true;
+                else if (Objetivo.Estabilidad == 4) RBEA.IsChecked = true;
+                else if (Objetivo.Estabilidad == 5) RBEMA.IsChecked = true;
                 //Estado
-                if (Objetivo.Estado == true)
-                    RBVer.IsChecked = true;
-                else
-                    RBNVer.IsChecked = true;
+                if (Objetivo.Estado == true) RBVer.IsChecked = true;
+                else RBNVer.IsChecked = true;
             }
         }
     }

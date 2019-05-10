@@ -27,24 +27,19 @@ namespace ReadyReq.Model
         }
         public int Guardar()
         {
-            int intEstado;
-            if (Estado) intEstado = 1; else intEstado = 0;
+            int intEstado = (Estado) ? 1 : 0;
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Objetivos Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))
-                    return -1;
+                if (!ClsBaseDatos.BDBool("Update Objetivos Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
                 ClsBaseDatos.BDBool("Delete from ObjAuto where IdObj = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ObjFuen where IdObj = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ObjSubobj where IdObj = " + Id + ";");
-                if (GuardarTablas(Id) == -1)
-                    return -1;
+                if (GuardarTablas(Id) == -1) return -1;
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into Objetivos(Nombre,Descripcion,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');"))
-                    return -2;
-                if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Objetivos order by Id Desc;")) == -1)
-                    return -2;
+                if (!ClsBaseDatos.BDBool("Insert into Objetivos(Nombre,Descripcion,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Objetivos order by Id Desc;")) == -1) return -2;
             }
             return 0;
         }
@@ -75,7 +70,7 @@ namespace ReadyReq.Model
             Prioridad = int.Parse(Objetivo[3].ToString());
             Urgencia = int.Parse(Objetivo[4].ToString());
             Estabilidad = int.Parse(Objetivo[5].ToString());
-            if ((int)Objetivo[6] == 1) Estado = true; else Estado = false;
+            Estado = ((int)Objetivo[6] == 1) ? true : false;
             Categoria = int.Parse(Objetivo[7].ToString());
             Comentario = Objetivo[8].ToString();
 

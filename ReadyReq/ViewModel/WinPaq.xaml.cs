@@ -109,24 +109,15 @@ namespace ReadyReq.ViewModel
         {
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //DataGrid
                 DGBuscar.Columns[0].Header = Ingles.Packages;
-
-                //Botones
                 ButBusc.Content = Ingles.Search;
                 ButAcep.Content = Ingles.Save;
                 ButBorr.Content = Ingles.Delete;
-
-                //Label
                 LblNom.Content = Ingles.Name;
                 LblCat.Content = Ingles.Category;
                 LblCom.Content = Ingles.Commentary;
                 LblBus.Text = Ingles.Search_Engine;
-
-                //Window
                 Title = Ingles.ProPack;
-
-                //Mensajes
                 StrConf = Ingles.Confirmation;
                 StrMenGuar = Ingles.PacMenGuar;
                 StrMenBorr = Ingles.PacMenBorr;
@@ -136,24 +127,15 @@ namespace ReadyReq.ViewModel
             }
             else
             {
-                //DataGrid
                 DGBuscar.Columns[0].Header = Español.Paquetes;
-
-                //Botones
                 ButBusc.Content = Español.Buscar;
                 ButAcep.Content = Español.Guardar;
                 ButBorr.Content = Español.Borrar;
-
-                //Label
                 LblNom.Content = Español.Nombre;
                 LblCat.Content = Español.Categoría;
                 LblCom.Content = Español.Comentario;
                 LblBus.Text = Español.Buscador;
-
-                //Window
                 Title = Español.PaqPro;
-
-                //Mensajes
                 StrConf = Español.Confirmación;
                 StrMenGuar = Español.PacMenGuar;
                 StrMenBorr = Español.PacMenBorr;

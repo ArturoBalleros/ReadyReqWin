@@ -34,15 +34,15 @@ namespace ReadyReq.Model
         {
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Actores Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Complejidad = " + Complejidad + ", DescComple = '" + DescComplejidad + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";"))                    return -1;
+                if (!ClsBaseDatos.BDBool("Update Actores Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Complejidad = " + Complejidad + ", DescComple = '" + DescComplejidad + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
                 ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + Id + ";");
-                if (GuardarTablas(Id) == -1)                    return -1;
+                if (GuardarTablas(Id) == -1) return -1;
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into Actores(Nombre,Descripcion,Complejidad,DescComple,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Complejidad + ",'" + DescComplejidad + "'," + Categoria + ",'" + Comentario + "');"))                    return -2;
-                if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Actores order by Id Desc;")) == -1)                    return -2;
+                if (!ClsBaseDatos.BDBool("Insert into Actores(Nombre,Descripcion,Complejidad,DescComple,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Complejidad + ",'" + DescComplejidad + "'," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Actores order by Id Desc;")) == -1) return -2;
             }
             return 0;
         }

@@ -196,19 +196,13 @@ namespace ReadyReq.ViewModel
         {
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //DataGrid
                 DGBuscar.Columns[0].Header = Ingles.Actors;
-                DGGruAut.Columns[0].Header = Ingles.WorkGrup;
-                DGAutores.Columns[0].Header = Ingles.Authors;
-                DGGruFuen.Columns[0].Header = Ingles.WorkGrup;
-                DGFuentes.Columns[0].Header = Ingles.Sources;
-
-                //Botones
+                DGGruAut.Columns[0].Header = DGGruFuen.Columns[0].Header = Ingles.WorkGrup;
+                DGAutores.Columns[0].Header = TabAut.Header = Ingles.Authors;
+                DGFuentes.Columns[0].Header = TabFue.Header = Ingles.Sources;
                 ButBusc.Content = Ingles.Search;
                 ButAcep.Content = Ingles.Save;
                 ButBorr.Content = Ingles.Delete;
-
-                //Label
                 LblNom.Content = Ingles.Name;
                 LblDes.Content = Ingles.Description;
                 LblComp.Content = Ingles.Complexity;
@@ -216,21 +210,11 @@ namespace ReadyReq.ViewModel
                 LblCat.Content = Ingles.Category;
                 LblCom.Content = Ingles.Commentary;
                 LblBus.Text = Ingles.Search_Engine;
-
-                //RadioButton
                 RBCB.Content = Ingles.Low;
                 RBCM.Content = Ingles.Medium;
                 RBCA.Content = Ingles.High;
-
-                //Window
                 Title = Ingles.ProAct;
-
-                //TabItem
                 TabDat.Header = Ingles.Data;
-                TabAut.Header = Ingles.Authors;
-                TabFue.Header = Ingles.Sources;
-
-                //Mensajes
                 StrConf = Ingles.Confirmation;
                 StrMenGuar = Ingles.ActMenGuar;
                 StrMenBorr = Ingles.ActMenBorr;
@@ -240,19 +224,13 @@ namespace ReadyReq.ViewModel
             }
             else
             {
-                //DataGrid
                 DGBuscar.Columns[0].Header = Español.Actores;
-                DGGruAut.Columns[0].Header = Español.TrabGrup;
-                DGAutores.Columns[0].Header = Español.Autores;
-                DGGruFuen.Columns[0].Header = Español.TrabGrup;
-                DGFuentes.Columns[0].Header = Español.Fuentes;
-
-                //Botones
+                DGGruAut.Columns[0].Header = DGGruFuen.Columns[0].Header = Español.TrabGrup;
+                DGAutores.Columns[0].Header = TabAut.Header = Español.Autores;
+                DGFuentes.Columns[0].Header = TabFue.Header = Español.Fuentes;
                 ButBusc.Content = Español.Buscar;
                 ButAcep.Content = Español.Guardar;
                 ButBorr.Content = Español.Borrar;
-
-                //Label
                 LblNom.Content = Español.Nombre;
                 LblDes.Content = Español.Descripción;
                 LblComp.Content = Español.Complejidad;
@@ -260,21 +238,11 @@ namespace ReadyReq.ViewModel
                 LblCat.Content = Español.Categoría;
                 LblCom.Content = Español.Comentario;
                 LblBus.Text = Español.Buscador;
-
-                //RadioButton
                 RBCB.Content = Español.Baja;
                 RBCM.Content = Español.Media;
                 RBCA.Content = Español.Alta;
-
-                //Window
                 Title = Español.ActPro;
-
-                //TabItem
                 TabDat.Header = Español.Datos;
-                TabAut.Header = Español.Autores;
-                TabFue.Header = Español.Fuentes;
-
-                //Mensajes
                 StrConf = Español.Confirmación;
                 StrMenGuar = Español.ActMenGuar;
                 StrMenBorr = Español.ActMenBorr;
