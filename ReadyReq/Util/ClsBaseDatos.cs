@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using ReadyReq.Util;
 using System;
 using System.Data;
 using System.Data.OleDb;
@@ -8,119 +9,61 @@ namespace ReadyReq.Model
 {
     public static class ClsBaseDatos
     {
-        public static bool BDConexion(string OptionCon = "No", string OpcionBD = "No")
+        public static bool BDConexion(string OptionCon = Ingles.No, string OpcionBD = Ingles.No)
         {
-            string TipoBD;
-            if (OpcionBD == "No")
-                TipoBD = ClsConf.TipoBD;
-            else
-                TipoBD = OpcionBD;
+            string TipoBD = OpcionBD.Equals(Ingles.No) ? ClsConf.TipoBD : OpcionBD;
+            if (TipoBD.Equals(DefValues.MySql)) return OptionCon.Equals(Ingles.No) ? SqlConexion(ClsConf.BuilderMySql.ToString()) : SqlConexion(OptionCon);
+            else return OptionCon.Equals(Ingles.No) ? AccConexion(ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc) : AccConexion(OptionCon);
+        }
+        public static bool BDBool(string OrdenSql, string OptionCon = Ingles.No, string OpcionBD = Ingles.No)
+        {
+            string TipoBD = OpcionBD.Equals(Ingles.No) ? ClsConf.TipoBD : OpcionBD;
+            if (TipoBD.Equals(DefValues.MySql)) return OptionCon.Equals(Ingles.No) ? SqlBool(OrdenSql, ClsConf.BuilderMySql.ToString()) : SqlBool(OrdenSql, OptionCon);
+            else return OptionCon.Equals(Ingles.No) ? AccBool(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc) : AccBool(OrdenSql, OptionCon);
+        }
+        public static DataTable BDTable(string OrdenSql, string OptionCon = Ingles.No, string OpcionBD = Ingles.No)
+        {
+            string TipoBD = OpcionBD.Equals(Ingles.No) ? ClsConf.TipoBD : OpcionBD;
 
-            if (TipoBD == "MySql")
+            if (TipoBD.Equals(DefValues.MySql))
             {
-                if (OptionCon == "No")
-                    return SqlConexion(ClsConf.BuilderMySql.ToString());
-                else
-                    return SqlConexion(OptionCon);
+                if (OptionCon.Equals(Ingles.No)) return SqlTable(OrdenSql, ClsConf.BuilderMySql.ToString());
+                else return SqlTable(OrdenSql, OptionCon);
             }
             else
             {
-                if (OptionCon == "No")
-                    return AccConexion(ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
-                else
-                    return AccConexion(OptionCon);
+                if (OptionCon.Equals(Ingles.No)) return AccTable(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
+                else return AccTable(OrdenSql, OptionCon);
             }
         }
-        public static bool BDBool(string OrdenSql, string OptionCon = "No", string OpcionBD = "No")
+        public static string BDString(string OrdenSql, string OptionCon = Ingles.No, string OpcionBD = Ingles.No)
         {
-            string TipoBD;
-            if (OpcionBD == "No")
-                TipoBD = ClsConf.TipoBD;
-            else
-                TipoBD = OpcionBD;
+            string TipoBD = OpcionBD.Equals(Ingles.No) ? ClsConf.TipoBD : OpcionBD;
 
-            if (TipoBD == "MySql")
+            if (TipoBD.Equals(DefValues.MySql))
             {
-                if (OptionCon == "No")
-                    return SqlBool(OrdenSql, ClsConf.BuilderMySql.ToString());
-                else
-                    return SqlBool(OrdenSql, OptionCon);
+                if (OptionCon.Equals(Ingles.No)) return SqlString(OrdenSql, ClsConf.BuilderMySql.ToString());
+                else return SqlString(OrdenSql, OptionCon);
             }
             else
             {
-                if (OptionCon == "No")
-                    return AccBool(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
-                else
-                    return AccBool(OrdenSql, OptionCon);
+                if (OptionCon.Equals(Ingles.No)) return AccString(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
+                else return AccString(OrdenSql, OptionCon);
             }
         }
-        public static DataTable BDTable(string OrdenSql, string OptionCon = "No", string OpcionBD = "No")
+        public static double BDDouble(string OrdenSql, string OptionCon = Ingles.No, string OpcionBD = Ingles.No)
         {
-            string TipoBD;
-            if (OpcionBD == "No")
-                TipoBD = ClsConf.TipoBD;
-            else
-                TipoBD = OpcionBD;
+            string TipoBD = OpcionBD.Equals(Ingles.No) ? ClsConf.TipoBD : OpcionBD;
 
-            if (TipoBD == "MySql")
+            if (TipoBD.Equals(DefValues.MySql))
             {
-                if (OptionCon == "No")
-                    return SqlTable(OrdenSql, ClsConf.BuilderMySql.ToString());
-                else
-                    return SqlTable(OrdenSql, OptionCon);
+                if (OptionCon.Equals(Ingles.No)) return SqlDouble(OrdenSql, ClsConf.BuilderMySql.ToString());
+                else return SqlDouble(OrdenSql, OptionCon);
             }
             else
             {
-                if (OptionCon == "No")
-                    return AccTable(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
-                else
-                    return AccTable(OrdenSql, OptionCon);
-            }
-        }
-        public static string BDString(string OrdenSql, string OptionCon = "No", string OpcionBD = "No")
-        {
-            string TipoBD;
-            if (OpcionBD == "No")
-                TipoBD = ClsConf.TipoBD;
-            else
-                TipoBD = OpcionBD;
-
-            if (TipoBD == "MySql")
-            {
-                if (OptionCon == "No")
-                    return SqlString(OrdenSql, ClsConf.BuilderMySql.ToString());
-                else
-                    return SqlString(OrdenSql, OptionCon);
-            }
-            else
-            {
-                if (OptionCon == "No")
-                    return AccString(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
-                else
-                    return AccString(OrdenSql, OptionCon);
-            }
-        }
-        public static double BDDouble(string OrdenSql, string OptionCon = "No", string OpcionBD = "No")
-        {
-            string TipoBD;
-            if (OpcionBD == "No")
-                TipoBD = ClsConf.TipoBD;
-            else
-                TipoBD = OpcionBD;
-
-            if (TipoBD == "MySql")
-            {
-                if (OptionCon == "No")
-                    return SqlDouble(OrdenSql, ClsConf.BuilderMySql.ToString());
-                else
-                    return SqlDouble(OrdenSql, OptionCon);
-            }
-            else
-            {
-                if (OptionCon == "No")
-                    return AccDouble(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
-                else
-                    return AccDouble(OrdenSql, OptionCon);
+                if (OptionCon.Equals(Ingles.No)) return AccDouble(OrdenSql, ClsConf.ProvAcc + "Data Source=" + ClsConf.RutaAcc + "; " + ClsConf.PassAcc);
+                else return AccDouble(OrdenSql, OptionCon);
             }
         }
         private static bool AccConexion(string builder)
@@ -186,8 +129,7 @@ namespace ReadyReq.Model
             {
                 // Cierra base de datos y da el mensaje de error
                 ConexionBaseDatos.Close();
-                if (ex.HResult != -2146233079)
-                    MessageBox.Show("Error en la funcion AccTable: " + ex.Message);
+                if (ex.HResult != -2146233079) MessageBox.Show("Error en la funcion AccTable: " + ex.Message);
                 return null;
             }
         }
@@ -207,7 +149,7 @@ namespace ReadyReq.Model
                 }
                 catch
                 {
-                    Resultado = String.Empty;
+                    Resultado = string.Empty;
                 }
                 ConexionBaseDatos.Close();
                 return Resultado;
@@ -331,7 +273,7 @@ namespace ReadyReq.Model
                 }
                 catch
                 {
-                    Resultado = String.Empty;
+                    Resultado = string.Empty;
                 }
 
                 ConexionBaseDatos.Close();

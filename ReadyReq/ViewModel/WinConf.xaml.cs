@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,19 +28,19 @@ namespace ReadyReq.ViewModel
         }
         private void LblClick(object sender, MouseButtonEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "LblEsp")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("LblEsp"))
             {
                 LblEspF.Background = Brushes.Aqua;
                 LblIngF.Background = Brushes.White;
-                ClsConf.Idioma = "Español";
+                ClsConf.Idioma = DefValues.Español; ;
                 Idioma();
             }
-            if (ctrl.Name == "LblIng")
+            if (ctrl.Name.Equals("LblIng"))
             {
                 LblEspF.Background = Brushes.White;
                 LblIngF.Background = Brushes.Aqua;
-                ClsConf.Idioma = "Ingles";
+                ClsConf.Idioma = DefValues.Ingles;
                 Idioma();
             }
         }
@@ -62,7 +63,7 @@ namespace ReadyReq.ViewModel
             }
 
             //Asignar Idioma
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
                 LblEspF.Background = Brushes.White;
                 LblIngF.Background = Brushes.Aqua;
@@ -75,10 +76,10 @@ namespace ReadyReq.ViewModel
             Idioma();
 
             //Asignar Base de Datos
-            if (ClsConf.TipoBD == "MySql")
+            if (ClsConf.TipoBD.Equals(DefValues.MySql))
             {
                 RBSql.IsChecked = true;
-                VisibleGrid("MySql");
+                VisibleGrid(DefValues.MySql);
                 TxtHost.Text = ClsConf.Host;
                 TxtUsu.Text = ClsConf.Usuario;
                 TxtPassMS.Password = ClsConf.PassMySql;
@@ -88,17 +89,15 @@ namespace ReadyReq.ViewModel
             else
             {
                 RBAccess.IsChecked = true;
-                VisibleGrid("Access");
+                VisibleGrid(DefValues.Access);
                 LblRutaBD.Content = ClsConf.RutaAcc;
-                if (ClsConf.FlgPass == true)
-                    TxtPassBD.Password = ClsConf.PassAcc.Substring(29, ClsConf.PassAcc.Length - 30);
-                else
-                    TxtPassBD.Password = String.Empty;
+                if (ClsConf.FlgPass) TxtPassBD.Password = ClsConf.PassAcc.Substring(29, ClsConf.PassAcc.Length - 30);
+                else TxtPassBD.Password = string.Empty;
             }
         }
         private void VisibleGrid(string opt)
         {
-            if (opt == "MySql")
+            if (opt.Equals(DefValues.MySql))
             {
                 GridSql.Visibility = Visibility.Visible;
                 GridAccess.Visibility = Visibility.Hidden;
@@ -111,28 +110,27 @@ namespace ReadyReq.ViewModel
         }
         private void ButClick(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButRuta")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButRuta"))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = StrMenArc + "|*.accdb";
                 openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                if (openFileDialog.ShowDialog() == true)
-                    LblRutaBD.Content = openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() == true) LblRutaBD.Content = openFileDialog.FileName;
             }
 
-            if (ctrl.Name == "ButSalir")
+            if (ctrl.Name.Equals("ButSalir"))
             {
                 if (RBSql.IsChecked == true)
                 {
-                    if ((string.IsNullOrEmpty(TxtHost.Text) == true) || (string.IsNullOrEmpty(TxtUsu.Text) == true) || (string.IsNullOrEmpty(TxtPassMS.Password) == true) || (string.IsNullOrEmpty(TxtBDMS.Text) == true) || (string.IsNullOrEmpty(TxtPortMS.Text) == true))
+                    if (string.IsNullOrEmpty(TxtHost.Text) || string.IsNullOrEmpty(TxtUsu.Text) || string.IsNullOrEmpty(TxtPassMS.Password) || string.IsNullOrEmpty(TxtBDMS.Text) || string.IsNullOrEmpty(TxtPortMS.Text))
                     {
                         MessageBox.Show(StrMenPar);
                         return;
                     }
                     else
                     {
-                        ClsConf.TipoBD = "MySql";
+                        ClsConf.TipoBD = DefValues.MySql;
                         ClsConf.Host = TxtHost.Text;
                         ClsConf.Usuario = TxtUsu.Text;
                         ClsConf.PassMySql = TxtPassMS.Password;
@@ -144,16 +142,16 @@ namespace ReadyReq.ViewModel
                 {
                     string RutaBD = "" + LblRutaBD.Content;
 
-                    if (string.IsNullOrEmpty(RutaBD) == true)
+                    if (string.IsNullOrEmpty(RutaBD))
                     {
                         MessageBox.Show(StrMenPar);
                         return;
                     }
                     else
                     {
-                        ClsConf.TipoBD = "Access";
+                        ClsConf.TipoBD = DefValues.Access;
                         ClsConf.RutaAcc = RutaBD;
-                        if (string.IsNullOrEmpty(TxtPassBD.Password) == false)
+                        if (!string.IsNullOrEmpty(TxtPassBD.Password))
                         {
                             ClsConf.FlgPass = true;
                             ClsConf.PassAcc = TxtPassBD.Password;
@@ -165,104 +163,81 @@ namespace ReadyReq.ViewModel
                     }
                 }
 
-                if (ClsConf.EscribirConf() == -1)
-                    MessageBox.Show(StrMenFic);
+                if (ClsConf.EscribirConf() == -1) MessageBox.Show(StrMenFic);
                 else
                 {
-                    string OptionCon = "No";
+                    string OptionCon = Ingles.No;
 
-                    if (ClsConf.TipoBD == "MySql")
+                    if (ClsConf.TipoBD.Equals(DefValues.MySql))
                         ClsConf.ConexionMySql();
                     else
                     {
                         OptionCon = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + ClsConf.RutaAcc + "; ";
-                        if (ClsConf.FlgPass == true)
-                            OptionCon += "Jet OLEDB:Database Password =" + ClsConf.PassAcc + ";";
-                        else
-                            OptionCon += "Persist Security Info = False;";
+                        if (ClsConf.FlgPass) OptionCon += "Jet OLEDB:Database Password =" + ClsConf.PassAcc + ";";
+                        else OptionCon += "Persist Security Info = False;";
                     }
 
-                    if (ClsBaseDatos.BDConexion(OptionCon) == false)
-                        MessageBox.Show(StrMenConBD);
-                    else
-                        Close();
+                    if (!ClsBaseDatos.BDConexion(OptionCon)) MessageBox.Show(StrMenConBD);
+                    else Close();
                 }
             }
         }
         private void Checked(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
+            ctrl = (Control)sender;
             try
             {
-                if (ctrl.Name == "RBSql") VisibleGrid("MySql");
-                if (ctrl.Name == "RBAccess") VisibleGrid("Access");
+                if (ctrl.Name.Equals("RBSql")) VisibleGrid(DefValues.MySql);
+                if (ctrl.Name.Equals("RBAccess")) VisibleGrid(DefValues.Access);
             }
             catch { }
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //Botones
-                ButRuta.Content = "Browse...";
-                ButSalir.Content = "Save/Exit";
-
-                //Label
-                LblHost.Content = "Server";
-                LblUsu.Content = "User";
-                LblPassSql.Content = "Password";
-                LblBDSql.Content = "Database";
-                LblPortSql.Content = "Port";
-
-                LblRuta.Content = "Path";
-                LblPassBD.Content = "Password";
-
-                //Window
-                Title = "Configuration";
-
-                //Mensajes
-                StrMenArc = "Databases (.accdb)";
-                StrMenPar = "There are empty parameters";
-                StrMenFic = "Unexpected error saving configuration";
-                StrMenConBD = "Error when connecting to the database, correct it, to continue.";
+                ButRuta.Content = Ingles.Browse;
+                ButSalir.Content = Ingles.SaveExit;
+                LblHost.Content = Ingles.Server;
+                LblUsu.Content = Ingles.User;
+                LblPassSql.Content = LblPassBD.Content = Ingles.Password;
+                LblBDSql.Content = Ingles.Database;
+                LblPortSql.Content = Ingles.Port;
+                LblRuta.Content = Ingles.Path;
+                Title = Ingles.Configuration;
+                StrMenArc = Ingles.DBFile;
+                StrMenPar = Ingles.NPMenPar;
+                StrMenFic = Ingles.NPMenFic;
+                StrMenConBD = Ingles.MenConBD;
             }
             else
             {
-                //Botones
-                ButRuta.Content = "Examinar...";
-                ButSalir.Content = "Guardar/Salir";
-
-                //Label
-                LblHost.Content = "Servidor";
-                LblUsu.Content = "Usuario";
-                LblPassSql.Content = "Contaseña";
-                LblBDSql.Content = "Base de datos";
-                LblPortSql.Content = "Puerto";
-
-                LblRuta.Content = "Ruta";
-                LblPassBD.Content = "Contaseña";
-
-                //Window
-                Title = "Configuración";
-
-                //Mensajes
-                StrMenArc = "Bases de datos (.accdb)";
-                StrMenPar = "Hay parámetros vacíos";
-                StrMenFic = "Error inesperado al guardar la configuración";
-                StrMenConBD = "Error al conectarse a la base de datos, corríjalo, para continuar.";
+                ButRuta.Content = Español.Examinar;
+                ButSalir.Content = Español.GuarSal;
+                LblHost.Content = Español.Servidor;
+                LblUsu.Content = Español.Usuario;
+                LblPassSql.Content = LblPassBD.Content = Español.Contaseña;
+                LblBDSql.Content = Español.Base_Datos;
+                LblPortSql.Content = Español.Puerto;
+                LblRuta.Content = Español.Ruta;
+                Title = Español.Configuración;
+                StrMenArc = Español.DBFich;
+                StrMenPar = Español.NPMenPar;
+                StrMenFic = Español.NPMenFic;
+                StrMenConBD = Español.MenConBD;
             }
         }
         private void Presionar(object sender, KeyEventArgs e)
         {
-            ctrl = ((Control)sender);
+            ctrl = (Control)sender;
             if (e.Key == Key.Enter)
             {
-                if ((ctrl.Name == "TxtHost") && (string.IsNullOrEmpty(TxtHost.Text) == false)) TxtUsu.Focus();
-                if ((ctrl.Name == "TxtUsu") && (string.IsNullOrEmpty(TxtUsu.Text) == false)) TxtPassMS.Focus();
-                if ((ctrl.Name == "TxtPassMS") && (string.IsNullOrEmpty(TxtPassMS.Password) == false)) TxtBDMS.Focus();
-                if (ctrl.Name == "TxtBDMS" && (string.IsNullOrEmpty(TxtBDMS.Text) == false)) TxtPortMS.Focus();
-                if ((ctrl.Name == "TxtPortMS") && (string.IsNullOrEmpty(TxtPortMS.Text) == false)) ButSalir.Focus();
-                if (ctrl.Name == "TxtPassBD" && (string.IsNullOrEmpty(TxtPassBD.Password) == false)) ButSalir.Focus();
+                if (ctrl.Name.Equals("TxtHost") && !string.IsNullOrEmpty(TxtHost.Text)) TxtUsu.Focus();
+                if (ctrl.Name.Equals("TxtUsu") && !string.IsNullOrEmpty(TxtUsu.Text)) TxtPassMS.Focus();
+                if (ctrl.Name.Equals("TxtPassMS") && !string.IsNullOrEmpty(TxtPassMS.Password)) TxtBDMS.Focus();
+                if (ctrl.Name.Equals("TxtBDMS") && !string.IsNullOrEmpty(TxtBDMS.Text)) TxtPortMS.Focus();
+                if (ctrl.Name.Equals("TxtPortMS") && !string.IsNullOrEmpty(TxtPortMS.Text)) ButSalir.Focus();
+                if (ctrl.Name.Equals("TxtPassBD") && !string.IsNullOrEmpty(TxtPassBD.Password)) ButSalir.Focus();
             }
         }
     }

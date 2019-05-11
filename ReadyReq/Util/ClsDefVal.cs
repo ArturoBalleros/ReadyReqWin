@@ -48,7 +48,6 @@
         public const string NVerificado = "No verificado";
         public const string TrabGrup = "Trabajadores del Grupo de Trabajo";
 
-
         //WinGrupo
         public const string Trabajadores = "Trabajadores";
         public const string Organización = "Organización";
@@ -206,6 +205,11 @@
         public const string NPMenPre = "¿Desea predeterminar el nuevo proyecto?";
         public const string NPMenFic = "Error inesperado al guardar la configuración";
         public const string NPMenCorrec = "Proyecto creado con exito";
+
+        //WinConf
+        public const string GuarSal = "Guardar/Salir";
+        public const string DBFich = "Bases de datos (.accdb)";
+        public const string MenConBD = "Error al conectarse a la base de datos, corríjalo, para continuar.";
     }
 
     public struct Ingles
@@ -255,8 +259,6 @@
         public const string Verified = "Verified";
         public const string NVerified = "Not verified";
         public const string WorkGrup = "Workers of the Working Group";
-
-
 
         //WinGrupo
         public const string Workers = "Workers";
@@ -408,13 +410,17 @@
         public const string Database = "Database";
         public const string Port = "Port";
         public const string CreaData = "Create database?";
-                public const string NPMenPar = "There are empty parameters";
+        public const string NPMenPar = "There are empty parameters";
         public const string NPMenExi = "A file with this name already exists";
         public const string NPMenCon = "Could not connect to server";
         public const string NPMenPre = "Do you want to predetermine the new project?";
         public const string NPMenFic = "Unexpected error saving configuration";
         public const string NPMenCorrec = "Project created with success";
 
+        //WinConf
+        public const string SaveExit = "Save/Exit";
+        public const string DBFile = "Databases (.accdb)";
+        public const string MenConBD = "Error when connecting to the database, correct it, to continue.";
     }
 
     public struct DefValues

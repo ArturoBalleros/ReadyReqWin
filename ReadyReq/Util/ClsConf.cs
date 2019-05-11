@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using ReadyReq.Util;
 using System;
 using System.IO;
 using System.Text;
@@ -34,7 +35,7 @@ namespace ReadyReq.Model
                 Idioma = Desencriptar(line);
                 line = sr.ReadLine();
                 TipoBD = Desencriptar(line);
-                if (TipoBD == "MySql")
+                if (TipoBD.Equals(DefValues.MySql))
                 {
                     line = sr.ReadLine();
                     Host = Desencriptar(line);
@@ -57,8 +58,7 @@ namespace ReadyReq.Model
                     FlgPass = bool.Parse(Desencriptar(line));
                     line = sr.ReadLine();
                     PassAcc = Desencriptar(line).ToString().Substring(0, Desencriptar(line).ToString().Length - 1);
-                    if (FlgPass == true)
-                        PassAcc = "Jet OLEDB:Database Password =" + PassAcc + ";";
+                    if (FlgPass) PassAcc = "Jet OLEDB:Database Password =" + PassAcc + ";";
                 }
                 sr.Close();
                 return 0;
@@ -75,7 +75,7 @@ namespace ReadyReq.Model
                 StreamWriter sw = new StreamWriter("Conf.RR");
                 sw.WriteLine(Encriptar(Idioma));
                 sw.WriteLine(Encriptar(TipoBD));
-                if (TipoBD == "MySql")
+                if (TipoBD.Equals(DefValues.MySql))
                 {
                     sw.WriteLine(Encriptar(Host));
                     sw.WriteLine(Encriptar(Usuario));
@@ -88,7 +88,7 @@ namespace ReadyReq.Model
                     sw.WriteLine(Encriptar(RutaAcc));
                     sw.WriteLine(Encriptar("Provider=Microsoft.ACE.OLEDB.12.0; "));
                     sw.WriteLine(Encriptar(FlgPass.ToString()));
-                    if (FlgPass == true)
+                    if (FlgPass)
                     {
                         sw.WriteLine(Encriptar(PassAcc + "7"));
                         PassAcc = "Jet OLEDB:Database Password =" + PassAcc + ";";
@@ -131,14 +131,14 @@ namespace ReadyReq.Model
             if (LeerConf() == -1) { MessageBox.Show(MenErrFic); return false; }
             else
             {
-                if ((Idioma != "Español") && (Idioma != "Ingles")) { MessageBox.Show(MenErrIdi); return false; }
+                if (!Idioma.Equals(DefValues.Español) && !Idioma.Equals(DefValues.Ingles)) { MessageBox.Show(MenErrIdi); return false; }
                 else
                 {
-                    if (TipoBD != "MySql" && TipoBD != "Access") { MessageBox.Show(MenErrBD); return false; }
+                    if (!TipoBD.Equals(DefValues.MySql) && !TipoBD.Equals(DefValues.Access)) { MessageBox.Show(MenErrBD); return false; }
                     else
                     {
-                        if (TipoBD == "MySql") ConexionMySql();
-                        if (ClsBaseDatos.BDConexion() == false) { MessageBox.Show(MenErrConBD); return false; }
+                        if (TipoBD.Equals(DefValues.MySql)) ConexionMySql();
+                        if (!ClsBaseDatos.BDConexion()) { MessageBox.Show(MenErrConBD); return false; }
                         return true;
                     }
                 }
