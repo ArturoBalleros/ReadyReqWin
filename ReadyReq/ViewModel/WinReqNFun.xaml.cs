@@ -13,7 +13,7 @@ namespace ReadyReq.ViewModel
         ClsReqNFun Requisito = new ClsReqNFun();
         DataRow Fila;
         Control ctrl;
-        int TipoReq = 3;
+        int TipoReq = DefValues.ReqFun;
         bool Activo = false;
         bool Base = false;
         string StrConf;
@@ -219,9 +219,9 @@ namespace ReadyReq.ViewModel
         private void Checked(object sender, RoutedEventArgs e)
         {
             ctrl = (Control)sender;
-            if (ctrl.Name.Equals("RBReqInf")) TipoReq = 1;
-            if (ctrl.Name.Equals("RBReqNFun")) TipoReq = 2;
-            if (ctrl.Name.Equals("RBReqFun")) TipoReq = 3;
+            if (ctrl.Name.Equals("RBReqInf")) TipoReq = DefValues.ReqInfo;
+            if (ctrl.Name.Equals("RBReqNFun")) TipoReq = DefValues.ReqNFun;
+            if (ctrl.Name.Equals("RBReqFun")) TipoReq = DefValues.ReqFun;
             try
             {
                 Requisito.CargarTablaReqRel(TipoReq);

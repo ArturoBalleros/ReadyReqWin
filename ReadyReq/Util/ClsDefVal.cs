@@ -433,9 +433,8 @@
         public const string DataRow = "DataRow";
         public const string ArrayList = "ArrayList";
         public const string DataTable = "DataTable";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
+        public const int ReqInfo = 1;
+        public const int ReqNFun = 2;
+        public const int ReqFun = 3;
     }
 }
