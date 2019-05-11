@@ -186,6 +186,12 @@
         //WinExport
         public const string Exportar = "Exportar";
         public const string ExpErrFic = "Error al insertar en el fichero";
+
+        //WinWord
+        public const string TablaTraz = "Tablas de Trazabilidad";
+        public const string Comenzar = "Comenzar";
+        public const string MenErrRes = "No se pudieron generar resultados";
+        public const string MenErrTab = "No se pudieron generar las tablas";
     }
 
     public struct Ingles
@@ -375,9 +381,11 @@
         public const string Export = "Export";
         public const string ExpErrFic = "Error when inserting into the file";
 
-
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
+        //WinWord
+        public const string TracTable = "Traceability Tables";
+        public const string Start = "Start";
+        public const string MenErrRes = "Could not generate results";
+        public const string MenErrTab = "The tables could not be generated";
 
     }
 
@@ -386,10 +394,10 @@
         public const string Ingles = "Ingles";
         public const string Español = "Español";
         public const string MySql = "MySql";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
-        //public const string aaa = "Arturo";
+        public const string FinFichero = "\\endofdoc";
+        public const string DataRow = "DataRow";
+        public const string ArrayList = "ArrayList";
+        public const string DataTable = "DataTable";
         //public const string aaa = "Arturo";
         //public const string aaa = "Arturo";
         //public const string aaa = "Arturo";

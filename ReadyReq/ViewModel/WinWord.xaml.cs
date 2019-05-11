@@ -1,4 +1,5 @@
 ﻿using ReadyReq.Model;
+using ReadyReq.Util;
 using System;
 using System.Collections;
 using System.Data;
@@ -55,48 +56,33 @@ namespace ReadyReq.ViewModel
         }
         private void Idioma()
         {
-
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //Title
-                Title = "Export to Word";
-
-                //CheckBox
-                ChkGru.Content = "Workgroup";
-                ChkObj.Content = "Objectives";
-                ChkAct.Content = "Actors";
-                ChkReqI.Content = "Information Requirements";
-                ChkReqF.Content = "Functional Requirements";
-                ChkReqN.Content = "Non-functional requirements";
-                ChkTra.Content = "Traceability Tables";
-
-                //Button
-                ButEmpezar.Content = "Start";
-
-                //Mensaje
-                StrMenErr = "Could not generate results";
-                StrMenErrTab = "The tables could not be generated";
+                Title = Ingles.Export_Word;
+                ChkGru.Content = Ingles.Workgroup;
+                ChkObj.Content = Ingles.Objectives;
+                ChkAct.Content = Ingles.Actors;
+                ChkReqI.Content = Ingles.ReqInfo;
+                ChkReqF.Content = Ingles.ReqFun;
+                ChkReqN.Content = Ingles.ReqNFun;
+                ChkTra.Content = Ingles.TracTable;
+                ButEmpezar.Content = Ingles.Start;
+                StrMenErr = Ingles.MenErrRes;
+                StrMenErrTab = Ingles.MenErrTab;
             }
             else
             {
-                //Title
-                Title = "Exportar a Word";
-
-                //CheckBox
-                ChkGru.Content = "Grupo de trabajo";
-                ChkObj.Content = "Objetivos";
-                ChkAct.Content = "Actores";
-                ChkReqI.Content = "Requisitos de Información";
-                ChkReqF.Content = "Requisitos Funcionales";
-                ChkReqN.Content = "Requisitos no Funcionales";
-                ChkTra.Content = "Tablas de Trazabilidad";
-
-                //Button
-                ButEmpezar.Content = "Comenzar";
-
-                //Mensaje
-                StrMenErr = "No se pudieron generar resultados";
-                StrMenErrTab = "No se pudieron generar las tablas";
+                Title = Español.Esportar_Word;
+                ChkGru.Content = Español.Grupo_Trabajo;
+                ChkObj.Content = Español.Objetivos;
+                ChkAct.Content = Español.Actores;
+                ChkReqI.Content = Español.ReqInfo;
+                ChkReqF.Content = Español.ReqFun;
+                ChkReqN.Content = Español.ReqNFun;
+                ChkTra.Content = Español.TablaTraz;
+                ButEmpezar.Content = Español.Comenzar;
+                StrMenErr = Español.MenErrRes;
+                StrMenErrTab = Español.MenErrTab;
             }
         }
         private int CreaTablas()
@@ -373,14 +359,11 @@ namespace ReadyReq.ViewModel
                     Obj = DTObjetivos.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdObj From ReqNObj Where IdReq = " + fila[1].ToString() + ";")), "IdW");
                     tabla = ClsBaseDatos.BDTable("Select IdReqR, TipoReq From ReqNReqR Where IdReq = " + fila[1].ToString() + " Order By TipoReq;");
                     Req = DTReqInfo.Select(CadenaBusqueda(tabla, "1"), "IdW");
-                    foreach (DataRow fReq in Req)
-                        ALReq.Add(fReq);
+                    foreach (DataRow fReq in Req) ALReq.Add(fReq);
                     Req = DTReqNFun.Select(CadenaBusqueda(tabla, "2"), "IdW");
-                    foreach (DataRow fReq in Req)
-                        ALReq.Add(fReq);
+                    foreach (DataRow fReq in Req) ALReq.Add(fReq);
                     Req = DTReqFun.Select(CadenaBusqueda(tabla, "3"), "IdW");
-                    foreach (DataRow fReq in Req)
-                        ALReq.Add(fReq);
+                    foreach (DataRow fReq in Req) ALReq.Add(fReq);
                     ClsWord.ReqNFun(oWord, oDoc, fila, Auto, Fuen, Obj, ALReq);
                     ALReq.Clear();
                     PBProg.Value++; DoEvents();
@@ -430,14 +413,11 @@ namespace ReadyReq.ViewModel
                             Obj = DTObjetivos.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdObj From ReqObj Where IdReq = " + fila[1].ToString() + ";")), "IdW");
                             tabla = ClsBaseDatos.BDTable("Select IdReqR, TipoReq From ReqReqR Where IdReq = " + fila[1].ToString() + " Order By TipoReq;");
                             Req = DTReqInfo.Select(CadenaBusqueda(tabla, "1"), "IdW");
-                            foreach (DataRow fReq in Req)
-                                ALReq.Add(fReq);
+                            foreach (DataRow fReq in Req) ALReq.Add(fReq);
                             Req = DTReqNFun.Select(CadenaBusqueda(tabla, "2"), "IdW");
-                            foreach (DataRow fReq in Req)
-                                ALReq.Add(fReq);
+                            foreach (DataRow fReq in Req) ALReq.Add(fReq);
                             Req = DTReqFun.Select(CadenaBusqueda(tabla, "3"), "IdW");
-                            foreach (DataRow fReq in Req)
-                                ALReq.Add(fReq);
+                            foreach (DataRow fReq in Req) ALReq.Add(fReq);
                             tabla = ClsBaseDatos.BDTable("Select Descrip From ReqSecNor Where IdReq = " + fila[1].ToString() + " Order by Id;");
                             tabla2 = ClsBaseDatos.BDTable("Select Descrip From ReqSecExc Where IdReq = " + fila[1].ToString() + " Order by Id;");
                             ClsWord.ReqFun(oWord, oDoc, fila, Auto, Fuen, Obj, ALReq, Act, tabla, tabla2);
@@ -475,14 +455,11 @@ namespace ReadyReq.ViewModel
                     Obj = DTObjetivos.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdObj From ReqIObj Where IdReq = " + fila[1].ToString() + ";")), "IdW");
                     tabla = ClsBaseDatos.BDTable("Select IdReqR, TipoReq From ReqIReqR Where IdReq = " + fila[1].ToString() + " Order By TipoReq;");
                     Req = DTReqInfo.Select(CadenaBusqueda(tabla, "1"), "IdW");
-                    foreach (DataRow fReq in Req)
-                        ALReq.Add(fReq);
+                    foreach (DataRow fReq in Req) ALReq.Add(fReq);
                     Req = DTReqNFun.Select(CadenaBusqueda(tabla, "2"), "IdW");
-                    foreach (DataRow fReq in Req)
-                        ALReq.Add(fReq);
+                    foreach (DataRow fReq in Req) ALReq.Add(fReq);
                     Req = DTReqFun.Select(CadenaBusqueda(tabla, "3"), "IdW");
-                    foreach (DataRow fReq in Req)
-                        ALReq.Add(fReq);
+                    foreach (DataRow fReq in Req) ALReq.Add(fReq);
                     tabla = ClsBaseDatos.BDTable("Select Descrip From ReqIDatEsp Where IdReq = " + fila[1].ToString() + " Order by Id;");
                     ClsWord.ReqInfo(oWord, oDoc, fila, Auto, Fuen, Obj, ALReq, tabla);
                     ALReq.Clear();
@@ -510,11 +487,11 @@ namespace ReadyReq.ViewModel
                 wb.Worksheets.Add();
                 wb.Worksheets.Add();
                 ws1 = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
-                if (ClsConf.Idioma == "Ingles") ws1.Name = "Functional Requirements"; else ws1.Name = "Requisitos Funcionales";
+                ws1.Name = ClsConf.Idioma.Equals(DefValues.Ingles) ? Ingles.ReqFun : Español.ReqFun;
                 ws2 = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[2];
-                if (ClsConf.Idioma == "Ingles") ws2.Name = "Non-functional requirements"; else ws2.Name = "Requisitos no Funcionales";
+                ws2.Name = ClsConf.Idioma.Equals(DefValues.Ingles) ? Ingles.ReqNFun : Español.ReqNFun;
                 ws3 = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[3];
-                if (ClsConf.Idioma == "Ingles") ws3.Name = "Information Requirements"; else ws3.Name = "Requisitos de Información";
+                ws3.Name = ClsConf.Idioma.Equals(DefValues.Ingles) ? Ingles.ReqInfo : Español.ReqInfo;
                 aRange = ClsWord.DarFormatoExcel(ws1, DTReqFun, DTObjetivos.Rows.Count + 1);
                 PBProg.Value = 0; PBProg.Maximum = DTReqFun.Rows.Count - 1; DoEvents();
                 for (int i = 0; i <= (DTReqFun.Rows.Count - 1); i++)
@@ -552,103 +529,76 @@ namespace ReadyReq.ViewModel
         }
         private string RellenarCeros(string Cadena)
         {
-            while (Cadena.Length < 3)
-                Cadena = "0" + Cadena;
+            while (Cadena.Length < 3) Cadena = "0" + Cadena;
             return Cadena;
         }
         private string DetEstado(int Estado, int Tipo)
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
                 if (Tipo == 1)
                 {
-                    if (Estado == 1)
-                        return "Very low";
-                    else if (Estado == 2)
-                        return "Low";
-                    else if (Estado == 3)
-                        return "Medium";
-                    else if (Estado == 4)
-                        return "High";
-                    else
-                        return "Very high";
+                    if (Estado == 1) return Ingles.VLow;
+                    else if (Estado == 2) return Ingles.Low;
+                    else if (Estado == 3) return Ingles.Medium;
+                    else if (Estado == 4) return Ingles.High;
+                    else return Ingles.VHigh;
                 }
                 else if (Tipo == 2)
                 {
-                    if (Estado == 1)
-                        return "Low";
-                    else if (Estado == 2)
-                        return "Medium";
-                    else
-                        return "High";
+                    if (Estado == 1) return Ingles.Low;
+                    else if (Estado == 2) return Ingles.Medium;
+                    else return Ingles.High;
                 }
                 else if (Tipo == 3)
                 {
-                    if (Estado == 1)
-                        return "Verified";
-                    else
-                        return "Not verified";
+                    if (Estado == 1) return Ingles.Verified;
+                    else return Ingles.NVerified;
                 }
                 else
                 {
-                    if (Estado == 1)
-                        return "Yes";
-                    else
-                        return "No";
+                    if (Estado == 1) return Ingles.yes;
+                    else return Ingles.No;
                 }
             }
             else
             {
                 if (Tipo == 1)
                 {
-                    if (Estado == 1)
-                        return "Muy baja";
-                    else if (Estado == 2)
-                        return "Baja";
-                    else if (Estado == 3)
-                        return "Media";
-                    else if (Estado == 4)
-                        return "Alta";
-                    else
-                        return "Muy Alta";
+                    if (Estado == 1) return Español.MBaja;
+                    else if (Estado == 2) return Español.Baja;
+                    else if (Estado == 3) return Español.Media;
+                    else if (Estado == 4) return Español.Alta;
+                    else return Español.MAlta;
                 }
                 else if (Tipo == 2)
                 {
-                    if (Estado == 1)
-                        return "Baja";
-                    else if (Estado == 2)
-                        return "Media";
-                    else
-                        return "Alta";
+                    if (Estado == 1) return Español.Baja;
+                    else if (Estado == 2) return Español.Media;
+                    else return Español.Alta;
                 }
                 else if (Tipo == 3)
                 {
-                    if (Estado == 1)
-                        return "Verificado";
-                    else
-                        return "No verificado";
+                    if (Estado == 1) return Español.Verificado;
+                    else return Español.NVerificado;
                 }
                 else
                 {
-                    if (Estado == 1)
-                        return "Si";
-                    else
-                        return "No";
+                    if (Estado == 1) return Español.Si;
+                    else return Español.No;
                 }
             }
         }
-        private string CadenaBusqueda(DataTable tabla, string flgReq = "No")
+        private string CadenaBusqueda(DataTable tabla, string flgReq = Ingles.No)
         {
             DataRow fila; string Busqueda = "Id = ";
-            if ("No" == flgReq)
+            if (flgReq.Equals(Ingles.No))
             {
                 for (int j = 0; (j <= tabla.Rows.Count - 1); j++)
                 {
                     fila = tabla.Rows[j];
-                    if (j < tabla.Rows.Count - 1)
-                        Busqueda += fila[0].ToString() + " or Id = ";
-                    else
-                        Busqueda += fila[0].ToString();
+                    if (j < tabla.Rows.Count - 1) Busqueda += fila[0].ToString() + " or Id = ";
+                    else Busqueda += fila[0].ToString();
                 }
             }
             else
@@ -656,16 +606,12 @@ namespace ReadyReq.ViewModel
                 for (int j = 0; (j <= tabla.Rows.Count - 1); j++)
                 {
                     fila = tabla.Rows[j];
-                    if (fila[1].ToString() == flgReq)
-                        Busqueda += fila[0].ToString() + " or Id = ";
+                    if (fila[1].ToString() == flgReq) Busqueda += fila[0].ToString() + " or Id = ";
                 }
-                if (Busqueda.Length > 10)
-                    Busqueda = Busqueda.Substring(0, Busqueda.Length - 9);
+                if (Busqueda.Length > 10) Busqueda = Busqueda.Substring(0, Busqueda.Length - 9);
             }
-            if (Busqueda == "Id = ")
-                return "Id = -1";
-            else
-                return Busqueda;
+            if (Busqueda == "Id = ") return "Id = -1";
+            else return Busqueda;
         }
     }
 }
