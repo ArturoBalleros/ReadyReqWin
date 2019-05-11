@@ -1,5 +1,5 @@
 ﻿using ReadyReq.Model;
-using System;
+using ReadyReq.Util;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,12 +25,12 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             RBSql.IsChecked = true;
-            VisibleGrid("MySql");
+            VisibleGrid(DefValues.MySql);
             Idioma();
         }
         private void VisibleGrid(string opt)
         {
-            if (opt == "MySql")
+            if (opt.Equals(DefValues.MySql))
             {
                 GridSql.Visibility = Visibility.Visible;
                 GridAccess.Visibility = Visibility.Hidden;
@@ -43,25 +43,25 @@ namespace ReadyReq.ViewModel
         }
         private void ButClick(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
-            if (ctrl.Name == "ButRuta")
+            ctrl = (Control)sender;
+            if (ctrl.Name.Equals("ButRuta"))
             {
                 WinForms.FolderBrowserDialog browse = new WinForms.FolderBrowserDialog();
                 browse.ShowDialog();
                 LblRutaBD.Content = browse.SelectedPath;
             }
-            if (ctrl.Name == "ButCrear")
+            if (ctrl.Name.Equals("ButCrear"))
             {
                 if (RBSql.IsChecked == true)
                 {
-                    if ((string.IsNullOrEmpty(TxtHost.Text) == true) || (string.IsNullOrEmpty(TxtUsu.Text) == true) || (string.IsNullOrEmpty(TxtPassMS.Password) == true) || (string.IsNullOrEmpty(TxtBDMS.Text) == true) || (string.IsNullOrEmpty(TxtPortMS.Text) == true))
+                    if (string.IsNullOrEmpty(TxtHost.Text) || string.IsNullOrEmpty(TxtUsu.Text) || string.IsNullOrEmpty(TxtPassMS.Password) || string.IsNullOrEmpty(TxtBDMS.Text) || string.IsNullOrEmpty(TxtPortMS.Text))
                     {
                         MessageBox.Show(StrMenPar);
                         return;
                     }
                     else
                     {
-                        NuevoProyecto.TipoBD = "MySql";
+                        NuevoProyecto.TipoBD = DefValues.MySql;
                         NuevoProyecto.Host = TxtHost.Text;
                         NuevoProyecto.Usuario = TxtUsu.Text;
                         NuevoProyecto.PassMySql = TxtPassMS.Password;
@@ -74,16 +74,16 @@ namespace ReadyReq.ViewModel
                 {
                     //access
                     string RutaBD = "" + LblRutaBD.Content;
-                    if (string.IsNullOrEmpty(RutaBD) == true)
+                    if (string.IsNullOrEmpty(RutaBD))
                     {
                         MessageBox.Show(StrMenPar);
                         return;
                     }
                     else
                     {
-                        NuevoProyecto.TipoBD = "Access";
+                        NuevoProyecto.TipoBD = DefValues.Access;
                         NuevoProyecto.RutaAcc = RutaBD + "\\" + TxtNomBD.Text + ".accdb";
-                        if (string.IsNullOrEmpty(TxtPassBD.Password) == false)
+                        if (!string.IsNullOrEmpty(TxtPassBD.Password))
                         {
                             NuevoProyecto.FlgPass = true;
                             NuevoProyecto.PassAcc = "Jet OLEDB:Database Password =" + TxtPassBD.Password + ";";
@@ -95,7 +95,6 @@ namespace ReadyReq.ViewModel
                         }
                     }
                 }
-
                 int resultado = NuevoProyecto.CrearBase();
                 if (resultado == -1) MessageBox.Show(StrMenCon);
                 else if (resultado == -2) MessageBox.Show(StrMenExi);
@@ -117,13 +116,10 @@ namespace ReadyReq.ViewModel
                         {
                             ClsConf.RutaAcc = NuevoProyecto.RutaAcc;
                             ClsConf.FlgPass = NuevoProyecto.FlgPass;
-                            if (NuevoProyecto.FlgPass == true)
-                                ClsConf.PassAcc = NuevoProyecto.PassAcc.Substring(29, NuevoProyecto.PassAcc.Length - 30);
-                            else
-                                ClsConf.PassAcc = String.Empty;
+                            if (NuevoProyecto.FlgPass) ClsConf.PassAcc = NuevoProyecto.PassAcc.Substring(29, NuevoProyecto.PassAcc.Length - 30);
+                            else ClsConf.PassAcc = string.Empty;
                         }
-                        if (ClsConf.EscribirConf() == -1)
-                            MessageBox.Show(StrMenFic);
+                        if (ClsConf.EscribirConf() == -1) MessageBox.Show(StrMenFic);
                         MessageBox.Show(StrMenCorrec);
                     }
                 }
@@ -132,93 +128,71 @@ namespace ReadyReq.ViewModel
         }
         private void Checked(object sender, RoutedEventArgs e)
         {
-            ctrl = ((Control)sender);
+            ctrl = (Control)sender;
             try
             {
-                if (ctrl.Name == "RBSql") VisibleGrid("MySql");
-                if (ctrl.Name == "RBAccess") VisibleGrid("Access");
+                if (ctrl.Name.Equals("RBSql")) VisibleGrid(DefValues.MySql);
+                if (ctrl.Name.Equals("RBAccess")) VisibleGrid(DefValues.Access);
             }
             catch { }
         }
         private void Idioma()
         {
-            if (ClsConf.Idioma == "Ingles")
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                //Botones
-                ButRuta.Content = "Browse...";
-                ButCrear.Content = "Create";
-
-                //Label
-                LblHost.Content = "Server";
-                LblUsu.Content = "User";
-                LblPassSql.Content = "Password";
-                LblBDSql.Content = "Database";
-                LblPortSql.Content = "Port";
-
-                LblRuta.Content = "Path";
-                LblNomBD.Content = "Name";
-                LblPassBD.Content = "Password";
-
-                //Check
-                ChkCreBase.Content = "Create database?";
-
-                //Window
-                Title = "New project";
-
-                //Mensajes
-                StrConf = "Confirmation";
-                StrMenPar = "There are empty parameters";
-                StrMenExi = "A file with this name already exists";
-                StrMenCon = "Could not connect to server";
-                StrMenPre = "Do you want to predetermine the new project?";
-                StrMenFic = "Unexpected error saving configuration";
-                StrMenCorrec = "Project created with success";
+                ButRuta.Content = Ingles.Browse;
+                ButCrear.Content = Ingles.Create;
+                LblHost.Content = Ingles.Server;
+                LblUsu.Content = Ingles.User;
+                LblPassSql.Content = LblPassBD.Content = Ingles.Password;
+                LblBDSql.Content = Ingles.Database;
+                LblPortSql.Content = Ingles.Port;
+                LblRuta.Content = Ingles.Path;
+                LblNomBD.Content = Ingles.Name;
+                ChkCreBase.Content = Ingles.CreaData;
+                Title = Ingles.New_Proj;
+                StrConf = Ingles.Confirmation;
+                StrMenPar = Ingles.NPMenPar;
+                StrMenExi = Ingles.NPMenExi;
+                StrMenCon = Ingles.NPMenCon;
+                StrMenPre = Ingles.NPMenPre;
+                StrMenFic = Ingles.NPMenFic;
+                StrMenCorrec = Ingles.NPMenCorrec;
             }
             else
             {
-                //Botones
-                ButRuta.Content = "Examinar...";
-                ButCrear.Content = "Crear";
-
-                //Label
-                LblHost.Content = "Servidor";
-                LblUsu.Content = "Usuario";
-                LblPassSql.Content = "Contaseña";
-                LblBDSql.Content = "Base de datos";
-                LblPortSql.Content = "Puerto";
-
-                LblRuta.Content = "Ruta";
-                LblNomBD.Content = "Nombre";
-                LblPassBD.Content = "Contaseña";
-
-                //Check
-                ChkCreBase.Content = "¿Crear base de datos?";
-
-                //Window
-                Title = "Nuevo Proyecto";
-
-                //Mensajes
-                StrConf = "Confirmación";
-                StrMenExi = "Ya existe un archivo con este nombre";
-                StrMenPar = "Hay parámetros vacíos";
-                StrMenCon = "No se pudo conectar al servidor";
-                StrMenPre = "¿Desea predeterminar el nuevo proyecto?";
-                StrMenFic = "Error inesperado al guardar la configuración";
-                StrMenCorrec = "Proyecto creado con exito";
+                ButRuta.Content = Español.Examinar;
+                ButCrear.Content = Español.Crear;
+                LblHost.Content = Español.Servidor;
+                LblUsu.Content = Español.Usuario;
+                LblPassSql.Content = LblPassBD.Content = Español.Contaseña;
+                LblBDSql.Content = Español.Base_Datos;
+                LblPortSql.Content = Español.Puerto;
+                LblRuta.Content = Español.Ruta;
+                LblNomBD.Content = Español.Nombre;
+                ChkCreBase.Content = Español.CreaBase;
+                Title = Español.Nue_Proy;
+                StrConf = Español.Confirmación;
+                StrMenPar = Español.NPMenPar;
+                StrMenExi = Español.NPMenExi;
+                StrMenCon = Español.NPMenCon;
+                StrMenPre = Español.NPMenPre;
+                StrMenFic = Español.NPMenFic;
+                StrMenCorrec = Español.NPMenCorrec;
             }
         }
         private void Presionar(object sender, KeyEventArgs e)
         {
-            ctrl = ((Control)sender);
+            ctrl = (Control)sender;
             if (e.Key == Key.Enter)
             {
-                if ((ctrl.Name == "TxtHost") && (string.IsNullOrEmpty(TxtHost.Text) == false)) TxtUsu.Focus();
-                if ((ctrl.Name == "TxtUsu") && (string.IsNullOrEmpty(TxtUsu.Text) == false)) TxtPassMS.Focus();
-                if ((ctrl.Name == "TxtPassMS") && (string.IsNullOrEmpty(TxtPassMS.Password) == false)) TxtBDMS.Focus();
-                if (ctrl.Name == "TxtBDMS" && (string.IsNullOrEmpty(TxtBDMS.Text) == false)) TxtPortMS.Focus();
-                if ((ctrl.Name == "TxtPortMS") && (string.IsNullOrEmpty(TxtPortMS.Text) == false)) ButCrear.Focus();
-                if (ctrl.Name == "TxtNomBD" && (string.IsNullOrEmpty(TxtNomBD.Text) == false)) TxtPassBD.Focus();
-                if (ctrl.Name == "TxtPassBD" && (string.IsNullOrEmpty(TxtPassBD.Password) == false)) ButCrear.Focus();
+                if (ctrl.Name.Equals("TxtHost") && !string.IsNullOrEmpty(TxtHost.Text)) TxtUsu.Focus();
+                if (ctrl.Name.Equals("TxtUsu") && !string.IsNullOrEmpty(TxtUsu.Text)) TxtPassMS.Focus();
+                if (ctrl.Name.Equals("TxtPassMS") && !string.IsNullOrEmpty(TxtPassMS.Password)) TxtBDMS.Focus();
+                if (ctrl.Name.Equals("TxtBDMS") && !string.IsNullOrEmpty(TxtBDMS.Text)) TxtPortMS.Focus();
+                if (ctrl.Name.Equals("TxtPortMS") && !string.IsNullOrEmpty(TxtPortMS.Text)) ButCrear.Focus();
+                if (ctrl.Name.Equals("TxtNomBD") && !string.IsNullOrEmpty(TxtNomBD.Text)) TxtPassBD.Focus();
+                if (ctrl.Name.Equals("TxtPassBD") && !string.IsNullOrEmpty(TxtPassBD.Password)) ButCrear.Focus();
             }
         }
     }

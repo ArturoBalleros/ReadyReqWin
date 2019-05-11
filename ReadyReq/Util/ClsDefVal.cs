@@ -192,6 +192,20 @@
         public const string Comenzar = "Comenzar";
         public const string MenErrRes = "No se pudieron generar resultados";
         public const string MenErrTab = "No se pudieron generar las tablas";
+
+        //WinNuePro
+        public const string Servidor = "Servidor";
+        public const string Usuario = "Usuario";
+        public const string Contaseña = "Contaseña";
+        public const string Base_Datos = "Base de datos";
+        public const string Puerto = "Puerto";
+        public const string CreaBase = "¿Crear base de datos?";
+        public const string NPMenPar = "Ya existe un archivo con este nombre";
+        public const string NPMenExi = "Hay parámetros vacíos";
+        public const string NPMenCon = "No se pudo conectar al servidor";
+        public const string NPMenPre = "¿Desea predeterminar el nuevo proyecto?";
+        public const string NPMenFic = "Error inesperado al guardar la configuración";
+        public const string NPMenCorrec = "Proyecto creado con exito";
     }
 
     public struct Ingles
@@ -387,6 +401,20 @@
         public const string MenErrRes = "Could not generate results";
         public const string MenErrTab = "The tables could not be generated";
 
+        //WinNuePro
+        public const string Server = "Server";
+        public const string User = "User";
+        public const string Password = "Password";
+        public const string Database = "Database";
+        public const string Port = "Port";
+        public const string CreaData = "Create database?";
+                public const string NPMenPar = "There are empty parameters";
+        public const string NPMenExi = "A file with this name already exists";
+        public const string NPMenCon = "Could not connect to server";
+        public const string NPMenPre = "Do you want to predetermine the new project?";
+        public const string NPMenFic = "Unexpected error saving configuration";
+        public const string NPMenCorrec = "Project created with success";
+
     }
 
     public struct DefValues
@@ -394,6 +422,7 @@
         public const string Ingles = "Ingles";
         public const string Español = "Español";
         public const string MySql = "MySql";
+        public const string Access = "Access";
         public const string FinFichero = "\\endofdoc";
         public const string DataRow = "DataRow";
         public const string ArrayList = "ArrayList";

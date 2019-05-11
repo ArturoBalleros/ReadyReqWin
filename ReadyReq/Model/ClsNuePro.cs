@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using ReadyReq.Util;
 
 namespace ReadyReq.Model
 {
@@ -17,10 +18,10 @@ namespace ReadyReq.Model
         public string PassAcc { get; set; }
         public int CrearBase()
         {
-            if (TipoBD == "MySql")
+            if (TipoBD.Equals(DefValues.MySql))
             {
                 ConexionMySql();
-                if (ClsBaseDatos.BDConexion(BuilderMySql.ToString(), TipoBD) == false) return -1;
+                if (!ClsBaseDatos.BDConexion(BuilderMySql.ToString(), TipoBD)) return -1;
                 if (CreateMySql)
                 {
                     ClsBaseDatos.BDBool("CREATE SCHEMA " + BDMySql, BuilderMySql.ToString(), TipoBD);
@@ -91,13 +92,11 @@ namespace ReadyReq.Model
             {
                 ADOX.Catalog cat = new ADOX.Catalog();
                 string builder = "Provider=Microsoft.ACE.OLEDB.12.0; " + "Data Source=" + RutaAcc + "; ";
-                if (FlgPass == true)
-                    builder += PassAcc;
+                if (FlgPass) builder += PassAcc;
                 try
                 {
                     cat.Create(builder);
-                    if (FlgPass == false)
-                        builder += "Persist Security Info = False;";
+                    if (!FlgPass) builder += "Persist Security Info = False;";
 
                     ClsBaseDatos.BDBool("CREATE TABLE `Actores` (`Id` AUTOINCREMENT not null, `Nombre` varchar(100) unique not null, `Descripcion` text not null, `Complejidad` int not null, `DescComple` varchar(100) not null, `Categoria` int not null, `Comentario` Text not null, primary key(`Id`));", builder, TipoBD);
                     ClsBaseDatos.BDBool("CREATE TABLE `Grupo` (`Id` AUTOINCREMENT not null, `Nombre` varchar(100) unique not null, `Organizacion` varchar(100) not null, `Rol` varchar(100) not null, `Desarrollador` int not null, `Categoria` int not null, `Comentario` Text not null, primary key(`Id`));", builder, TipoBD);
@@ -172,8 +171,7 @@ namespace ReadyReq.Model
             BuilderMySql.UserID = Usuario;
             BuilderMySql.Password = PassMySql;
             BuilderMySql.Port = uint.Parse(PortMySql);
-            if (!CreateMySql)
-                BuilderMySql.Database = BDMySql;
+            if (!CreateMySql) BuilderMySql.Database = BDMySql;
         }
     }
 }
