@@ -56,7 +56,7 @@ namespace ReadyReq.ViewModel
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
                 ButRuta.Content = Ingles.Browse;
-                ButCrear.Content = Ingles.Create;
+                ButCrear.Content = Ingles.Start;
                 LblRuta.Content = Ingles.Path;
                 Title = Ingles.Import;
                 StrMenArc = Ingles.MenArc;
@@ -66,7 +66,7 @@ namespace ReadyReq.ViewModel
             else
             {
                 ButRuta.Content = Español.Examinar;
-                ButCrear.Content = Español.Crear;
+                ButCrear.Content = Español.Comenzar;
                 LblRuta.Content = Español.Ruta;
                 Title = Español.Importar;
                 StrMenArc = Español.MenArc;
