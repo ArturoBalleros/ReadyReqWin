@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2DCE2C48AA1948AFAF17FF18D5241C27"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_50C33A268FAC47C49DABF4675EF933BC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -34,13 +28,19 @@
         "Entry"
         {
         "MsmKey" = "8:_6D26F9602D971B070F5A1EBFFB3F6E06"
-        "OwnerKey" = "8:_2DCE2C48AA1948AFAF17FF18D5241C27"
+        "OwnerKey" = "8:_81EF327006E743EBB9CACF22E1EE8432"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_78AC6CECF13E12FBD64E89426077B406"
-        "OwnerKey" = "8:_2DCE2C48AA1948AFAF17FF18D5241C27"
+        "OwnerKey" = "8:_81EF327006E743EBB9CACF22E1EE8432"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_81EF327006E743EBB9CACF22E1EE8432"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2DCE2C48AA1948AFAF17FF18D5241C27"
+        "OwnerKey" = "8:_6D26F9602D971B070F5A1EBFFB3F6E06"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6D26F9602D971B070F5A1EBFFB3F6E06"
+        "OwnerKey" = "8:_81EF327006E743EBB9CACF22E1EE8432"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -104,6 +104,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -213,11 +221,6 @@
             "AssemblyAsmDisplayName" = "8:MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6D26F9602D971B070F5A1EBFFB3F6E06"
-                    {
-                    "Name" = "8:MySql.Data.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MySql.Data.dll"
             "TargetName" = "8:"
@@ -244,11 +247,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_78AC6CECF13E12FBD64E89426077B406"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -336,7 +334,7 @@
         {
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_29A4B1A2B4774124B6EE937BBE1573B4"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[Manufacturer]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder]\\[Manufacturer]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -384,15 +382,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ReadyReqSetup"
-        "ProductCode" = "8:{8BFD8623-F9E3-4C80-834A-D70BBE175EEE}"
-        "PackageCode" = "8:{763707CA-7D02-42EE-9DBF-295430196B1D}"
+        "ProductCode" = "8:{306B8DA4-0FCF-4795-9293-0A5D19DEBFF2}"
+        "PackageCode" = "8:{D1EB9677-1938-452C-82F1-FB02E9BBDEFE}"
         "UpgradeCode" = "8:{76E702F8-6A80-4C37-943A-91CD0FECB914}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.9"
+        "ProductVersion" = "8:1.0.17"
         "Manufacturer" = "8:ReadyReq"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -505,7 +503,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2AAFE2A9EB7D4B54A0C0D7018D52FF5C"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2518F5BBF3F84484AE52DEDAA15D9247"
             {
             "Name" = "8:ReadyReq"
             "Arguments" = "8:"
@@ -513,13 +511,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_2DCE2C48AA1948AFAF17FF18D5241C27"
+            "Target" = "8:_81EF327006E743EBB9CACF22E1EE8432"
             "Folder" = "8:_CC2E16235BC74E31A612D9B5345BA498"
             "WorkingFolder" = "8:_29A4B1A2B4774124B6EE937BBE1573B4"
             "Icon" = "8:_93786CF1817A44B3891BDF8F65F3B626"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_536F8019AE0E40CB916F17EB1CFBE23F"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_80CB1479F70F438CBD4EE3E53E37E53B"
             {
             "Name" = "8:ReadyReq"
             "Arguments" = "8:"
@@ -527,7 +525,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_2DCE2C48AA1948AFAF17FF18D5241C27"
+            "Target" = "8:_81EF327006E743EBB9CACF22E1EE8432"
             "Folder" = "8:_54124A5EA4614A5EAAD71A7FD28C176D"
             "WorkingFolder" = "8:_29A4B1A2B4774124B6EE937BBE1573B4"
             "Icon" = "8:_93786CF1817A44B3891BDF8F65F3B626"
@@ -932,7 +930,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2DCE2C48AA1948AFAF17FF18D5241C27"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_81EF327006E743EBB9CACF22E1EE8432"
             {
             "SourcePath" = "8:..\\ReadyReq\\obj\\Release\\ReadyReq.exe"
             "TargetName" = "8:"
