@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        ResizeMode="CanMinimize" Icon="/Image/RN.png" Height="600" SizeToContent="Width" Loaded="WLoaded" Closing="WClosing">
+        ResizeMode="CanMinimize" Icon="/Image/RN.png" Height="650" SizeToContent="Width" Loaded="WLoaded" Closing="WClosing">
     <Window.Resources>
         <ResourceDictionary Source="/Util/Style.xaml"/>
     </Window.Resources>
@@ -24,11 +24,11 @@
             <Grid x:Name="GridBus" Width="200">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.18*"/>
                 </Grid.RowDefinitions>
                 <DataGrid x:Name="DGBuscar" Style="{StaticResource Grid}" ScrollViewer.CanContentScroll="True" IsReadOnly="True" Margin="10" AutoGenerateColumns="False" SelectedCellsChanged="Seleccionar">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="180" CanUserResize="False" Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn Width="150" CanUserResize="False" Binding="{Binding Nombre}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid Grid.Row="1">
@@ -64,6 +64,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1.2*"/>
                             <RowDefinition Height="1.2*"/>
+                            <RowDefinition Height="1.2*"/>
+                            <RowDefinition Height="1.2*"/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -72,17 +74,21 @@
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <Label x:Name="LblNom" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5"/>
-                        <Label x:Name="LblDes" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="1"/>
-                        <Label x:Name="LblPri" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="2"/>
-                        <Label x:Name="LblUrg" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="3"/>
-                        <Label x:Name="LblEst" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="4"/>
-                        <Label x:Name="LblEsta" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="5"/>
-                        <Label x:Name="LblCat" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="6"/>
-                        <Label x:Name="LblCom" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="7"/>
-                        <TextBox x:Name="TxtNom" Style="{StaticResource Text}" Grid.Column="1" Margin="10,15" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar" />
-                        <TextBox x:Name="TxtDesc" Style="{StaticResource Text}" Grid.Column="1" Grid.Row="1" Margin="10,15" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar" />
-                        <ComboBox x:Name="CmbCat" Style="{StaticResource Combo}" Grid.Column="1" Grid.Row="6" Margin="10,10,350,10" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                        <Grid Grid.Row="5" Grid.Column="1">
+                        <Label x:Name="LblVer" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="1"/>
+                        <Label x:Name="LblFec" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="2"/>
+                        <Label x:Name="LblDes" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="3"/>
+                        <Label x:Name="LblPri" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="4"/>
+                        <Label x:Name="LblUrg" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="5"/>
+                        <Label x:Name="LblEst" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="6"/>
+                        <Label x:Name="LblEsta" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="7"/>
+                        <Label x:Name="LblCat" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="8"/>
+                        <Label x:Name="LblCom" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="0,5" Grid.Row="9"/>
+                        <TextBox x:Name="TxtNom" Style="{StaticResource Text}" Grid.Column="1" Margin="10" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar" />
+                        <TextBox x:Name="TxtVer" Style="{StaticResource Text}" Grid.Column="1" Grid.Row="1" Margin="10,10,300,10" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar" />
+                        <TextBox x:Name="TxtFec" Style="{StaticResource Text}" Grid.Column="1" Grid.Row="2" Margin="10,10,300,10" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar" />
+                        <TextBox x:Name="TxtDesc" Style="{StaticResource Text}" Grid.Column="1" Grid.Row="3" Margin="10" VerticalContentAlignment="Center" MaxLength="100" FontSize="14" KeyDown="Presionar" />
+                        <ComboBox x:Name="CmbCat" Style="{StaticResource Combo}" Grid.Column="1" Grid.Row="8" Margin="10,7,350,7" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <Grid Grid.Row="7" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -90,8 +96,8 @@
                             <RadioButton x:Name="RBVer" Style="{StaticResource Radio}" GroupName="Estado" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="True"/>
                             <RadioButton x:Name="RBNVer" Style="{StaticResource Radio}" GroupName="Estado" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
-                        <TextBox x:Name="TxtCom" Style="{StaticResource Text}" Grid.Column="1" Grid.Row="7" Margin="10" FontSize="14" AcceptsReturn="True" TextWrapping="Wrap"  />
-                        <Grid Grid.Row="2" Grid.Column="1">
+                        <TextBox x:Name="TxtCom" Style="{StaticResource Text}" Grid.Column="1" Grid.Row="9" Margin="10" FontSize="14" AcceptsReturn="True" TextWrapping="Wrap"  />
+                        <Grid Grid.Row="4" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.1*"/>
                                 <ColumnDefinition Width="0.9*"/>
@@ -105,7 +111,7 @@
                             <RadioButton x:Name="RBPA" Style="{StaticResource Radio}" GroupName="Prioridad" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <RadioButton x:Name="RBPMA" Style="{StaticResource Radio}" GroupName="Prioridad" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
-                        <Grid Grid.Row="3" Grid.Column="1">
+                        <Grid Grid.Row="5" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.1*"/>
                                 <ColumnDefinition Width="0.9*"/>
@@ -119,7 +125,7 @@
                             <RadioButton x:Name="RBUA" Style="{StaticResource Radio}" GroupName="Urgencia" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <RadioButton x:Name="RBUMA" Style="{StaticResource Radio}" GroupName="Urgencia" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
-                        <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid Grid.Row="6" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.1*"/>
                                 <ColumnDefinition Width="0.9*"/>

@@ -1,5 +1,6 @@
 ﻿using ReadyReq.Interface;
 using ReadyReq.Util;
+using System;
 using System.Data;
 
 namespace ReadyReq.Model
@@ -16,6 +17,8 @@ namespace ReadyReq.Model
             Buscador.Rows.Clear();
             Id = 0;
             Nombre = string.Empty;
+            Version = 1.0;
+            Fecha = DateTime.Today.Date;
             Descripcion = string.Empty;
             Prioridad = 0;
             Urgencia = 0;
@@ -37,7 +40,7 @@ namespace ReadyReq.Model
             int intEstado = (Estado) ? 1 : 0;
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update ReqNFunc Set Nombre = '" + Nombre + "',Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
+                if (!ClsBaseDatos.BDBool("Update ReqNFunc Set Nombre = '" + Nombre + "', Version = " + ClsFunciones.DoubleToString(Version) + ", Fecha = '" + ClsFunciones.FechaMySQL(Fecha) + "', Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
                 ClsBaseDatos.BDBool("Delete from ReqNAuto where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqNFuen where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqNObj where IdReq = " + Id + ";");
@@ -46,7 +49,7 @@ namespace ReadyReq.Model
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into ReqNFunc(Nombre,Descripcion,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (!ClsBaseDatos.BDBool("Insert into ReqNFunc(Nombre,Version,Fecha,Descripcion,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "'," + ClsFunciones.DoubleToString(Version) + ",'" + ClsFunciones.FechaMySQL(Fecha) + "','" + Descripcion + "'," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
                 if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from ReqNFunc order by Id Desc;")) == -1) return -2;
             }
             return 0;
@@ -85,13 +88,15 @@ namespace ReadyReq.Model
             DataRow Requisito = ClsBaseDatos.BDTable("Select * from ReqNFunc where Id = " + id + ";").Rows[0];
             Id = int.Parse(Requisito[0].ToString());
             Nombre = Requisito[1].ToString();
-            Descripcion = Requisito[2].ToString();
-            Prioridad = int.Parse(Requisito[3].ToString());
-            Urgencia = int.Parse(Requisito[4].ToString());
-            Estabilidad = int.Parse(Requisito[5].ToString());
-            Estado = ((int)Requisito[6] == 1) ? true : false;
-            Categoria = int.Parse(Requisito[7].ToString());
-            Comentario = Requisito[8].ToString();
+            Version = (double)Requisito[2];
+            Fecha = (DateTime)Requisito[3];
+            Descripcion = Requisito[4].ToString();
+            Prioridad = int.Parse(Requisito[5].ToString());
+            Urgencia = int.Parse(Requisito[6].ToString());
+            Estabilidad = int.Parse(Requisito[7].ToString());
+            Estado = ((int)Requisito[8] == 1) ? true : false;
+            Categoria = int.Parse(Requisito[9].ToString());
+            Comentario = Requisito[10].ToString();
 
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ReqNAuto r where g.Id = r.IdAutor and r.IdReq = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ReqNFuen r where g.Id = r.IdFuen and r.IdReq = " + Id + " Order By Categoria Desc, Nombre;");
@@ -112,6 +117,11 @@ namespace ReadyReq.Model
         {
             Cargar(id);
             CargarTablaReqRel(tipoReq);
+        }
+        public int ComprobarExistencia(string valor)
+        {
+            int id = (int)ClsBaseDatos.BDDouble("Select Id from ReqNFunc where Nombre = '" + valor + "';");
+            return (id != -1) ? id : -1;
         }
         public void CargarTablaReqRel(int tipoReq)
         {

@@ -22,8 +22,8 @@ namespace ReadyReq.Model
             Buscador.Rows.Clear();
             Id = 0;
             Nombre = string.Empty;
-            Nombre = string.Empty;
             Version = 1.0;
+            Fecha = DateTime.Today.Date;
             Descripcion = string.Empty;
             Complejidad = 0;
             DescComplejidad = string.Empty;
