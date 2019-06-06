@@ -21,6 +21,8 @@ namespace ReadyReq.ViewModel
         string StrMenPrev;
         string StrMenEGuar;
         string StrMenEMod;
+        string StrMenEFec;
+        string StrMenEVer;
         public WinActores()
         {
             InitializeComponent();
@@ -28,9 +30,12 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             Idioma();
+            TxtVer.Text = "1.0";
+            TxtFec.Text = DateTime.Today.ToShortDateString();
             for (int i = 1; (i <= 10); i++) CmbCat.Items.Add(i);
             CmbCat.Text = CmbCat.Items[0].ToString();
             IniciarTablas();
+            TxtNom.Focus();
         }
         private void WClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -50,18 +55,28 @@ namespace ReadyReq.ViewModel
             if (ctrl.Name.Equals("ButAcep"))
                 if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
-                    Actor.Nombre = TxtNom.Text;
-                    Actor.Descripcion = TxtDesc.Text;
-                    if (RBCB.IsChecked == true) Actor.Complejidad = 1;
-                    else if (RBCM.IsChecked == true) Actor.Complejidad = 2;
-                    else if (RBCA.IsChecked == true) Actor.Complejidad = 3;
-                    Actor.DescComplejidad = TxtDescCom.Text;
-                    Actor.Categoria = int.Parse(CmbCat.Text);
-                    Actor.Comentario = TxtCom.Text;
-                    int resultado = Actor.Guardar();
-                    if (resultado == -1) MessageBox.Show(StrMenEMod);
-                    if (resultado == -2) MessageBox.Show(StrMenEGuar);
-                    VaciarInterfaz();
+                    if (ClsFunciones.TryConvertToDate(TxtFec.Text))
+                    {
+                        if (ClsFunciones.TryConvertToDouble(TxtVer.Text))
+                        {
+                            Actor.Nombre = TxtNom.Text;
+                            Actor.Version = ClsFunciones.StringToDouble(TxtVer.Text);
+                            Actor.Fecha = DateTime.Parse(TxtFec.Text);
+                            Actor.Descripcion = TxtDesc.Text;
+                            if (RBCB.IsChecked == true) Actor.Complejidad = 1;
+                            else if (RBCM.IsChecked == true) Actor.Complejidad = 2;
+                            else if (RBCA.IsChecked == true) Actor.Complejidad = 3;
+                            Actor.DescComplejidad = TxtDescCom.Text;
+                            Actor.Categoria = int.Parse(CmbCat.Text);
+                            Actor.Comentario = TxtCom.Text;
+                            int resultado = Actor.Guardar();
+                            if (resultado == -1) MessageBox.Show(StrMenEMod);
+                            if (resultado == -2) MessageBox.Show(StrMenEGuar);
+                            VaciarInterfaz();
+                        }
+                        else MessageBox.Show(StrMenEVer);
+                    }
+                    else MessageBox.Show(StrMenEFec);
                 }
                 else MessageBox.Show(StrMenGuar);
             if (ctrl.Name.Equals("ButBorr"))
@@ -150,7 +165,22 @@ namespace ReadyReq.ViewModel
             if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
             {
-                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text)) TxtDesc.Focus();
+                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text))
+                {
+                    int idExiste = Actor.ComprobarExistencia(TxtNom.Text);
+                    if (idExiste != -1) CargarActor(idExiste);
+                    TxtVer.Focus();
+                }
+                if (ctrl.Name.Equals("TxtVer") && !string.IsNullOrEmpty(TxtVer.Text))
+                {
+                    if (ClsFunciones.TryConvertToDouble(TxtVer.Text)) TxtFec.Focus();
+                    else MessageBox.Show(StrMenEVer);
+                }
+                if (ctrl.Name.Equals("TxtFec") && !string.IsNullOrEmpty(TxtFec.Text))
+                {
+                    if (ClsFunciones.TryConvertToDate(TxtFec.Text)) TxtDesc.Focus();
+                    else MessageBox.Show(StrMenEFec);
+                }
                 if (ctrl.Name.Equals("TxtDescCom") && !string.IsNullOrEmpty(TxtDescCom.Text)) TxtCom.Focus();
                 if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();
             }
@@ -159,6 +189,8 @@ namespace ReadyReq.ViewModel
         {
             TAB.SelectedIndex = 0;
             TxtNom.Text = string.Empty;
+            TxtVer.Text = "1.0";
+            TxtFec.Text = DateTime.Today.ToShortDateString();
             TxtDesc.Text = string.Empty;
             RBCM.IsChecked = true;
             TxtDescCom.Text = string.Empty;
@@ -170,10 +202,13 @@ namespace ReadyReq.ViewModel
             Actor.IniciarValores();
             IniciarTablas();
         }
-        private void CargarActor()
+        private void CargarActor(int id = -1)
         {
-            Actor.Cargar(int.Parse(Convert.ToString(((DataRowView)DGBuscar.Items[DGBuscar.SelectedIndex]).Row.ItemArray[1])));
+            if (id == -1) Actor.Cargar(int.Parse(Convert.ToString(((DataRowView)DGBuscar.Items[DGBuscar.SelectedIndex]).Row.ItemArray[1])));
+            else Actor.Cargar(id);
             TxtNom.Text = Actor.Nombre;
+            TxtVer.Text = ClsFunciones.DoubleToString(Actor.Version);
+            TxtFec.Text = Actor.Fecha.ToShortDateString();
             TxtDesc.Text = Actor.Descripcion.ToString();
             if (Actor.Complejidad == 1) RBCB.IsChecked = true;
             else if (Actor.Complejidad == 2) RBCM.IsChecked = true;
@@ -201,6 +236,8 @@ namespace ReadyReq.ViewModel
                 ButAcep.Content = Ingles.Save;
                 ButBorr.Content = Ingles.Delete;
                 LblNom.Content = Ingles.Name;
+                LblVer.Content = Ingles.Version;
+                LblFec.Content = Ingles.Date;
                 LblDes.Content = Ingles.Description;
                 LblComp.Content = Ingles.Complexity;
                 LblDesCom.Content = Ingles.Desc_Compl;
@@ -218,6 +255,8 @@ namespace ReadyReq.ViewModel
                 StrMenPrev = Ingles.MenPrev;
                 StrMenEGuar = Ingles.ActMenEGuar;
                 StrMenEMod = Ingles.ActMenEMod;
+                StrMenEFec = Ingles.MenEFec;
+                StrMenEVer = Ingles.MenEVer;
             }
             else
             {
@@ -229,6 +268,8 @@ namespace ReadyReq.ViewModel
                 ButAcep.Content = Español.Guardar;
                 ButBorr.Content = Español.Borrar;
                 LblNom.Content = Español.Nombre;
+                LblVer.Content = Español.Version;
+                LblFec.Content = Español.Fecha;
                 LblDes.Content = Español.Descripción;
                 LblComp.Content = Español.Complejidad;
                 LblDesCom.Content = Español.Desc_Compl;
@@ -246,6 +287,8 @@ namespace ReadyReq.ViewModel
                 StrMenPrev = Español.MenPrev;
                 StrMenEGuar = Español.ActMenEGuar;
                 StrMenEMod = Español.ActMenEMod;
+                StrMenEFec = Español.MenEFec;
+                StrMenEVer = Español.MenEVer;
             }
         }
         private void IniciarTablas()

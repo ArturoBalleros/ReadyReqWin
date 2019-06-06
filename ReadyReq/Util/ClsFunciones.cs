@@ -28,5 +28,5 @@ namespace ReadyReq.Util
         {
             try { StringToDouble(numero); return true; } catch { return false; }
         }
-                         }
+    }
 }

@@ -1,4 +1,6 @@
 ﻿using ReadyReq.Interface;
+using ReadyReq.Util;
+using System;
 using System.Data;
 
 namespace ReadyReq.Model
@@ -20,6 +22,8 @@ namespace ReadyReq.Model
             Buscador.Rows.Clear();
             Id = 0;
             Nombre = string.Empty;
+            Nombre = string.Empty;
+            Version = 1.0;
             Descripcion = string.Empty;
             Complejidad = 0;
             DescComplejidad = string.Empty;
@@ -34,14 +38,14 @@ namespace ReadyReq.Model
         {
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Actores Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Complejidad = " + Complejidad + ", DescComple = '" + DescComplejidad + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
+                if (!ClsBaseDatos.BDBool("Update Actores Set Nombre = '" + Nombre + "', Version = " + ClsFunciones.DoubleToString(Version) + ", Fecha = '" + ClsFunciones.FechaMySQL(Fecha) + "', Descripcion = '" + Descripcion + "', Complejidad = " + Complejidad + ", DescComple = '" + DescComplejidad + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
                 ClsBaseDatos.BDBool("Delete from ActAuto where IdAct = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ActFuen where IdAct = " + Id + ";");
                 if (GuardarTablas(Id) == -1) return -1;
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into Actores(Nombre,Descripcion,Complejidad,DescComple,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Complejidad + ",'" + DescComplejidad + "'," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (!ClsBaseDatos.BDBool("Insert into Actores(Nombre,Version,Fecha,Descripcion,Complejidad,DescComple,Categoria,Comentario) values ('" + Nombre + "'," + ClsFunciones.DoubleToString(Version) + ",'" + ClsFunciones.FechaMySQL(Fecha) + "','" + Descripcion + "'," + Complejidad + ",'" + DescComplejidad + "'," + Categoria + ",'" + Comentario + "');")) return -2;
                 if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Actores order by Id Desc;")) == -1) return -2;
             }
             return 0;
@@ -66,17 +70,24 @@ namespace ReadyReq.Model
             DataRow Actor = ClsBaseDatos.BDTable("Select * from Actores where Id = " + id + ";").Rows[0];
             Id = int.Parse(Actor[0].ToString());
             Nombre = Actor[1].ToString();
-            Descripcion = Actor[2].ToString();
-            Complejidad = int.Parse(Actor[3].ToString());
-            DescComplejidad = Actor[4].ToString();
-            Categoria = int.Parse(Actor[5].ToString());
-            Comentario = Actor[6].ToString();
+            Version = (double)Actor[2];
+            Fecha = (DateTime)Actor[3];
+            Descripcion = Actor[4].ToString();
+            Complejidad = int.Parse(Actor[5].ToString());
+            DescComplejidad = Actor[6].ToString();
+            Categoria = int.Parse(Actor[7].ToString());
+            Comentario = Actor[8].ToString();
 
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActAuto aa where g.Id = aa.IdAutor and aa.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ActFuen af where g.Id = af.IdFuen and af.IdAct = " + Id + " Order By Categoria Desc, Nombre;");
 
             BGrupo = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdAutor from ActAuto where idAct = " + Id + ") Order By Categoria Desc, Nombre;");
             BFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdFuen from ActFuen where idAct = " + Id + ") Order By Categoria Desc, Nombre;");
+        }
+        public int ComprobarExistencia(string valor)
+        {
+            int id = (int)ClsBaseDatos.BDDouble("Select Id from Actores where Nombre = '" + valor + "';");
+            return (id != -1) ? id : -1;
         }
         public void CargarTablas()
         {
