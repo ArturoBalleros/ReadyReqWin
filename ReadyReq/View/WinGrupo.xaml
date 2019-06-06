@@ -28,7 +28,7 @@
                 </Grid.RowDefinitions>
                 <DataGrid x:Name="DGBuscar" Style="{StaticResource Grid}" ScrollViewer.CanContentScroll="True" IsReadOnly="True" Margin="10,5" AutoGenerateColumns="False" SelectedCellsChanged="Seleccionar">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="180" CanUserResize="False" Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn Width="150" CanUserResize="False" Binding="{Binding Nombre}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid Grid.Row="1">

@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using ReadyReq.Util;
+using System;
 
 namespace ReadyReq.Model
 {
@@ -62,7 +63,7 @@ namespace ReadyReq.Model
                 ClsBaseDatos.BDBool("CREATE TABLE `ReqNObj` (`Id` int not null auto_increment, `IdObj` int not null, `IdReq` int not null, primary key(`Id`), foreign key(`IdObj`) references `Objetivos`(`Id`), foreign key(`IdReq`) references `ReqNFunc`(`Id`));", BuilderMySql.ToString(), TipoBD);
                 ClsBaseDatos.BDBool("CREATE TABLE `ReqNReqR` (`Id` int not null auto_increment, `IdReqR` int not null, `TipoReq` int not null, `IdReq` int not null, primary key(`Id`), foreign key(`IdReq`) references `ReqNFunc`(`Id`));", BuilderMySql.ToString(), TipoBD);
 
-                ClsBaseDatos.BDBool("INSERT INTO Paquetes(Nombre,Categoria,Comentario) VALUES ('No Asignado', 10, '');", BuilderMySql.ToString(), TipoBD);
+                ClsBaseDatos.BDBool("INSERT INTO Paquetes(Nombre,Version,Fecha,Categoria,Comentario) VALUES ('No Asignado', 1, '" + ClsFunciones.FechaMySQL(DateTime.Today) + "', 10, '');", BuilderMySql.ToString(), TipoBD);
 
                 ClsBaseDatos.BDBool("INSERT INTO Estim(NomEst, ValEst) VALUES('DSR', 0);", BuilderMySql.ToString(), TipoBD);
                 ClsBaseDatos.BDBool("INSERT INTO Estim(NomEst, ValEst) VALUES('RTII', 0);", BuilderMySql.ToString(), TipoBD);
@@ -133,7 +134,7 @@ namespace ReadyReq.Model
                     ClsBaseDatos.BDBool("CREATE TABLE `ReqNObj` (`Id` AUTOINCREMENT not null , `IdObj` int not null, `IdReq` int not null, primary key(`Id`), foreign key(`IdObj`) references `Objetivos`(`Id`), foreign key(`IdReq`) references `ReqNFunc`(`Id`));", builder, TipoBD);
                     ClsBaseDatos.BDBool("CREATE TABLE `ReqNReqR` (`Id` AUTOINCREMENT not null , `IdReqR` int not null, `TipoReq` int not null, `IdReq` int not null, primary key(`Id`), foreign key(`IdReq`) references `ReqNFunc`(`Id`));", builder, TipoBD);
 
-                    ClsBaseDatos.BDBool("INSERT INTO Paquetes(Nombre,Categoria,Comentario) VALUES ('No Asignado', 10, '');", builder, TipoBD);
+                    ClsBaseDatos.BDBool("INSERT INTO Paquetes(Nombre,Version,Fecha,Categoria,Comentario) VALUES ('No Asignado', 1, '" + ClsFunciones.FechaMySQL(DateTime.Today) + "', 10, '');", builder, TipoBD);
 
                     ClsBaseDatos.BDBool("INSERT INTO Estim(NomEst, ValEst) VALUES('DSR', 0);", builder, TipoBD);
                     ClsBaseDatos.BDBool("INSERT INTO Estim(NomEst, ValEst) VALUES('RTII', 0);", builder, TipoBD);

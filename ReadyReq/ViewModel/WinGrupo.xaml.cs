@@ -69,6 +69,7 @@ namespace ReadyReq.ViewModel
                             if (resultado == -1) MessageBox.Show(StrMenEMod);
                             if (resultado == -2) MessageBox.Show(StrMenEGuar);
                             VaciarInterfaz();
+                            TxtNom.Focus();
                         }
                         else MessageBox.Show(StrMenEVer);
                     }
@@ -112,7 +113,6 @@ namespace ReadyReq.ViewModel
                     if (ClsFunciones.TryConvertToDate(TxtFec.Text)) TxtOrg.Focus();
                     else MessageBox.Show(StrMenEFec);
                 }
-                TxtOrg.Focus();
                 if (ctrl.Name.Equals("TxtOrg") && !string.IsNullOrEmpty(TxtOrg.Text)) TxtRol.Focus();
                 if (ctrl.Name.Equals("TxtRol") && !string.IsNullOrEmpty(TxtRol.Text)) TxtCom.Focus();
                 if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();

@@ -1,4 +1,6 @@
 ﻿using ReadyReq.Interface;
+using ReadyReq.Util;
+using System;
 using System.Data;
 
 namespace ReadyReq.Model
@@ -10,6 +12,8 @@ namespace ReadyReq.Model
         {
             Id = 0;
             Nombre = string.Empty;
+            Version = 1.0;
+            Fecha = DateTime.Today.Date;
             Categoria = 1;
             Comentario = string.Empty;
             Buscador.Rows.Clear();
@@ -18,10 +22,10 @@ namespace ReadyReq.Model
         {
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Paquetes Set Nombre = '" + Nombre + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
+                if (!ClsBaseDatos.BDBool("Update Paquetes Set Nombre = '" + Nombre + "', Version = " + ClsFunciones.DoubleToString(Version) + ", Fecha = '" + ClsFunciones.FechaMySQL(Fecha) + "', Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
             }
             else
-                if (!ClsBaseDatos.BDBool("Insert into Paquetes(Nombre,Categoria,Comentario) values ('" + Nombre + "'," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (!ClsBaseDatos.BDBool("Insert into Paquetes(Nombre,Version,Fecha,Categoria,Comentario) values ('" + Nombre + "'," + ClsFunciones.DoubleToString(Version) + ",'" + ClsFunciones.FechaMySQL(Fecha) + "'," + Categoria + ",'" + Comentario + "');")) return -2;
             return 0;
         }
         public void Borrar()
@@ -42,8 +46,16 @@ namespace ReadyReq.Model
             DataRow Paquete = ClsBaseDatos.BDTable("Select * from Paquetes where Id = " + id + ";").Rows[0];
             Id = int.Parse(Paquete[0].ToString());
             Nombre = Paquete[1].ToString();
-            Categoria = int.Parse(Paquete[2].ToString());
-            Comentario = Paquete[3].ToString();
+            Version = (double)Paquete[2];
+            Fecha = (DateTime)Paquete[3];
+            Categoria = int.Parse(Paquete[4].ToString());
+            Comentario = Paquete[5].ToString();
+        }
+
+        public int ComprobarExistencia(string valor)
+        {
+            int id = (int)ClsBaseDatos.BDDouble("Select Id from Paquetes where Nombre = '" + valor + "';");
+            return (id != -1 && id != 1) ? id : -1;
         }
     }
 }
