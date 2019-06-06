@@ -1,4 +1,6 @@
 ﻿using ReadyReq.Interface;
+using ReadyReq.Util;
+using System;
 using System.Data;
 
 namespace ReadyReq.Model
@@ -11,6 +13,8 @@ namespace ReadyReq.Model
             Buscador.Rows.Clear();
             Id = 0;
             Nombre = string.Empty;
+            Nombre = string.Empty;
+            Version = 1.0;
             Descripcion = string.Empty;
             Prioridad = 0;
             Urgencia = 0;
@@ -30,7 +34,7 @@ namespace ReadyReq.Model
             int intEstado = (Estado) ? 1 : 0;
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Objetivos Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
+                if (!ClsBaseDatos.BDBool("Update Objetivos Set Nombre = '" + Nombre + "', Version = " + ClsFunciones.DoubleToString(Version) + ", Fecha = '" + ClsFunciones.FechaMySQL(Fecha) + "', Descripcion = '" + Descripcion + "', Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
                 ClsBaseDatos.BDBool("Delete from ObjAuto where IdObj = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ObjFuen where IdObj = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ObjSubobj where IdObj = " + Id + ";");
@@ -38,7 +42,7 @@ namespace ReadyReq.Model
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into Objetivos(Nombre,Descripcion,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (!ClsBaseDatos.BDBool("Insert into Objetivos(Nombre,Version,Fecha,Descripcion,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "'," + ClsFunciones.DoubleToString(Version) + ",'" + ClsFunciones.FechaMySQL(Fecha) + "','" + Descripcion + "'," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
                 if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from Objetivos order by Id Desc;")) == -1) return -2;
             }
             return 0;
@@ -66,21 +70,28 @@ namespace ReadyReq.Model
             DataRow Objetivo = ClsBaseDatos.BDTable("Select * from Objetivos where Id = " + id + ";").Rows[0];
             Id = int.Parse(Objetivo[0].ToString());
             Nombre = Objetivo[1].ToString();
-            Descripcion = Objetivo[2].ToString();
-            Prioridad = int.Parse(Objetivo[3].ToString());
-            Urgencia = int.Parse(Objetivo[4].ToString());
-            Estabilidad = int.Parse(Objetivo[5].ToString());
-            Estado = ((int)Objetivo[6] == 1) ? true : false;
-            Categoria = int.Parse(Objetivo[7].ToString());
-            Comentario = Objetivo[8].ToString();
+            Version = (double)Objetivo[2];
+            Fecha = (DateTime)Objetivo[3];
+            Descripcion = Objetivo[4].ToString();
+            Prioridad = int.Parse(Objetivo[5].ToString());
+            Urgencia = int.Parse(Objetivo[6].ToString());
+            Estabilidad = int.Parse(Objetivo[7].ToString());
+            Estado = ((int)Objetivo[8] == 1) ? true : false;
+            Categoria = int.Parse(Objetivo[9].ToString());
+            Comentario = Objetivo[10].ToString();
 
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ObjAuto oa where g.Id = oa.IdAutor and oa.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ObjFuen obf where g.Id = obf.IdFuen and obf.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
-            Objetivos = ClsBaseDatos.BDTable("Select o.Id as Id, o.Nombre as Nombre from Objetivos o, Objsubobj os where o.Id = os.IdSubObj and os.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
+            Objetivos = ClsBaseDatos.BDTable("Select o.Id as Id, o.Nombre as Nombre from Objetivos o, ObjSubobj os where o.Id = os.IdSubObj and os.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
 
             BGrupo = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdAutor from ObjAuto where idObj = " + Id + ") Order By Categoria Desc, Nombre;");
             BFuentes = ClsBaseDatos.BDTable("Select Id,Nombre from Grupo where Id not IN (select IdFuen from ObjFuen where idObj = " + Id + ") Order By Categoria Desc, Nombre;");
             BObjetivos = ClsBaseDatos.BDTable("Select Id,Nombre from Objetivos where Id not IN (select idSubobj from ObjSubobj where idObj = " + Id + ") and Id <> " + Id + " Order By Categoria Desc, Nombre;");
+        }
+        public int ComprobarExistencia(string valor)
+        {
+            int id = (int)ClsBaseDatos.BDDouble("Select Id from Objetivos where Nombre = '" + valor + "';");
+            return (id != -1) ? id : -1;
         }
         public void CargarTablas()
         {
@@ -89,7 +100,7 @@ namespace ReadyReq.Model
             BObjetivos = ClsBaseDatos.BDTable("Select Id,Nombre from Objetivos Order By Categoria Desc, Nombre;");
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ObjAuto oa where g.Id = oa.IdAutor and oa.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ObjFuen obf where g.Id = obf.IdFuen and obf.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
-            Objetivos = ClsBaseDatos.BDTable("Select o.Id as Id, o.Nombre as Nombre from Objetivos o, Objsubobj os where o.Id = os.IdSubobj and os.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
+            Objetivos = ClsBaseDatos.BDTable("Select o.Id as Id, o.Nombre as Nombre from Objetivos o, ObjSubobj os where o.Id = os.IdSubobj and os.IdObj = " + Id + " Order By Categoria Desc, Nombre;");
         }
 
         //Métodos Privados
