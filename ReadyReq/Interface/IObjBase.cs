@@ -7,6 +7,6 @@
         void Borrar();
         void Buscar(string valor);
         void Cargar(int id);
-
+        int ComprobarExistencia(string valor);
     }
 }

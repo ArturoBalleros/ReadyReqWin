@@ -20,6 +20,8 @@ namespace ReadyReq.ViewModel
         string StrMenPrev;
         string StrMenEGuar;
         string StrMenEMod;
+        string StrMenEFec;
+        string StrMenEVer;
         public WinGrupo()
         {
             InitializeComponent();
@@ -27,8 +29,11 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             Idioma();
+            TxtVer.Text = "1.0";
+            TxtFec.Text = DateTime.Today.ToShortDateString();
             for (int i = 1; (i <= 10); i++) CmbCat.Items.Add(i);
             CmbCat.Text = CmbCat.Items[0].ToString();
+            TxtNom.Focus();
         }
         private void WClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -48,16 +53,26 @@ namespace ReadyReq.ViewModel
             if (ctrl.Name.Equals("ButAcep"))
                 if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
-                    Trabajador.Nombre = TxtNom.Text;
-                    Trabajador.Organizacion = TxtOrg.Text;
-                    Trabajador.Rol = TxtRol.Text;
-                    Trabajador.Desarrollador = (RBSi.IsChecked == true) ? true : false;
-                    Trabajador.Categoria = int.Parse(CmbCat.Text);
-                    Trabajador.Comentario = TxtCom.Text;
-                    int resultado = Trabajador.Guardar();
-                    if (resultado == -1) MessageBox.Show(StrMenEMod);
-                    if (resultado == -2) MessageBox.Show(StrMenEGuar);
-                    VaciarInterfaz();
+                    if (ClsFunciones.TryConvertToDate(TxtFec.Text))
+                    {
+                        if (ClsFunciones.TryConvertToDouble(TxtVer.Text))
+                        {
+                            Trabajador.Nombre = TxtNom.Text;
+                            Trabajador.Version = ClsFunciones.StringToDouble(TxtVer.Text);
+                            Trabajador.Fecha = DateTime.Parse(TxtFec.Text);
+                            Trabajador.Organizacion = TxtOrg.Text;
+                            Trabajador.Rol = TxtRol.Text;
+                            Trabajador.Desarrollador = (RBSi.IsChecked == true) ? true : false;
+                            Trabajador.Categoria = int.Parse(CmbCat.Text);
+                            Trabajador.Comentario = TxtCom.Text;
+                            int resultado = Trabajador.Guardar();
+                            if (resultado == -1) MessageBox.Show(StrMenEMod);
+                            if (resultado == -2) MessageBox.Show(StrMenEGuar);
+                            VaciarInterfaz();
+                        }
+                        else MessageBox.Show(StrMenEVer);
+                    }
+                    else MessageBox.Show(StrMenEFec);
                 }
                 else MessageBox.Show(StrMenGuar);
             if (ctrl.Name.Equals("ButBorr"))
@@ -81,7 +96,23 @@ namespace ReadyReq.ViewModel
             if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
             {
-                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text)) TxtOrg.Focus();
+                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text))
+                {
+                    int idExiste = Trabajador.ComprobarExistencia(TxtNom.Text);
+                    if (idExiste != -1) CargarPersona(idExiste);
+                    TxtVer.Focus();
+                }
+                if (ctrl.Name.Equals("TxtVer") && !string.IsNullOrEmpty(TxtVer.Text))
+                {
+                    if (ClsFunciones.TryConvertToDouble(TxtVer.Text)) TxtFec.Focus();
+                    else MessageBox.Show(StrMenEVer);
+                }
+                if (ctrl.Name.Equals("TxtFec") && !string.IsNullOrEmpty(TxtFec.Text))
+                {
+                    if (ClsFunciones.TryConvertToDate(TxtFec.Text)) TxtOrg.Focus();
+                    else MessageBox.Show(StrMenEFec);
+                }
+                TxtOrg.Focus();
                 if (ctrl.Name.Equals("TxtOrg") && !string.IsNullOrEmpty(TxtOrg.Text)) TxtRol.Focus();
                 if (ctrl.Name.Equals("TxtRol") && !string.IsNullOrEmpty(TxtRol.Text)) TxtCom.Focus();
                 if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();
@@ -90,6 +121,8 @@ namespace ReadyReq.ViewModel
         private void VaciarInterfaz()
         {
             TxtNom.Text = string.Empty;
+            TxtVer.Text = "1.0";
+            TxtFec.Text = DateTime.Today.ToShortDateString();
             TxtOrg.Text = string.Empty;
             TxtRol.Text = string.Empty;
             RBSi.IsChecked = true;
@@ -100,10 +133,13 @@ namespace ReadyReq.ViewModel
             Base = false;
             Trabajador.IniciarValores();
         }
-        private void CargarPersona()
+        private void CargarPersona(int id = -1)
         {
-            Trabajador.Cargar(int.Parse(Convert.ToString(((DataRowView)DGBuscar.Items[DGBuscar.SelectedIndex]).Row.ItemArray[1])));
+            if (id == -1) Trabajador.Cargar(int.Parse(Convert.ToString(((DataRowView)DGBuscar.Items[DGBuscar.SelectedIndex]).Row.ItemArray[1])));
+            else Trabajador.Cargar(id);
             TxtNom.Text = Trabajador.Nombre;
+            TxtVer.Text = ClsFunciones.DoubleToString(Trabajador.Version);
+            TxtFec.Text = Trabajador.Fecha.ToShortDateString();
             TxtOrg.Text = Trabajador.Organizacion;
             TxtRol.Text = Trabajador.Rol;
             if (Trabajador.Desarrollador) RBSi.IsChecked = true; else RBNo.IsChecked = true;
@@ -122,6 +158,8 @@ namespace ReadyReq.ViewModel
                 ButAcep.Content = Ingles.Save;
                 ButBorr.Content = Ingles.Delete;
                 LblNom.Content = Ingles.Name;
+                LblVer.Content = Ingles.Version;
+                LblFec.Content = Ingles.Date;
                 LblOrg.Content = Ingles.Organization;
                 LblRol.Content = Ingles.Role;
                 LblDes.Content = Ingles.IsDev;
@@ -137,6 +175,8 @@ namespace ReadyReq.ViewModel
                 StrMenPrev = Ingles.MenPrev;
                 StrMenEGuar = Ingles.WorMenEGuar;
                 StrMenEMod = Ingles.WorMenEMod;
+                StrMenEFec = Ingles.MenEFec;
+                StrMenEVer = Ingles.MenEVer;
             }
             else
             {
@@ -145,6 +185,8 @@ namespace ReadyReq.ViewModel
                 ButAcep.Content = Español.Guardar;
                 ButBorr.Content = Español.Borrar;
                 LblNom.Content = Español.Nombre;
+                LblVer.Content = Español.Version;
+                LblFec.Content = Español.Fecha;
                 LblOrg.Content = Español.Organización;
                 LblRol.Content = Español.Rol;
                 LblDes.Content = Español.Es_Des;
@@ -160,6 +202,8 @@ namespace ReadyReq.ViewModel
                 StrMenPrev = Español.MenPrev;
                 StrMenEGuar = Español.WorMenEGuar;
                 StrMenEMod = Español.WorMenEMod;
+                StrMenEFec = Español.MenEFec;
+                StrMenEVer = Español.MenEVer;
             }
         }
     }

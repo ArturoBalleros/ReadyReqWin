@@ -1,4 +1,6 @@
 ﻿using ReadyReq.Interface;
+using ReadyReq.Util;
+using System;
 using System.Data;
 
 namespace ReadyReq.Model
@@ -15,6 +17,8 @@ namespace ReadyReq.Model
         {
             Id = 0;
             Nombre = string.Empty;
+            Version = 1.0;
+            Fecha = DateTime.Today.Date;
             Organizacion = string.Empty;
             Rol = string.Empty;
             Desarrollador = false;
@@ -24,13 +28,13 @@ namespace ReadyReq.Model
         }
         public int Guardar()
         {
-            int intDesarrollador = (Desarrollador) ? 1 : 0;
+            int intDesarrollador = (Desarrollador) ? 1 : 0;           
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update Grupo Set Nombre = '" + Nombre + "', Organizacion = '" + Organizacion + "', Rol = '" + Rol + "', Desarrollador = " + intDesarrollador + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
+                if (!ClsBaseDatos.BDBool("Update Grupo Set Nombre = '" + Nombre + "', Version = " + ClsFunciones.DoubleToString(Version) + ", Fecha = '" + ClsFunciones.FechaMySQL(Fecha) + "', Organizacion = '" + Organizacion + "', Rol = '" + Rol + "', Desarrollador = " + intDesarrollador + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
             }
             else
-                if (!ClsBaseDatos.BDBool("Insert into Grupo(Nombre,Organizacion,Rol,Desarrollador,Categoria,Comentario) values ('" + Nombre + "','" + Organizacion + "','" + Rol + "'," + intDesarrollador + "," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (!ClsBaseDatos.BDBool("Insert into Grupo(Nombre,Version,Fecha,Organizacion,Rol,Desarrollador,Categoria,Comentario) values ('" + Nombre + "'," + ClsFunciones.DoubleToString(Version) + ",'" + ClsFunciones.FechaMySQL(Fecha) + "','" + Organizacion + "','" + Rol + "'," + intDesarrollador + "," + Categoria + ",'" + Comentario + "');")) return -2;
             return 0;
         }
         public void Borrar()
@@ -60,11 +64,18 @@ namespace ReadyReq.Model
             DataRow Trabajador = ClsBaseDatos.BDTable("Select * from Grupo where Id = " + id + ";").Rows[0];
             Id = int.Parse(Trabajador[0].ToString());
             Nombre = Trabajador[1].ToString();
-            Organizacion = Trabajador[2].ToString();
-            Rol = Trabajador[3].ToString();
-            Desarrollador = ((int)Trabajador[4] == 1) ? true : false;
-            Categoria = int.Parse(Trabajador[5].ToString());
-            Comentario = Trabajador[6].ToString();
+            Version = (double)Trabajador[2];
+            Fecha = (DateTime)Trabajador[3];
+            Organizacion = Trabajador[4].ToString();
+            Rol = Trabajador[5].ToString();
+            Desarrollador = ((int)Trabajador[6] == 1) ? true : false;
+            Categoria = int.Parse(Trabajador[7].ToString());
+            Comentario = Trabajador[8].ToString();
+        }
+        public int ComprobarExistencia(string valor)
+        {
+            int id = (int)ClsBaseDatos.BDDouble("Select Id from Grupo where Nombre = '" + valor + "';");
+            return (id != -1) ? id : -1;
         }
     }
 }

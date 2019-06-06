@@ -23,6 +23,8 @@
         public const string Guardar = "Guardar";
         public const string Borrar = "Borrar";
         public const string Nombre = "Nombre";
+        public const string Version = "Versión";
+        public const string Fecha = "Fecha";
         public const string Descripción = "Descripción";
         public const string Complejidad = "Complejidad";
         public const string Categoría = "Categoría";
@@ -47,6 +49,8 @@
         public const string Verificado = "Verificado";
         public const string NVerificado = "No verificado";
         public const string TrabGrup = "Trabajadores del Grupo de Trabajo";
+        public const string MenEFec = "Error al convertir la fecha, introducir en formato: dd/MM/yyyy";
+        public const string MenEVer = "Error al convertir la versión en un número";
 
         //WinGrupo
         public const string Trabajadores = "Trabajadores";
@@ -235,6 +239,8 @@
         public const string Save = "Save";
         public const string Delete = "Delete";
         public const string Name = "Name";
+        public const string Version = "Version";
+        public const string Date = "Date";
         public const string Category = "Category";
         public const string Commentary = "Commentary";
         public const string Description = "Description";
@@ -259,6 +265,8 @@
         public const string Verified = "Verified";
         public const string NVerified = "Not verified";
         public const string WorkGrup = "Workers of the Working Group";
+        public const string MenEFec = "Error converting the date, enter in format: dd/MM/yyyy";
+        public const string MenEVer = "Error converting the version to a number";
 
         //WinGrupo
         public const string Workers = "Workers";

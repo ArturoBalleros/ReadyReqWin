@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6D26F9602D971B070F5A1EBFFB3F6E06"
+        "OwnerKey" = "8:_81EF327006E743EBB9CACF22E1EE8432"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_81EF327006E743EBB9CACF22E1EE8432"
+        "OwnerKey" = "8:_6D26F9602D971B070F5A1EBFFB3F6E06"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -221,6 +221,11 @@
             "AssemblyAsmDisplayName" = "8:MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_6D26F9602D971B070F5A1EBFFB3F6E06"
+                    {
+                    "Name" = "8:MySql.Data.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:MySql.Data.dll"
             "TargetName" = "8:"
@@ -247,6 +252,11 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_78AC6CECF13E12FBD64E89426077B406"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -382,15 +392,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ReadyReqSetup"
-        "ProductCode" = "8:{306B8DA4-0FCF-4795-9293-0A5D19DEBFF2}"
-        "PackageCode" = "8:{D1EB9677-1938-452C-82F1-FB02E9BBDEFE}"
+        "ProductCode" = "8:{75F8458F-2974-42B3-AB25-9DDD9F77E286}"
+        "PackageCode" = "8:{76E93B50-B537-4B84-A616-DDE559A50503}"
         "UpgradeCode" = "8:{76E702F8-6A80-4C37-943A-91CD0FECB914}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.17"
+        "ProductVersion" = "8:1.0.20"
         "Manufacturer" = "8:ReadyReq"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
