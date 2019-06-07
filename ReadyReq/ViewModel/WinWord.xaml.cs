@@ -29,7 +29,7 @@ namespace ReadyReq.ViewModel
         private void ButClick(object sender, RoutedEventArgs e)
         {
             ButEmpezar.IsEnabled = false;
-            if (ChkAct.IsChecked == true || ChkGru.IsChecked == true || ChkObj.IsChecked == true || ChkTra.IsChecked == true || ChkReqI.IsChecked == true || ChkReqN.IsChecked == true || ChkReqF.IsChecked == true)
+            if (ChkAct.IsChecked == true || ChkGru.IsChecked == true || ChkObj.IsChecked == true || ChkTra.IsChecked == true || ChkReqI.IsChecked == true || ChkReqN.IsChecked == true || ChkReqF.IsChecked == true || ChkEstim.IsChecked == true)
             {
                 if (CreaTablas() == -1) MessageBox.Show(StrMenErrTab);
                 else
@@ -49,6 +49,8 @@ namespace ReadyReq.ViewModel
                     if (ChkReqF.IsChecked == true)
                         if (ReqFun() == -1) MessageBox.Show(StrMenErr);
                 }
+                if (ChkEstim.IsChecked == true)
+                    if (Estimaciones() == -1) MessageBox.Show(StrMenErr);
                 Close();
             }
             ButEmpezar.IsEnabled = true;
@@ -69,6 +71,7 @@ namespace ReadyReq.ViewModel
                 ChkReqF.Content = Ingles.ReqFun;
                 ChkReqN.Content = Ingles.ReqNFun;
                 ChkTra.Content = Ingles.TracTable;
+                ChkEstim.Content = Ingles.Estimates;
                 ButEmpezar.Content = Ingles.Start;
                 StrMenErr = Ingles.MenErrRes;
                 StrMenErrTab = Ingles.MenErrTab;
@@ -83,6 +86,7 @@ namespace ReadyReq.ViewModel
                 ChkReqF.Content = Español.ReqFun;
                 ChkReqN.Content = Español.ReqNFun;
                 ChkTra.Content = Español.TablaTraz;
+                ChkEstim.Content = Ingles.Estimates;
                 ButEmpezar.Content = Español.Comenzar;
                 StrMenErr = Español.MenErrRes;
                 StrMenErrTab = Español.MenErrTab;
@@ -425,7 +429,7 @@ namespace ReadyReq.ViewModel
                 for (int j = 0; (j <= tablaPaq.Rows.Count - 1); j++)
                 {
                     fila2 = tablaPaq.Rows[j];
-                    oPara = oDoc.Content.Paragraphs.Add(oDoc.Bookmarks["\\endofdoc"].Range);
+                    oPara = oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
                     oPara.Range.Text = fila2[1].ToString();
                     oPara.Range.Font.Bold = 1;
                     oPara.Range.Font.Size = 16;
@@ -551,6 +555,23 @@ namespace ReadyReq.ViewModel
                     PBProg.Value++; DoEvents();
                 }
                 xlApp.Visible = true;
+                return 0;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        private int Estimaciones()
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Microsoft.Office.Interop.Word.Document oDoc;
+            try
+            {
+                oWord = new Microsoft.Office.Interop.Word.Application();
+                oDoc = oWord.Documents.Add();
+                ClsWord.Estim(oWord, oDoc);
+                oWord.Visible = true;
                 return 0;
             }
             catch

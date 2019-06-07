@@ -27,7 +27,8 @@
         <CheckBox x:Name="ChkReqI" Style="{StaticResource Check}" Grid.Row="1" Margin="10,0" />
         <CheckBox x:Name="ChkReqN" Style="{StaticResource Check}" Grid.Row="1" Grid.Column="1" Margin="10,0" />
         <CheckBox x:Name="ChkReqF" Style="{StaticResource Check}" Grid.Row="1" Grid.Column="2" Margin="10,0" />
-        <ProgressBar x:Name="PBProg" Style="{StaticResource Progress}" Grid.Row="2" Grid.ColumnSpan="4" Margin="10"/>
-        <Button x:Name="ButEmpezar" Style="{StaticResource Button}" Grid.Column="3" Grid.Row="1" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButClick"/>
+        <CheckBox x:Name="ChkEstim" Style="{StaticResource Check}" Grid.Row="1" Grid.Column="3" Margin="10,0" />
+        <ProgressBar x:Name="PBProg" Style="{StaticResource Progress}" Grid.Row="2" Grid.ColumnSpan="3" Margin="10"/>
+        <Button x:Name="ButEmpezar" Style="{StaticResource Button}" Grid.Column="3" Grid.Row="2" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButClick"/>
     </Grid>
 </Window>

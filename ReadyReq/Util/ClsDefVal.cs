@@ -51,6 +51,7 @@
         public const string TrabGrup = "Trabajadores del Grupo de Trabajo";
         public const string MenEFec = "Error al convertir la fecha, introducir en formato: dd/MM/yyyy";
         public const string MenEVer = "Error al convertir la versión en un número";
+        public const string Valor = "Valor";
 
         //WinGrupo
         public const string Trabajadores = "Trabajadores";
@@ -267,6 +268,7 @@
         public const string WorkGrup = "Workers of the Working Group";
         public const string MenEFec = "Error converting the date, enter in format: dd/MM/yyyy";
         public const string MenEVer = "Error converting the version to a number";
+        public const string Value = "Value";
 
         //WinGrupo
         public const string Workers = "Workers";

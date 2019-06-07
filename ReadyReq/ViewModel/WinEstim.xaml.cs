@@ -260,6 +260,7 @@ namespace ReadyReq.ViewModel
         {
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
+                Title = Ingles.Estimates;
                 strTecFac = Ingles.TecFac;
                 LblDSR.Text = Ingles.DSR;
                 LblRTII.Text = Ingles.RTII;
@@ -317,6 +318,7 @@ namespace ReadyReq.ViewModel
             }
             else
             {
+                Title = Español.Estimaciones;
                 strTecFac = Español.TecFac;
                 LblDSR.Text = Español.DSR;
                 LblRTII.Text = Español.RTII;

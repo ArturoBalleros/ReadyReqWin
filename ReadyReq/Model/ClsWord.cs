@@ -340,6 +340,24 @@ namespace ReadyReq.Model
             oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
         }
+        public static void Estim(Application oWord, Document oDoc)
+        {
+            ClsEstim Estimaciones = new ClsEstim();
+            Estimaciones.CargarValores();
+            Estimaciones.CalcValores();
+
+            if (ClsConf.Idioma.Equals(DefValues.Ingles)) AddParrafo(oDoc, Ingles.TecFac); else AddParrafo(oDoc, Español.TecFac);
+            TableTecFac(oWord, oDoc, Estimaciones);
+            if (ClsConf.Idioma.Equals(DefValues.Ingles)) AddParrafo(oDoc, Ingles.EnvFac); else AddParrafo(oDoc, Español.EnvFac);
+            TableEnvFac(oWord, oDoc, Estimaciones);
+            if (ClsConf.Idioma.Equals(DefValues.Ingles)) AddParrafo(oDoc, Ingles.UUCP); else AddParrafo(oDoc, Español.UUCP);
+            TableUUCP(oWord, oDoc, Estimaciones);
+            if (ClsConf.Idioma.Equals(DefValues.Ingles)) AddParrafo(oDoc, Ingles.AW); else AddParrafo(oDoc, Español.AW);
+            TableAW(oWord, oDoc, Estimaciones);
+            if (ClsConf.Idioma.Equals(DefValues.Ingles)) AddParrafo(oDoc, Ingles.TiFC); else AddParrafo(oDoc, Español.TiFC);
+            TableTiFC(oWord, oDoc, Estimaciones);
+
+        }
         private static string GeneraInfo(object o, string Tipo = DefValues.DataRow, bool isGrupo = true)
         {
             string resultado = string.Empty;
@@ -461,6 +479,253 @@ namespace ReadyReq.Model
             }
             else
                 return ((char)(nCol + 64)).ToString();
+        }
+        private static void AddParrafo(Document oDoc, string text)
+        {
+            Paragraph oPara;
+            oPara = oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
+            oPara.Range.Text = text;
+            oPara.Range.Font.Bold = 1;
+            oPara.Range.Font.Size = 16;
+            oPara.Format.SpaceAfter = 20;
+            oPara.Range.InsertParagraphAfter();
+            oPara.Range.Font.Size = 11;
+            oPara.Range.Font.Bold = 0;
+        }
+        private static void TableTecFac(Application oWord, Document oDoc, ClsEstim Estimaciones)
+        {
+            Table oTable;
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 14, 2);
+            oTable.Range.ParagraphFormat.SpaceAfter = 3;
+            oTable.Borders.Enable = 1;
+
+            oTable.Cell(2, 2).Range.Text = Estimaciones.DSR.ToString();
+            oTable.Cell(3, 2).Range.Text = Estimaciones.RTII.ToString();
+            oTable.Cell(4, 2).Range.Text = Estimaciones.EUE.ToString();
+            oTable.Cell(5, 2).Range.Text = Estimaciones.CIPR.ToString();
+            oTable.Cell(6, 2).Range.Text = Estimaciones.RCMBAF.ToString();
+            oTable.Cell(7, 2).Range.Text = Estimaciones.IE.ToString();
+            oTable.Cell(8, 2).Range.Text = Estimaciones.U.ToString();
+            oTable.Cell(9, 2).Range.Text = Estimaciones.CPS.ToString();
+            oTable.Cell(10, 2).Range.Text = Estimaciones.ETC.ToString();
+            oTable.Cell(11, 2).Range.Text = Estimaciones.HC.ToString();
+            oTable.Cell(12, 2).Range.Text = Estimaciones.CS.ToString();
+            oTable.Cell(13, 2).Range.Text = Estimaciones.DOTPC.ToString();
+            oTable.Cell(14, 2).Range.Text = Estimaciones.UT.ToString();
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
+            {
+                oTable.Cell(1, 1).Range.Text = Ingles.TecFac;
+                oTable.Cell(1, 2).Range.Text = Ingles.Value;
+                oTable.Cell(2, 1).Range.Text = Ingles.DSR;
+                oTable.Cell(3, 1).Range.Text = Ingles.RTII;
+                oTable.Cell(4, 1).Range.Text = Ingles.EUE;
+                oTable.Cell(5, 1).Range.Text = Ingles.CIPR;
+                oTable.Cell(6, 1).Range.Text = Ingles.RCMBAF;
+                oTable.Cell(7, 1).Range.Text = Ingles.IE;
+                oTable.Cell(8, 1).Range.Text = Ingles.U;
+                oTable.Cell(9, 1).Range.Text = Ingles.CPS;
+                oTable.Cell(10, 1).Range.Text = Ingles.ETC;
+                oTable.Cell(11, 1).Range.Text = Ingles.HC;
+                oTable.Cell(12, 1).Range.Text = Ingles.CS;
+                oTable.Cell(13, 1).Range.Text = Ingles.DOTPC;
+                oTable.Cell(14, 1).Range.Text = Ingles.UT;
+                oTable.Columns[1].Width = oWord.InchesToPoints(2.5f);
+            }
+            else
+            {
+                oTable.Cell(1, 1).Range.Text = Español.TecFac;
+                oTable.Cell(1, 2).Range.Text = Español.Valor;
+                oTable.Cell(2, 1).Range.Text = Español.DSR;
+                oTable.Cell(3, 1).Range.Text = Español.RTII;
+                oTable.Cell(4, 1).Range.Text = Español.EUE;
+                oTable.Cell(5, 1).Range.Text = Español.CIPR;
+                oTable.Cell(6, 1).Range.Text = Español.RCMBAF;
+                oTable.Cell(7, 1).Range.Text = Español.IE;
+                oTable.Cell(8, 1).Range.Text = Español.U;
+                oTable.Cell(9, 1).Range.Text = Español.CPS;
+                oTable.Cell(10, 1).Range.Text = Español.ETC;
+                oTable.Cell(11, 1).Range.Text = Español.HC;
+                oTable.Cell(12, 1).Range.Text = Español.CS;
+                oTable.Cell(13, 1).Range.Text = Español.DOTPC;
+                oTable.Cell(14, 1).Range.Text = Español.UT;
+                oTable.Columns[1].Width = oWord.InchesToPoints(3);
+
+            }
+
+            Negrita(oTable, 14);
+            oTable.Columns[2].Width = oWord.InchesToPoints(0.5f);
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
+        }
+        private static void TableEnvFac(Application oWord, Document oDoc, ClsEstim Estimaciones)
+        {
+            Table oTable;
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 9, 2);
+            oTable.Range.ParagraphFormat.SpaceAfter = 3;
+            oTable.Borders.Enable = 1;
+
+            oTable.Cell(2, 2).Range.Text = Estimaciones.FWTP.ToString();
+            oTable.Cell(3, 2).Range.Text = Estimaciones.AE.ToString();
+            oTable.Cell(4, 2).Range.Text = Estimaciones.OOPE.ToString();
+            oTable.Cell(5, 2).Range.Text = Estimaciones.LAC.ToString();
+            oTable.Cell(6, 2).Range.Text = Estimaciones.M.ToString();
+            oTable.Cell(7, 2).Range.Text = Estimaciones.SR.ToString();
+            oTable.Cell(8, 2).Range.Text = Estimaciones.PTS.ToString();
+            oTable.Cell(9, 2).Range.Text = Estimaciones.DPL.ToString();
+
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
+            {
+                oTable.Cell(1, 1).Range.Text = Ingles.EnvFac;
+                oTable.Cell(1, 2).Range.Text = Ingles.Value;
+                oTable.Cell(2, 1).Range.Text = Ingles.FWTP;
+                oTable.Cell(3, 1).Range.Text = Ingles.AE;
+                oTable.Cell(4, 1).Range.Text = Ingles.OOPE;
+                oTable.Cell(5, 1).Range.Text = Ingles.LAC;
+                oTable.Cell(6, 1).Range.Text = Ingles.M;
+                oTable.Cell(7, 1).Range.Text = Ingles.SR;
+                oTable.Cell(8, 1).Range.Text = Ingles.PTS;
+                oTable.Cell(9, 1).Range.Text = Ingles.DPL;
+                oTable.Columns[1].Width = oWord.InchesToPoints(2.5f);
+            }
+            else
+            {
+                oTable.Cell(1, 1).Range.Text = Español.EnvFac;
+                oTable.Cell(1, 2).Range.Text = Español.Valor;
+                oTable.Cell(2, 1).Range.Text = Español.FWTP;
+                oTable.Cell(3, 1).Range.Text = Español.AE;
+                oTable.Cell(4, 1).Range.Text = Español.OOPE;
+                oTable.Cell(5, 1).Range.Text = Español.M;
+                oTable.Cell(6, 1).Range.Text = Español.LAC;
+                oTable.Cell(7, 1).Range.Text = Español.SR;
+                oTable.Cell(8, 1).Range.Text = Español.PTS;
+                oTable.Cell(9, 1).Range.Text = Español.DPL;
+                oTable.Columns[1].Width = oWord.InchesToPoints(3);
+
+            }
+
+            Negrita(oTable, 9);
+            oTable.Columns[2].Width = oWord.InchesToPoints(0.5f);
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
+        }
+        private static void TableUUCP(Application oWord, Document oDoc, ClsEstim Estimaciones)
+        {
+            Table oTable;
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 4, 2);
+            oTable.Range.ParagraphFormat.SpaceAfter = 3;
+            oTable.Borders.Enable = 1;
+
+            oTable.Cell(2, 2).Range.Text = Estimaciones.UUCPSim.ToString();
+            oTable.Cell(3, 2).Range.Text = Estimaciones.UUCPMed.ToString();
+            oTable.Cell(4, 2).Range.Text = Estimaciones.UUCPMax.ToString();
+
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
+            {
+                oTable.Cell(1, 1).Range.Text = Ingles.UUCP;
+                oTable.Cell(1, 2).Range.Text = Ingles.Value;
+                oTable.Cell(2, 1).Range.Text = Ingles.Sim;
+                oTable.Cell(3, 1).Range.Text = Ingles.Ave;
+                oTable.Cell(4, 1).Range.Text = Ingles.Com;
+                oTable.Columns[1].Width = oWord.InchesToPoints(2.5f);
+            }
+            else
+            {
+                oTable.Cell(1, 1).Range.Text = Español.UUCP;
+                oTable.Cell(1, 2).Range.Text = Español.Valor;
+                oTable.Cell(2, 1).Range.Text = Español.Sim;
+                oTable.Cell(3, 1).Range.Text = Español.Ave;
+                oTable.Cell(4, 1).Range.Text = Español.Com;
+                oTable.Columns[1].Width = oWord.InchesToPoints(3);
+
+            }
+
+            Negrita(oTable, 4);
+            oTable.Columns[2].Width = oWord.InchesToPoints(0.5f);
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
+        }
+        private static void TableAW(Application oWord, Document oDoc, ClsEstim Estimaciones)
+        {
+            Table oTable;
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 4, 2);
+            oTable.Range.ParagraphFormat.SpaceAfter = 3;
+            oTable.Borders.Enable = 1;
+
+            oTable.Cell(2, 2).Range.Text = Estimaciones.AWSim.ToString();
+            oTable.Cell(3, 2).Range.Text = Estimaciones.AWMed.ToString();
+            oTable.Cell(4, 2).Range.Text = Estimaciones.AWMax.ToString();
+
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
+            {
+                oTable.Cell(1, 1).Range.Text = Ingles.AW;
+                oTable.Cell(1, 2).Range.Text = Ingles.Value;
+                oTable.Cell(2, 1).Range.Text = Ingles.Sim;
+                oTable.Cell(3, 1).Range.Text = Ingles.Ave;
+                oTable.Cell(4, 1).Range.Text = Ingles.Com;
+                oTable.Columns[1].Width = oWord.InchesToPoints(2.5f);
+            }
+            else
+            {
+                oTable.Cell(1, 1).Range.Text = Español.AW;
+                oTable.Cell(1, 2).Range.Text = Español.Valor;
+                oTable.Cell(2, 1).Range.Text = Español.Sim;
+                oTable.Cell(3, 1).Range.Text = Español.Ave;
+                oTable.Cell(4, 1).Range.Text = Español.Com;
+                oTable.Columns[1].Width = oWord.InchesToPoints(3);
+
+            }
+
+            Negrita(oTable, 4);
+            oTable.Columns[2].Width = oWord.InchesToPoints(0.5f);
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
+        }
+        private static void TableTiFC(Application oWord, Document oDoc, ClsEstim Estimaciones)
+        {
+            Table oTable;
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 6, 2);
+            oTable.Range.ParagraphFormat.SpaceAfter = 3;
+            oTable.Borders.Enable = 1;
+
+            oTable.Cell(2, 2).Range.Text = Estimaciones.TCF.ToString();
+            oTable.Cell(3, 2).Range.Text = Estimaciones.EF.ToString();
+            oTable.Cell(4, 2).Range.Text = Estimaciones.UUCP.ToString();
+            oTable.Cell(5, 2).Range.Text = Estimaciones.AW.ToString();
+            oTable.Cell(6, 2).Range.Text = Estimaciones.UCP.ToString();
+
+            if (ClsConf.Idioma.Equals(DefValues.Ingles))
+            {
+                oTable.Cell(1, 1).Range.Text = Ingles.TiFC;
+                oTable.Cell(1, 2).Range.Text = Ingles.Value;
+                oTable.Cell(2, 1).Range.Text = Ingles.TecFac;
+                oTable.Cell(3, 1).Range.Text = Ingles.EnvFac;
+                oTable.Cell(4, 1).Range.Text = Ingles.UUCP;
+                oTable.Cell(5, 1).Range.Text = Ingles.AW;
+                oTable.Cell(6, 1).Range.Text = Ingles.UCP;
+                oTable.Columns[1].Width = oWord.InchesToPoints(2.5f);
+            }
+            else
+            {
+                oTable.Cell(1, 1).Range.Text = Español.TiFC;
+                oTable.Cell(1, 2).Range.Text = Español.Valor;
+                oTable.Cell(2, 1).Range.Text = Español.TecFac;
+                oTable.Cell(3, 1).Range.Text = Español.EnvFac;
+                oTable.Cell(4, 1).Range.Text = Español.UUCP;
+                oTable.Cell(5, 1).Range.Text = Español.AW;
+                oTable.Cell(6, 1).Range.Text = Español.UCP;
+                oTable.Columns[1].Width = oWord.InchesToPoints(3);
+
+            }
+
+            Negrita(oTable, 6);
+            oTable.Columns[2].Width = oWord.InchesToPoints(0.6f);
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
+            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
         }
     }
 }
