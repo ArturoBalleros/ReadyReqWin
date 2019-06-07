@@ -303,11 +303,11 @@ namespace ReadyReq.ViewModel
                 strMenCPS = Ingles.MenCPS;
                 strMenETC = Ingles.MenETC;
                 strMenHC = Ingles.MenHC;
-                strMenCS = Ingles.CS;
+                strMenCS = Ingles.MenCS;
                 strMenDOTPC = Ingles.MenDOTPC;
                 strMenUT = Ingles.MenUT;
                 strMenFWTP = Ingles.MenFWTP;
-                strMenAE = Ingles.AE;
+                strMenAE = Ingles.MenAE;
                 strMenOOPE = Ingles.MenOOPE;
                 strMenLAC = Ingles.MenLAC;
                 strMenM = Ingles.MenM;
@@ -360,11 +360,11 @@ namespace ReadyReq.ViewModel
                 strMenCPS = Español.MenCPS;
                 strMenETC = Español.MenETC;
                 strMenHC = Español.MenHC;
-                strMenCS = Español.CS;
+                strMenCS = Español.MenCS;
                 strMenDOTPC = Español.MenDOTPC;
                 strMenUT = Español.MenUT;
                 strMenFWTP = Español.MenFWTP;
-                strMenAE = Español.AE;
+                strMenAE = Español.MenAE;
                 strMenOOPE = Español.MenOOPE;
                 strMenLAC = Español.MenLAC;
                 strMenM = Español.MenM;

@@ -32,20 +32,23 @@ namespace ReadyReq.ViewModel
             if (ChkAct.IsChecked == true || ChkGru.IsChecked == true || ChkObj.IsChecked == true || ChkTra.IsChecked == true || ChkReqI.IsChecked == true || ChkReqN.IsChecked == true || ChkReqF.IsChecked == true)
             {
                 if (CreaTablas() == -1) MessageBox.Show(StrMenErrTab);
-                if (ChkAct.IsChecked == true)
-                    if (Actores() == -1) MessageBox.Show(StrMenErr);
-                if (ChkGru.IsChecked == true)
-                    if (GrupoTrabajo() == -1) MessageBox.Show(StrMenErr);
-                if (ChkObj.IsChecked == true)
-                    if (Objetivos() == -1) MessageBox.Show(StrMenErr);
-                if (ChkTra.IsChecked == true)
-                    if (Traza() == -1) MessageBox.Show(StrMenErr);
-                if (ChkReqI.IsChecked == true)
-                    if (ReqInfo() == -1) MessageBox.Show(StrMenErr);
-                if (ChkReqN.IsChecked == true)
-                    if (ReqNFun() == -1) MessageBox.Show(StrMenErr);
-                if (ChkReqF.IsChecked == true)
-                    if (ReqFun() == -1) MessageBox.Show(StrMenErr);
+                else
+                {
+                    if (ChkAct.IsChecked == true)
+                        if (Actores() == -1) MessageBox.Show(StrMenErr);
+                    if (ChkGru.IsChecked == true)
+                        if (GrupoTrabajo() == -1) MessageBox.Show(StrMenErr);
+                    if (ChkObj.IsChecked == true)
+                        if (Objetivos() == -1) MessageBox.Show(StrMenErr);
+                    if (ChkTra.IsChecked == true)
+                        if (Traza() == -1) MessageBox.Show(StrMenErr);
+                    if (ChkReqI.IsChecked == true)
+                        if (ReqInfo() == -1) MessageBox.Show(StrMenErr);
+                    if (ChkReqN.IsChecked == true)
+                        if (ReqNFun() == -1) MessageBox.Show(StrMenErr);
+                    if (ChkReqF.IsChecked == true)
+                        if (ReqFun() == -1) MessageBox.Show(StrMenErr);
+                }
                 Close();
             }
             ButEmpezar.IsEnabled = true;
@@ -95,25 +98,30 @@ namespace ReadyReq.ViewModel
                 DTGrupo.Columns.Add("IdW", Type.GetType("System.String"));
                 DTGrupo.Columns.Add("Id", Type.GetType("System.Double"));
                 DTGrupo.Columns.Add("Nombre", Type.GetType("System.String"));
+                DTGrupo.Columns.Add("Version", Type.GetType("System.Double"));
+                DTGrupo.Columns.Add("Fecha", Type.GetType("System.DateTime"));
                 DTGrupo.Columns.Add("Organizacion", Type.GetType("System.String"));
                 DTGrupo.Columns.Add("Rol", Type.GetType("System.String"));
                 DTGrupo.Columns.Add("Desarrollador", Type.GetType("System.String"));
                 DTGrupo.Columns.Add("Comentario", Type.GetType("System.String"));
+
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
                     filaN = DTGrupo.NewRow();
                     filaN[0] = "STK-" + RellenarCeros(i + 1 + "");
-                    filaN[1] = fila[0].ToString();
-                    filaN[2] = fila[1].ToString();
-                    filaN[3] = fila[2].ToString();
-                    filaN[4] = fila[3].ToString();
-                    filaN[5] = DetEstado((int)fila[4], 4);
-                    filaN[6] = fila[6].ToString();
+                    filaN[1] = fila[0].ToString(); //Id
+                    filaN[2] = fila[1].ToString(); //Nombre
+                    filaN[3] = (double)fila[2]; //Version
+                    filaN[4] = (DateTime)fila[3]; //Fecha
+                    filaN[5] = fila[4].ToString(); //Organizacion
+                    filaN[6] = fila[5].ToString(); //Rol
+                    filaN[7] = DetEstado((int)fila[6], 4); //Desarrollador                    
+                    filaN[8] = fila[8].ToString(); //Comentario
                     DTGrupo.Rows.Add(filaN);
                 }
 
-                tabla = ClsBaseDatos.BDTable("Select * From Objetivos Order By Categoria Desc, Nombre;");
+                /*tabla = ClsBaseDatos.BDTable("Select * From Objetivos Order By Categoria Desc, Nombre;");
                 DTObjetivos.Columns.Add("IdW", Type.GetType("System.String"));
                 DTObjetivos.Columns.Add("Id", Type.GetType("System.Double"));
                 DTObjetivos.Columns.Add("Nombre", Type.GetType("System.String"));
@@ -251,7 +259,7 @@ namespace ReadyReq.ViewModel
                     filaN[7] = DetEstado((int)fila[6], 3);
                     filaN[8] = fila[8].ToString();
                     DTReqNFun.Rows.Add(filaN);
-                }
+                }*/
                 return 0;
             }
             catch
@@ -299,7 +307,7 @@ namespace ReadyReq.ViewModel
                     fila = DTObjetivos.Rows[i];
                     Auto = DTGrupo.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdAutor From ObjAuto Where IdObj = " + fila[1].ToString() + ";")), "IdW");
                     Fuen = DTGrupo.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdFuen From ObjFuen Where IdObj = " + fila[1].ToString() + ";")), "IdW");
-                    SubObj = DTObjetivos.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdSubobj From ObjSubObj Where IdObj = " + fila[1].ToString() + ";")), "IdW");
+                    SubObj = DTObjetivos.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdSubobj From ObjSubobj Where IdObj = " + fila[1].ToString() + ";")), "IdW");
                     ClsWord.Objetivos(oWord, oDoc, fila, Auto, Fuen, SubObj);
                     PBProg.Value++; DoEvents();
                 }

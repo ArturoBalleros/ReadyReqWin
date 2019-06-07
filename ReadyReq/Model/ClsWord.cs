@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using ReadyReq.Util;
+using System;
 using System.Collections;
 using System.Data;
 using DataTable = System.Data.DataTable;
@@ -13,37 +14,42 @@ namespace ReadyReq.Model
         {
             Table oTable;
 
-            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 5, 2);
-            oTable.Range.ParagraphFormat.SpaceAfter = 3;
-            oTable.Borders.Enable = 1;
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 6, 2);//Filas y columnas
+            oTable.Range.ParagraphFormat.SpaceAfter = 3;//Espacio despues de la tabla
+            oTable.Borders.Enable = 1;//Dibuja bordes en la tabla
 
             oTable.Cell(1, 1).Range.Text = fila[0].ToString();
             oTable.Cell(1, 2).Range.Text = fila[2].ToString();
-            oTable.Cell(2, 2).Range.Text = fila[3].ToString();
-            oTable.Cell(3, 2).Range.Text = fila[4].ToString();
-            oTable.Cell(4, 2).Range.Text = fila[5].ToString();
-            oTable.Cell(5, 2).Range.Text = fila[6].ToString();
+            oTable.Cell(2, 2).Range.Text = ClsFunciones.DoubleToString((double)fila[3]) + " (" + ((DateTime)fila[4]).ToShortDateString() + ")";
+            oTable.Cell(3, 2).Range.Text = fila[5].ToString();
+            oTable.Cell(4, 2).Range.Text = fila[6].ToString();
+            oTable.Cell(5, 2).Range.Text = fila[7].ToString();
+            oTable.Cell(6, 2).Range.Text = fila[8].ToString();
 
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                oTable.Cell(2, 1).Range.Text = Ingles.Organization;
-                oTable.Cell(3, 1).Range.Text = Ingles.Role;
-                oTable.Cell(4, 1).Range.Text = Ingles.IsDev;
-                oTable.Cell(5, 1).Range.Text = Ingles.Commentary;
+                oTable.Cell(2, 1).Range.Text = Ingles.Version;
+                oTable.Cell(3, 1).Range.Text = Ingles.Organization;
+                oTable.Cell(4, 1).Range.Text = Ingles.Role;
+                oTable.Cell(5, 1).Range.Text = Ingles.IsDev;
+                oTable.Cell(6, 1).Range.Text = Ingles.Commentary;
+                oTable.Columns[1].Width = oWord.InchesToPoints(1);//Ancho columna 1
             }
             else
             {
-                oTable.Cell(2, 1).Range.Text = Español.Organización;
-                oTable.Cell(3, 1).Range.Text = Español.Rol;
-                oTable.Cell(4, 1).Range.Text = Español.Es_Des;
-                oTable.Cell(5, 1).Range.Text = Español.Comentario;
+                oTable.Cell(2, 1).Range.Text = Español.Version;
+                oTable.Cell(3, 1).Range.Text = Español.Organización;
+                oTable.Cell(4, 1).Range.Text = Español.Rol;
+                oTable.Cell(5, 1).Range.Text = Español.Es_Des;
+                oTable.Cell(6, 1).Range.Text = Español.Comentario;
+                oTable.Columns[1].Width = oWord.InchesToPoints(1.25f);//Ancho columna 1
             }
-            Negrita(oTable, 5);
-            oTable.Columns[1].Width = oWord.InchesToPoints(1);
+
+            Negrita(oTable, 6);//Negrita columna 1 y fila 1 columna 2            
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
-            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
-            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
-            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
+            oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;//Color fondo columna 1
+            oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;//color fondo fila 1 columna 2
+            oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);//Añade tabla a documento
         }
         public static void Objetivos(Application oWord, Document oDoc, DataRow fila, DataRow[] Auto, DataRow[] Fuen, DataRow[] SubObj)
         {
