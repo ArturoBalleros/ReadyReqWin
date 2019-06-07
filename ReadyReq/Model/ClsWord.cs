@@ -55,46 +55,49 @@ namespace ReadyReq.Model
         {
             Table oTable;
 
-            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 10, 2);
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 11, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
             oTable.Borders.Enable = 1;
 
             oTable.Cell(1, 1).Range.Text = fila[0].ToString();
             oTable.Cell(1, 2).Range.Text = fila[2].ToString();
-            oTable.Cell(2, 2).Range.Text = fila[3].ToString();
-            oTable.Cell(3, 2).Range.Text = GeneraInfo(Auto);
-            oTable.Cell(4, 2).Range.Text = GeneraInfo(Fuen);
-            oTable.Cell(5, 2).Range.Text = GeneraInfo(SubObj);
-            oTable.Cell(6, 2).Range.Text = fila[4].ToString();
-            oTable.Cell(7, 2).Range.Text = fila[5].ToString();
-            oTable.Cell(8, 2).Range.Text = fila[6].ToString();
-            oTable.Cell(9, 2).Range.Text = fila[7].ToString();
-            oTable.Cell(10, 2).Range.Text = fila[8].ToString();
+            oTable.Cell(2, 2).Range.Text = ClsFunciones.DoubleToString((double)fila[3]) + " (" + ((DateTime)fila[4]).ToShortDateString() + ")";
+            oTable.Cell(3, 2).Range.Text = fila[5].ToString();
+            oTable.Cell(4, 2).Range.Text = GeneraInfo(Auto);
+            oTable.Cell(5, 2).Range.Text = GeneraInfo(Fuen);
+            oTable.Cell(6, 2).Range.Text = GeneraInfo(SubObj, DefValues.DataRow, false);
+            oTable.Cell(7, 2).Range.Text = fila[6].ToString();
+            oTable.Cell(8, 2).Range.Text = fila[7].ToString();
+            oTable.Cell(9, 2).Range.Text = fila[8].ToString();
+            oTable.Cell(10, 2).Range.Text = fila[9].ToString();
+            oTable.Cell(11, 2).Range.Text = fila[10].ToString();
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                oTable.Cell(2, 1).Range.Text = Ingles.Description;
-                oTable.Cell(3, 1).Range.Text = Ingles.Authors;
-                oTable.Cell(4, 1).Range.Text = Ingles.Sources;
-                oTable.Cell(5, 1).Range.Text = Ingles.Subobjectives;
-                oTable.Cell(6, 1).Range.Text = Ingles.Priority;
-                oTable.Cell(7, 1).Range.Text = Ingles.Urgency;
-                oTable.Cell(8, 1).Range.Text = Ingles.Stability;
-                oTable.Cell(9, 1).Range.Text = Ingles.State;
-                oTable.Cell(10, 1).Range.Text = Ingles.Commentary;
+                oTable.Cell(2, 1).Range.Text = Ingles.Version;
+                oTable.Cell(3, 1).Range.Text = Ingles.Description;
+                oTable.Cell(4, 1).Range.Text = Ingles.Authors;
+                oTable.Cell(5, 1).Range.Text = Ingles.Sources;
+                oTable.Cell(6, 1).Range.Text = Ingles.Subobjectives;
+                oTable.Cell(7, 1).Range.Text = Ingles.Priority;
+                oTable.Cell(8, 1).Range.Text = Ingles.Urgency;
+                oTable.Cell(9, 1).Range.Text = Ingles.Stability;
+                oTable.Cell(10, 1).Range.Text = Ingles.State;
+                oTable.Cell(11, 1).Range.Text = Ingles.Commentary;
             }
             else
             {
-                oTable.Cell(2, 1).Range.Text = Español.Descripción;
-                oTable.Cell(3, 1).Range.Text = Español.Autores;
-                oTable.Cell(4, 1).Range.Text = Español.Fuentes;
-                oTable.Cell(5, 1).Range.Text = Español.Subobjetivos;
-                oTable.Cell(6, 1).Range.Text = Español.Prioridad;
-                oTable.Cell(7, 1).Range.Text = Español.Urgencia;
-                oTable.Cell(8, 1).Range.Text = Español.Estabilidad;
+                oTable.Cell(2, 1).Range.Text = Español.Version;
+                oTable.Cell(3, 1).Range.Text = Español.Descripción;
+                oTable.Cell(4, 1).Range.Text = Español.Autores;
+                oTable.Cell(5, 1).Range.Text = Español.Fuentes;
+                oTable.Cell(6, 1).Range.Text = Español.Subobjetivos;
+                oTable.Cell(7, 1).Range.Text = Español.Prioridad;
+                oTable.Cell(8, 1).Range.Text = Español.Urgencia;
                 oTable.Cell(9, 1).Range.Text = Español.Estabilidad;
-                oTable.Cell(10, 1).Range.Text = Español.Comentario;
+                oTable.Cell(10, 1).Range.Text = Español.Estabilidad;
+                oTable.Cell(11, 1).Range.Text = Español.Comentario;
             }
-            Negrita(oTable, 10);
+            Negrita(oTable, 11);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
             oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
@@ -322,7 +325,7 @@ namespace ReadyReq.Model
             oTable.Rows[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
             oDoc.Content.Paragraphs.Add(oDoc.Bookmarks[DefValues.FinFichero].Range);
         }
-        private static string GeneraInfo(object o, string Tipo = DefValues.DataRow)
+        private static string GeneraInfo(object o, string Tipo = DefValues.DataRow, bool isGrupo = true)
         {
             string resultado = string.Empty;
             if (Tipo.Equals(DefValues.DataRow))
@@ -330,7 +333,9 @@ namespace ReadyReq.Model
                 DataRow[] Filas = (DataRow[])o;
                 if (Filas.Length > 0)
                 {
-                    foreach (DataRow fila in Filas) resultado += fila[0].ToString() + " " + fila[2] + " (" + fila[3].ToString() + ")\n";
+                    foreach (DataRow fila in Filas)
+                        if (isGrupo) resultado += fila[0].ToString() + " " + fila[2] + " (" + fila[5].ToString() + ")\n";
+                        else resultado += fila[0].ToString() + " " + fila[2] + "\n";
                     return resultado.Substring(0, resultado.Length - 1);
                 }
                 else return "-";

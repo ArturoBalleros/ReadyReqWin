@@ -121,10 +121,12 @@ namespace ReadyReq.ViewModel
                     DTGrupo.Rows.Add(filaN);
                 }
 
-                /*tabla = ClsBaseDatos.BDTable("Select * From Objetivos Order By Categoria Desc, Nombre;");
+                tabla = ClsBaseDatos.BDTable("Select * From Objetivos Order By Categoria Desc, Nombre;");
                 DTObjetivos.Columns.Add("IdW", Type.GetType("System.String"));
                 DTObjetivos.Columns.Add("Id", Type.GetType("System.Double"));
                 DTObjetivos.Columns.Add("Nombre", Type.GetType("System.String"));
+                DTObjetivos.Columns.Add("Version", Type.GetType("System.Double"));
+                DTObjetivos.Columns.Add("Fecha", Type.GetType("System.DateTime"));
                 DTObjetivos.Columns.Add("Descripcion", Type.GetType("System.String"));
                 DTObjetivos.Columns.Add("Prioridad", Type.GetType("System.String"));
                 DTObjetivos.Columns.Add("Urgencia", Type.GetType("System.String"));
@@ -136,17 +138,19 @@ namespace ReadyReq.ViewModel
                     fila = tabla.Rows[i];
                     filaN = DTObjetivos.NewRow();
                     filaN[0] = "OBJ-" + RellenarCeros(i + 1 + "");
-                    filaN[1] = fila[0].ToString();
-                    filaN[2] = fila[1].ToString();
-                    filaN[3] = fila[2].ToString();
-                    filaN[4] = DetEstado((int)fila[3], 1);
-                    filaN[5] = DetEstado((int)fila[4], 1);
-                    filaN[6] = DetEstado((int)fila[5], 1);
-                    filaN[7] = DetEstado((int)fila[6], 3);
-                    filaN[8] = fila[8].ToString();
+                    filaN[1] = fila[0].ToString(); //Id
+                    filaN[2] = fila[1].ToString(); //Nombre
+                    filaN[3] = (double)fila[2]; //Version
+                    filaN[4] = (DateTime)fila[3]; //Fecha
+                    filaN[5] = fila[4].ToString(); //Descripción
+                    filaN[6] = DetEstado((int)fila[5], 1); //Prioridad
+                    filaN[7] = DetEstado((int)fila[6], 1); //Urgencia
+                    filaN[8] = DetEstado((int)fila[7], 1); //Estabilidad
+                    filaN[9] = DetEstado((int)fila[8], 3); //Estdo
+                    filaN[10] = fila[10].ToString(); //Comentario
                     DTObjetivos.Rows.Add(filaN);
                 }
-
+                /*
                 tabla = ClsBaseDatos.BDTable("Select * From Actores Order By Categoria Desc, Nombre;");
                 DTActores.Columns.Add("IdW", Type.GetType("System.String"));
                 DTActores.Columns.Add("Id", Type.GetType("System.Double"));
