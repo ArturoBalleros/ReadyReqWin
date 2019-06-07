@@ -149,49 +149,52 @@ namespace ReadyReq.Model
         {
             Table oTable;
 
-            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 10, 2);
+            oTable = oDoc.Tables.Add(oDoc.Bookmarks[DefValues.FinFichero].Range, 12, 2);
             oTable.Range.ParagraphFormat.SpaceAfter = 3;
             oTable.Borders.Enable = 1;
 
             oTable.Cell(1, 1).Range.Text = fila[0].ToString();
             oTable.Cell(1, 2).Range.Text = fila[2].ToString();
-            oTable.Cell(2, 2).Range.Text = fila[3].ToString();
-            oTable.Cell(3, 2).Range.Text = GeneraInfo(Auto);
-            oTable.Cell(4, 2).Range.Text = GeneraInfo(Fuen);
-            oTable.Cell(5, 2).Range.Text = GeneraInfo(Obj);
-            oTable.Cell(6, 2).Range.Text = GeneraInfo(Req, DefValues.ArrayList);
-            oTable.Cell(7, 2).Range.Text = fila[4].ToString();
-            oTable.Cell(8, 2).Range.Text = fila[5].ToString();
-            oTable.Cell(9, 2).Range.Text = fila[6].ToString();
-            oTable.Cell(10, 2).Range.Text = fila[7].ToString();
-            oTable.Cell(11, 2).Range.Text = fila[8].ToString();
+            oTable.Cell(2, 2).Range.Text = ClsFunciones.DoubleToString((double)fila[3]) + " (" + ((DateTime)fila[4]).ToShortDateString() + ")";
+            oTable.Cell(3, 2).Range.Text = fila[5].ToString();
+            oTable.Cell(4, 2).Range.Text = GeneraInfo(Auto);
+            oTable.Cell(5, 2).Range.Text = GeneraInfo(Fuen);
+            oTable.Cell(6, 2).Range.Text = GeneraInfo(Obj, DefValues.DataRow, false);
+            oTable.Cell(7, 2).Range.Text = GeneraInfo(Req, DefValues.ArrayList);
+            oTable.Cell(8, 2).Range.Text = fila[6].ToString();
+            oTable.Cell(9, 2).Range.Text = fila[7].ToString();
+            oTable.Cell(10, 2).Range.Text = fila[8].ToString();
+            oTable.Cell(11, 2).Range.Text = fila[9].ToString();
+            oTable.Cell(12, 2).Range.Text = fila[10].ToString();
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
-                oTable.Cell(2, 1).Range.Text = Ingles.Description;
-                oTable.Cell(3, 1).Range.Text = Ingles.Authors;
-                oTable.Cell(4, 1).Range.Text = Ingles.Sources;
-                oTable.Cell(5, 1).Range.Text = Ingles.RelObjet;
-                oTable.Cell(6, 1).Range.Text = Ingles.RelRequi;
-                oTable.Cell(7, 1).Range.Text = Ingles.Priority;
-                oTable.Cell(8, 1).Range.Text = Ingles.Urgency;
-                oTable.Cell(9, 1).Range.Text = Ingles.Stability;
-                oTable.Cell(10, 1).Range.Text = Ingles.State;
-                oTable.Cell(11, 1).Range.Text = Ingles.Commentary;
+                oTable.Cell(2, 1).Range.Text = Ingles.Version;
+                oTable.Cell(3, 1).Range.Text = Ingles.Description;
+                oTable.Cell(4, 1).Range.Text = Ingles.Authors;
+                oTable.Cell(5, 1).Range.Text = Ingles.Sources;
+                oTable.Cell(6, 1).Range.Text = Ingles.RelObjet;
+                oTable.Cell(7, 1).Range.Text = Ingles.RelRequi;
+                oTable.Cell(8, 1).Range.Text = Ingles.Priority;
+                oTable.Cell(9, 1).Range.Text = Ingles.Urgency;
+                oTable.Cell(10, 1).Range.Text = Ingles.Stability;
+                oTable.Cell(11, 1).Range.Text = Ingles.State;
+                oTable.Cell(12, 1).Range.Text = Ingles.Commentary;
             }
             else
             {
-                oTable.Cell(2, 1).Range.Text = Español.Descripción;
-                oTable.Cell(3, 1).Range.Text = Español.Autores;
-                oTable.Cell(4, 1).Range.Text = Español.Fuentes;
-                oTable.Cell(5, 1).Range.Text = Español.RelObjet;
-                oTable.Cell(6, 1).Range.Text = Español.RelRequi;
-                oTable.Cell(7, 1).Range.Text = Español.Prioridad;
-                oTable.Cell(8, 1).Range.Text = Español.Urgencia;
-                oTable.Cell(9, 1).Range.Text = Español.Estabilidad;
-                oTable.Cell(10, 1).Range.Text = Español.Estado;
-                oTable.Cell(11, 1).Range.Text = Español.Comentario;
+                oTable.Cell(2, 1).Range.Text = Español.Version;
+                oTable.Cell(3, 1).Range.Text = Español.Descripción;
+                oTable.Cell(4, 1).Range.Text = Español.Autores;
+                oTable.Cell(5, 1).Range.Text = Español.Fuentes;
+                oTable.Cell(6, 1).Range.Text = Español.RelObjet;
+                oTable.Cell(7, 1).Range.Text = Español.RelRequi;
+                oTable.Cell(8, 1).Range.Text = Español.Prioridad;
+                oTable.Cell(9, 1).Range.Text = Español.Urgencia;
+                oTable.Cell(10, 1).Range.Text = Español.Estabilidad;
+                oTable.Cell(11, 1).Range.Text = Español.Estado;
+                oTable.Cell(12, 1).Range.Text = Español.Comentario;
             }
-            Negrita(oTable, 10);
+            Negrita(oTable, 12);
             oTable.Columns[1].Width = oWord.InchesToPoints(1);
             oTable.Columns[2].Width = oWord.InchesToPoints(5);
             oTable.Columns[1].Shading.BackgroundPatternColor = WdColor.wdColorGray125;
@@ -211,7 +214,7 @@ namespace ReadyReq.Model
             oTable.Cell(3, 2).Range.Text = fila[5].ToString();
             oTable.Cell(4, 2).Range.Text = GeneraInfo(Auto);
             oTable.Cell(5, 2).Range.Text = GeneraInfo(Fuen);
-            oTable.Cell(6, 2).Range.Text = GeneraInfo(Obj);
+            oTable.Cell(6, 2).Range.Text = GeneraInfo(Obj, DefValues.DataRow, false);
             oTable.Cell(7, 2).Range.Text = GeneraInfo(Req, DefValues.ArrayList);
             oTable.Cell(8, 2).Range.Text = GeneraInfo(DatEsp, DefValues.DataTable);
             oTable.Cell(11, 2).Range.Text = fila[10].ToString();

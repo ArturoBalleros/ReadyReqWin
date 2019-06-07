@@ -280,7 +280,7 @@ namespace ReadyReq.ViewModel
                     filaN[7] = DetEstado((int)fila[6], 1); //Urgencia
                     filaN[8] = DetEstado((int)fila[7], 1); //Estabilidad
                     filaN[9] = DetEstado((int)fila[8], 3); //Estado
-                    filaN[10] = fila[9].ToString(); //Comentario
+                    filaN[10] = fila[10].ToString(); //Comentario
                     DTReqNFun.Rows.Add(filaN);
                 }
                 return 0;
