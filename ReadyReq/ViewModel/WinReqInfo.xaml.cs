@@ -28,6 +28,8 @@ namespace ReadyReq.ViewModel
         string StrMenDrop;
         string StrMenEGuar;
         string StrMenEMod;
+        string StrMenEFec;
+        string StrMenEVer;
         public WinReqInfo()
         {
             InitializeComponent();
@@ -37,9 +39,12 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
             Idioma();
+            TxtVer.Text = "1.0";
+            TxtFec.Text = DateTime.Today.ToShortDateString();
             for (int i = 1; (i <= 10); i++) CmbCat.Items.Add(i);
             CmbCat.Text = CmbCat.Items[0].ToString();
             IniciarTablas();
+            TxtNom.Focus();
         }
         private void WClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -59,8 +64,14 @@ namespace ReadyReq.ViewModel
             if (ctrl.Name.Equals("ButAcep"))
                 if (!string.IsNullOrEmpty(TxtNom.Text))
                 {
-                    Requisito.Nombre = TxtNom.Text;
-                    Requisito.Descripcion = TxtDesc.Text;
+                    if (ClsFunciones.TryConvertToDate(TxtFec.Text))
+                    {
+                        if (ClsFunciones.TryConvertToDouble(TxtVer.Text))
+                        {
+                            Requisito.Nombre = TxtNom.Text;
+                            Requisito.Version = ClsFunciones.StringToDouble(TxtVer.Text);
+                            Requisito.Fecha = DateTime.Parse(TxtFec.Text);
+                            Requisito.Descripcion = TxtDesc.Text;
                     RadioButtonValor(true);
                     Requisito.Categoria = int.Parse(CmbCat.Text);
                     Requisito.Comentario = TxtCom.Text;
@@ -72,6 +83,10 @@ namespace ReadyReq.ViewModel
                     if (resultado == -1) MessageBox.Show(StrMenEMod);
                     if (resultado == -2) MessageBox.Show(StrMenEGuar);
                     VaciarInterfaz();
+                        }
+                        else MessageBox.Show(StrMenEVer);
+                    }
+                    else MessageBox.Show(StrMenEFec);
                 }
                 else MessageBox.Show(StrMenGuar);
             if (ctrl.Name.Equals("ButBorr"))
@@ -227,8 +242,23 @@ namespace ReadyReq.ViewModel
             ctrl = (Control)sender;
             if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
-            {
-                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text)) TxtDesc.Focus();
+            {                
+                if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text))
+                {
+                    int idExiste = Requisito.ComprobarExistencia(TxtNom.Text);
+                    if (idExiste != -1) CargarRequisito(idExiste);
+                    TxtVer.Focus();
+                }
+                if (ctrl.Name.Equals("TxtVer") && !string.IsNullOrEmpty(TxtVer.Text))
+                {
+                    if (ClsFunciones.TryConvertToDouble(TxtVer.Text)) TxtFec.Focus();
+                    else MessageBox.Show(StrMenEVer);
+                }
+                if (ctrl.Name.Equals("TxtFec") && !string.IsNullOrEmpty(TxtFec.Text))
+                {
+                    if (ClsFunciones.TryConvertToDate(TxtFec.Text)) TxtDesc.Focus();
+                    else MessageBox.Show(StrMenEFec);
+                }
                 if (ctrl.Name.Equals("TxtDesc") && !string.IsNullOrEmpty(TxtDesc.Text)) TxtCom.Focus();
                 if (ctrl.Name.Equals("TxtBus")) ButBusc.Focus();
                 if (ctrl.Name.Equals("TxtDat") && !string.IsNullOrEmpty(TxtDat.Text))
@@ -317,6 +347,8 @@ namespace ReadyReq.ViewModel
         {
             TAB.SelectedIndex = 0;
             TxtNom.Text = string.Empty;
+            TxtVer.Text = "1.0";
+            TxtFec.Text = DateTime.Today.ToShortDateString();
             TxtDesc.Text = string.Empty;
             RBPM.IsChecked = true;
             RBUM.IsChecked = true;
@@ -337,10 +369,13 @@ namespace ReadyReq.ViewModel
             Requisito.IniciarValores();
             IniciarTablas();
         }
-        private void CargarRequisito()
+        private void CargarRequisito(int id = -1)
         {
-            Requisito.Cargar(int.Parse(Convert.ToString(((DataRowView)DGBuscar.Items[DGBuscar.SelectedIndex]).Row.ItemArray[1])), TipoReq);
+            if (id == -1) Requisito.Cargar(int.Parse(Convert.ToString(((DataRowView)DGBuscar.Items[DGBuscar.SelectedIndex]).Row.ItemArray[1])), TipoReq);
+            else Requisito.Cargar(id);
             TxtNom.Text = Requisito.Nombre;
+            TxtVer.Text = ClsFunciones.DoubleToString(Requisito.Version);
+            TxtFec.Text = Requisito.Fecha.ToShortDateString();
             TxtDesc.Text = Requisito.Descripcion;
             SldTVM.Value = Requisito.TiempoMedio;
             SldTVMX.Value = Requisito.TiempoMaximo;
@@ -381,6 +416,8 @@ namespace ReadyReq.ViewModel
                 ButAcep.Content = Ingles.Save;
                 ButBorr.Content = Ingles.Delete;
                 LblNom.Content = Ingles.Name;
+                LblVer.Content = Ingles.Version;
+                LblFec.Content = Ingles.Date;
                 LblDes.Content = Ingles.Description;
                 LblPri.Content = Ingles.Priority;
                 LblUrg.Content = Ingles.Urgency;
@@ -414,6 +451,8 @@ namespace ReadyReq.ViewModel
                 StrMenDrop = Ingles.MenDrop;
                 StrMenEGuar = Ingles.ReqMenEGuar;
                 StrMenEMod = Ingles.ReqMenEMod;
+                StrMenEFec = Ingles.MenEFec;
+                StrMenEVer = Ingles.MenEVer;
             }
             else
             {
@@ -429,6 +468,8 @@ namespace ReadyReq.ViewModel
                 ButAcep.Content = Español.Guardar;
                 ButBorr.Content = Español.Borrar;
                 LblNom.Content = Español.Nombre;
+                LblVer.Content = Español.Version;
+                LblFec.Content = Español.Fecha;
                 LblDes.Content = Español.Descripción;
                 LblPri.Content = Español.Prioridad;
                 LblUrg.Content = Español.Urgencia;
@@ -462,6 +503,8 @@ namespace ReadyReq.ViewModel
                 StrMenDrop = Español.MenDrop;
                 StrMenEGuar = Español.ReqMenEGuar;
                 StrMenEMod = Español.ReqMenEMod;
+                StrMenEFec = Español.MenEFec;
+                StrMenEVer = Español.MenEVer;
             }
         }
         private void IniciarTablas()

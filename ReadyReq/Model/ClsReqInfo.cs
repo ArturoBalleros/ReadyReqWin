@@ -1,5 +1,6 @@
 ﻿using ReadyReq.Interface;
 using ReadyReq.Util;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -22,6 +23,8 @@ namespace ReadyReq.Model
             Buscador.Rows.Clear();
             Id = 0;
             Nombre = string.Empty;
+            Version = 1.0;
+            Fecha = DateTime.Today.Date;
             Descripcion = string.Empty;
             Prioridad = 0;
             Urgencia = 0;
@@ -48,7 +51,7 @@ namespace ReadyReq.Model
             int intEstado = (Estado) ? 1 : 0;
             if (Id != 0)
             {
-                if (!ClsBaseDatos.BDBool("Update ReqInfo Set Nombre = '" + Nombre + "', Descripcion = '" + Descripcion + "', TiemMed = " + TiempoMedio + ", TiemMax = " + TiempoMaximo + ", OcuMed = " + OcurreMedio + ", OcuMax = " + OcurreMaximo + ", Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
+                if (!ClsBaseDatos.BDBool("Update ReqInfo Set Nombre = '" + Nombre + "', Version = " + ClsFunciones.DoubleToString(Version) + ", Fecha = '" + ClsFunciones.FechaMySQL(Fecha) + "', Descripcion = '" + Descripcion + "', TiemMed = " + TiempoMedio + ", TiemMax = " + TiempoMaximo + ", OcuMed = " + OcurreMedio + ", OcuMax = " + OcurreMaximo + ", Prioridad = " + Prioridad + ", Urgencia = " + Urgencia + ", Estabilidad = " + Estabilidad + ", Estado = " + intEstado + ", Categoria = " + Categoria + ", Comentario = '" + Comentario + "' where Id = " + Id + ";")) return -1;
                 ClsBaseDatos.BDBool("Delete from ReqIAuto where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqIFuen where IdReq = " + Id + ";");
                 ClsBaseDatos.BDBool("Delete from ReqIObj where IdReq = " + Id + ";");
@@ -58,7 +61,7 @@ namespace ReadyReq.Model
             }
             else
             {
-                if (!ClsBaseDatos.BDBool("Insert into ReqInfo(Nombre,Descripcion,TiemMed,TiemMax,OcuMed,OcuMax,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "','" + Descripcion + "'," + TiempoMedio + "," + TiempoMaximo + "," + OcurreMedio + "," + OcurreMaximo + "," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
+                if (!ClsBaseDatos.BDBool("Insert into ReqInfo(Nombre,Version,Fecha,Descripcion,TiemMed,TiemMax,OcuMed,OcuMax,Prioridad,Urgencia,Estabilidad,Estado,Categoria,Comentario) values ('" + Nombre + "'," + ClsFunciones.DoubleToString(Version) + ",'" + ClsFunciones.FechaMySQL(Fecha) + "','" + Descripcion + "'," + TiempoMedio + "," + TiempoMaximo + "," + OcurreMedio + "," + OcurreMaximo + "," + Prioridad + "," + Urgencia + "," + Estabilidad + "," + intEstado + "," + Categoria + ",'" + Comentario + "');")) return -2;
                 if (GuardarTablas((int)ClsBaseDatos.BDDouble("Select Id from ReqInfo order by Id Desc;")) == -1) return -2;
             }
             return 0;
@@ -95,17 +98,19 @@ namespace ReadyReq.Model
             DataRow Requisito = ClsBaseDatos.BDTable("Select * from ReqInfo where Id = " + id + ";").Rows[0];
             Id = int.Parse(Requisito[0].ToString());
             Nombre = Requisito[1].ToString();
-            Descripcion = Requisito[2].ToString();
-            TiempoMedio = int.Parse(Requisito[3].ToString());
-            TiempoMaximo = int.Parse(Requisito[4].ToString());
-            OcurreMedio = int.Parse(Requisito[5].ToString());
-            OcurreMaximo = int.Parse(Requisito[6].ToString());
-            Prioridad = int.Parse(Requisito[7].ToString());
-            Urgencia = int.Parse(Requisito[8].ToString());
-            Estabilidad = int.Parse(Requisito[9].ToString());
-            Estado = ((int)Requisito[10] == 1) ? true : false;
-            Categoria = int.Parse(Requisito[11].ToString());
-            Comentario = Requisito[12].ToString();
+            Version = (double)Requisito[2];
+            Fecha = (DateTime)Requisito[3];
+            Descripcion = Requisito[4].ToString();
+            TiempoMedio = int.Parse(Requisito[5].ToString());
+            TiempoMaximo = int.Parse(Requisito[6].ToString());
+            OcurreMedio = int.Parse(Requisito[7].ToString());
+            OcurreMaximo = int.Parse(Requisito[8].ToString());
+            Prioridad = int.Parse(Requisito[9].ToString());
+            Urgencia = int.Parse(Requisito[10].ToString());
+            Estabilidad = int.Parse(Requisito[11].ToString());
+            Estado = ((int)Requisito[12] == 1) ? true : false;
+            Categoria = int.Parse(Requisito[13].ToString());
+            Comentario = Requisito[14].ToString();
 
             Autores = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ReqIAuto r where g.Id = r.IdAutor and r.IdReq = " + Id + " Order By Categoria Desc, Nombre;");
             Fuentes = ClsBaseDatos.BDTable("Select g.Id as Id, g.Nombre as Nombre from Grupo g, ReqIFuen r where g.Id = r.IdFuen and r.IdReq = " + Id + " Order By Categoria Desc, Nombre;");
@@ -133,6 +138,11 @@ namespace ReadyReq.Model
         {
             Cargar(id);
             CargarTablaReqRel(tipoReq);
+        }
+        public int ComprobarExistencia(string valor)
+        {
+            int id = (int)ClsBaseDatos.BDDouble("Select Id from ReqInfo where Nombre = '" + valor + "';");
+            return (id != -1) ? id : -1;
         }
         public void CargarTablaReqRel(int TipoReq)
         {
