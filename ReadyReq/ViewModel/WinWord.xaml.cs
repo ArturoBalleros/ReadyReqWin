@@ -86,7 +86,7 @@ namespace ReadyReq.ViewModel
                 ChkReqF.Content = Español.ReqFun;
                 ChkReqN.Content = Español.ReqNFun;
                 ChkTra.Content = Español.TablaTraz;
-                ChkEstim.Content = Ingles.Estimates;
+                ChkEstim.Content = Español.Estimaciones;
                 ButEmpezar.Content = Español.Comenzar;
                 StrMenErr = Español.MenErrRes;
                 StrMenErrTab = Español.MenErrTab;

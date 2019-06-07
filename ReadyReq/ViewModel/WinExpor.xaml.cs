@@ -113,6 +113,7 @@ namespace ReadyReq.ViewModel
                 sw.WriteLine(ClsConf.Encriptar("Delete from Paquetes;"));
                 sw.WriteLine(ClsConf.Encriptar("Delete from Grupo;"));
                 sw.WriteLine(ClsConf.Encriptar("Delete from Estim;"));
+                sw.WriteLine(ClsConf.Encriptar("Delete from Paquetes where Id = 1;"));
 
                 //Generales
                 tabla = ClsBaseDatos.BDTable("select * From Grupo");
@@ -120,7 +121,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into Grupo values(" + fila[0].ToString() + ",'" + fila[1].ToString() + "','" + fila[2].ToString() + "','" + fila[3].ToString() + "'," + fila[4].ToString() + "," + fila[5].ToString() + ",'" + fila[6].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into Grupo values(" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "','" + fila[4].ToString() + "','" + fila[5].ToString() + "'," + fila[6].ToString() + "," + fila[7].ToString() + ",'" + fila[8].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
@@ -129,7 +130,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into Paquetes values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + fila[2].ToString() + ",'" + fila[3].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into Paquetes values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "'," + fila[4].ToString() + ",'" + fila[5].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
@@ -138,7 +139,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into Actores values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "','" + fila[2].ToString() + "'," + fila[3].ToString() + ",'" + fila[4].ToString() + "'," + fila[5].ToString() + ",'" + fila[6].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into Actores values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "','" + fila[4].ToString() + "'," + fila[5].ToString() + ",'" + fila[6].ToString() + "'," + fila[7].ToString() + ",'" + fila[8].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
@@ -147,7 +148,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into Objetivos values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "','" + fila[2].ToString() + "'," + fila[3].ToString() + "," + fila[4].ToString() + "," + fila[5].ToString() + "," + fila[6].ToString() + "," + fila[7].ToString() + ",'" + fila[8].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into Objetivos values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "','" + fila[4].ToString() + "'," + fila[5].ToString() + "," + fila[6].ToString() + "," + fila[7].ToString() + "," + fila[8].ToString() + "," + fila[9].ToString() + ",'" + fila[10].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
@@ -156,7 +157,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into ReqInfo values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "','" + fila[2].ToString() + "'," + fila[3].ToString() + "," + fila[4].ToString() + "," + fila[5].ToString() + "," + fila[6].ToString() + "," + fila[7].ToString() + "," + fila[8].ToString() + "," + fila[9].ToString() + "," + fila[10].ToString() + "," + fila[11].ToString() + ",'" + fila[12].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into ReqInfo values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "','" + fila[4].ToString() + "'," + fila[5].ToString() + "," + fila[6].ToString() + "," + fila[7].ToString() + "," + fila[8].ToString() + "," + fila[9].ToString() + "," + fila[10].ToString() + "," + fila[11].ToString() + "," + fila[12].ToString() + "," + fila[13].ToString() + ",'" + fila[14].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
@@ -165,7 +166,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into ReqFun values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "','" + fila[2].ToString() + "'," + fila[3].ToString() + ",'" + fila[4].ToString() + "','" + fila[5].ToString() + "'," + fila[6].ToString() + "," + fila[7].ToString() + "," + fila[8].ToString() + "," + fila[9].ToString() + "," + fila[10].ToString() + ",'" + fila[11].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into ReqFun values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "','" + fila[4].ToString() + "'," + fila[5].ToString() + ",'" + fila[6].ToString() + "','" + fila[7].ToString() + "'," + fila[8].ToString() + "," + fila[9].ToString() + "," + fila[10].ToString() + "," + fila[11].ToString() + "," + fila[12].ToString() + "," + fila[13].ToString() + ",'" + fila[14].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
@@ -174,7 +175,7 @@ namespace ReadyReq.ViewModel
                 for (int i = 0; (i <= tabla.Rows.Count - 1); i++)
                 {
                     fila = tabla.Rows[i];
-                    sw.WriteLine(ClsConf.Encriptar("Insert into ReqNFunc values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "','" + fila[2].ToString() + "'," + fila[3].ToString() + "," + fila[4].ToString() + "," + fila[5].ToString() + "," + fila[6].ToString() + "," + fila[7].ToString() + ",'" + fila[8].ToString() + "');")); PBProg2.Value = i; DoEvents();
+                    sw.WriteLine(ClsConf.Encriptar("Insert into ReqNFunc values (" + fila[0].ToString() + ",'" + fila[1].ToString() + "'," + ClsFunciones.DoubleToString((double)fila[2]) + ",'" + ClsFunciones.FechaMySQL((DateTime)fila[3]) + "','" + fila[4].ToString() + "'," + fila[5].ToString() + "," + fila[6].ToString() + "," + fila[7].ToString() + "," + fila[8].ToString() + "," + fila[9].ToString() + ",'" + fila[10].ToString() + "');")); PBProg2.Value = i; DoEvents();
                 }
                 PBProg1.Value++; DoEvents();
 
