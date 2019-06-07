@@ -72,17 +72,17 @@ namespace ReadyReq.ViewModel
                             Requisito.Version = ClsFunciones.StringToDouble(TxtVer.Text);
                             Requisito.Fecha = DateTime.Parse(TxtFec.Text);
                             Requisito.Descripcion = TxtDesc.Text;
-                    RadioButtonValor(true);
-                    Requisito.Categoria = int.Parse(CmbCat.Text);
-                    Requisito.Comentario = TxtCom.Text;
-                    Requisito.TiempoMedio = int.Parse(LblTVM.Content.ToString());
-                    Requisito.TiempoMaximo = int.Parse(LblTVMX.Content.ToString());
-                    Requisito.OcurreMedio = int.Parse(LblOM.Content.ToString());
-                    Requisito.OcurreMaximo = int.Parse(LblOMX.Content.ToString());
-                    int resultado = Requisito.Guardar();
-                    if (resultado == -1) MessageBox.Show(StrMenEMod);
-                    if (resultado == -2) MessageBox.Show(StrMenEGuar);
-                    VaciarInterfaz();
+                            RadioButtonValor(true);
+                            Requisito.Categoria = int.Parse(CmbCat.Text);
+                            Requisito.Comentario = TxtCom.Text;
+                            Requisito.TiempoMedio = int.Parse(LblTVM.Content.ToString());
+                            Requisito.TiempoMaximo = int.Parse(LblTVMX.Content.ToString());
+                            Requisito.OcurreMedio = int.Parse(LblOM.Content.ToString());
+                            Requisito.OcurreMaximo = int.Parse(LblOMX.Content.ToString());
+                            int resultado = Requisito.Guardar();
+                            if (resultado == -1) MessageBox.Show(StrMenEMod);
+                            if (resultado == -2) MessageBox.Show(StrMenEGuar);
+                            VaciarInterfaz();
                         }
                         else MessageBox.Show(StrMenEVer);
                     }
@@ -242,7 +242,7 @@ namespace ReadyReq.ViewModel
             ctrl = (Control)sender;
             if (ctrl.Name.Equals("TxtNom") && !Activo) Activo = true;
             if (e.Key == Key.Enter)
-            {                
+            {
                 if (ctrl.Name.Equals("TxtNom") && !string.IsNullOrEmpty(TxtNom.Text))
                 {
                     int idExiste = Requisito.ComprobarExistencia(TxtNom.Text);
