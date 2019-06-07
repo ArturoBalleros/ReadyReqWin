@@ -150,11 +150,13 @@ namespace ReadyReq.ViewModel
                     filaN[10] = fila[10].ToString(); //Comentario
                     DTObjetivos.Rows.Add(filaN);
                 }
-                /*
+                
                 tabla = ClsBaseDatos.BDTable("Select * From Actores Order By Categoria Desc, Nombre;");
                 DTActores.Columns.Add("IdW", Type.GetType("System.String"));
                 DTActores.Columns.Add("Id", Type.GetType("System.Double"));
                 DTActores.Columns.Add("Nombre", Type.GetType("System.String"));
+                DTActores.Columns.Add("Version", Type.GetType("System.Double"));
+                DTActores.Columns.Add("Fecha", Type.GetType("System.DateTime"));
                 DTActores.Columns.Add("Descripcion", Type.GetType("System.String"));
                 DTActores.Columns.Add("Complejidad", Type.GetType("System.String"));
                 DTActores.Columns.Add("DescComple", Type.GetType("System.String"));
@@ -164,14 +166,18 @@ namespace ReadyReq.ViewModel
                     fila = tabla.Rows[i];
                     filaN = DTActores.NewRow();
                     filaN[0] = "ACT-" + RellenarCeros(i + 1 + "");
-                    filaN[1] = fila[0].ToString();
-                    filaN[2] = fila[1].ToString();
-                    filaN[3] = fila[2].ToString();
-                    filaN[4] = DetEstado((int)fila[3], 2);
-                    filaN[5] = fila[4].ToString();
-                    filaN[6] = fila[6].ToString();
+                    filaN[1] = fila[0].ToString(); //Id
+                    filaN[2] = fila[1].ToString(); //Nombre
+                    filaN[3] = (double)fila[2]; //Version
+                    filaN[4] = (DateTime)fila[3]; //Fecha
+                    filaN[5] = fila[4].ToString(); //Descripción
+                    filaN[6] = DetEstado((int)fila[5], 2); //Complejidad
+                    filaN[7] = fila[6].ToString(); //Descripción de Complejidad
+                    filaN[8] = fila[8].ToString(); //Comentario
                     DTActores.Rows.Add(filaN);
                 }
+
+                /*
 
                 tabla = ClsBaseDatos.BDTable("Select * From ReqFun f, Paquetes p where p.Id = f.Paquete Order By p.Categoria Desc, p.Nombre, f.Categoria Desc, f.Nombre;");
                 DTReqFun.Columns.Add("IdW", Type.GetType("System.String"));
