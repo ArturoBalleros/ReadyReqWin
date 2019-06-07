@@ -146,11 +146,11 @@ namespace ReadyReq.ViewModel
                     filaN[6] = DetEstado((int)fila[5], 1); //Prioridad
                     filaN[7] = DetEstado((int)fila[6], 1); //Urgencia
                     filaN[8] = DetEstado((int)fila[7], 1); //Estabilidad
-                    filaN[9] = DetEstado((int)fila[8], 3); //Estdo
+                    filaN[9] = DetEstado((int)fila[8], 3); //Estado
                     filaN[10] = fila[10].ToString(); //Comentario
                     DTObjetivos.Rows.Add(filaN);
                 }
-                
+
                 tabla = ClsBaseDatos.BDTable("Select * From Actores Order By Categoria Desc, Nombre;");
                 DTActores.Columns.Add("IdW", Type.GetType("System.String"));
                 DTActores.Columns.Add("Id", Type.GetType("System.Double"));
@@ -177,16 +177,17 @@ namespace ReadyReq.ViewModel
                     DTActores.Rows.Add(filaN);
                 }
 
-                /*
-
                 tabla = ClsBaseDatos.BDTable("Select * From ReqFun f, Paquetes p where p.Id = f.Paquete Order By p.Categoria Desc, p.Nombre, f.Categoria Desc, f.Nombre;");
                 DTReqFun.Columns.Add("IdW", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Id", Type.GetType("System.Double"));
                 DTReqFun.Columns.Add("Nombre", Type.GetType("System.String"));
+                DTReqFun.Columns.Add("Version", Type.GetType("System.Double"));
+                DTReqFun.Columns.Add("Fecha", Type.GetType("System.DateTime"));
                 DTReqFun.Columns.Add("Descripcion", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Paquete", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Precond", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Postcond", Type.GetType("System.String"));
+                DTReqFun.Columns.Add("Complejidad", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Prioridad", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Urgencia", Type.GetType("System.String"));
                 DTReqFun.Columns.Add("Estabilidad", Type.GetType("System.String"));
@@ -197,24 +198,30 @@ namespace ReadyReq.ViewModel
                     fila = tabla.Rows[i];
                     filaN = DTReqFun.NewRow();
                     filaN[0] = "UC-" + RellenarCeros(i + 1 + "");
-                    filaN[1] = fila[0].ToString();
-                    filaN[2] = fila[1].ToString();
-                    filaN[3] = fila[2].ToString();
-                    filaN[4] = fila[3].ToString();
-                    filaN[5] = fila[4].ToString();
-                    filaN[6] = fila[5].ToString();
-                    filaN[7] = DetEstado((int)fila[6], 1);
-                    filaN[8] = DetEstado((int)fila[7], 1);
-                    filaN[9] = DetEstado((int)fila[8], 1);
-                    filaN[10] = DetEstado((int)fila[9], 3);
-                    filaN[11] = fila[11].ToString();
+                    filaN[1] = fila[0].ToString(); //Id
+                    filaN[2] = fila[1].ToString(); //Nombre
+                    filaN[3] = (double)fila[2]; //Version
+                    filaN[4] = (DateTime)fila[3]; //Fecha
+                    filaN[5] = fila[4].ToString(); //Descripción
+                    filaN[6] = fila[5].ToString(); //Paquete
+                    filaN[7] = fila[6].ToString(); //Precond
+                    filaN[8] = fila[7].ToString(); //Postcond
+                    filaN[9] = DetEstado((int)fila[8], 2); //Complejidad
+                    filaN[10] = DetEstado((int)fila[9], 1); //Prioridad
+                    filaN[11] = DetEstado((int)fila[10], 1); //Urgencia
+                    filaN[12] = DetEstado((int)fila[11], 1); //Estabilidad
+                    filaN[13] = DetEstado((int)fila[12], 3); //Estado
+                    filaN[14] = fila[14].ToString(); //Comentario
                     DTReqFun.Rows.Add(filaN);
                 }
+
 
                 tabla = ClsBaseDatos.BDTable("Select * From ReqInfo Order By Categoria Desc, Nombre;");
                 DTReqInfo.Columns.Add("IdW", Type.GetType("System.String"));
                 DTReqInfo.Columns.Add("Id", Type.GetType("System.Double"));
                 DTReqInfo.Columns.Add("Nombre", Type.GetType("System.String"));
+                DTReqInfo.Columns.Add("Version", Type.GetType("System.Double"));
+                DTReqInfo.Columns.Add("Fecha", Type.GetType("System.DateTime"));
                 DTReqInfo.Columns.Add("Descripcion", Type.GetType("System.String"));
                 DTReqInfo.Columns.Add("TiemMed", Type.GetType("System.String"));
                 DTReqInfo.Columns.Add("TiemMax", Type.GetType("System.String"));
@@ -230,18 +237,20 @@ namespace ReadyReq.ViewModel
                     fila = tabla.Rows[i];
                     filaN = DTReqInfo.NewRow();
                     filaN[0] = "IRQ-" + RellenarCeros(i + 1 + "");
-                    filaN[1] = fila[0].ToString();
-                    filaN[2] = fila[1].ToString();
-                    filaN[3] = fila[2].ToString();
-                    filaN[4] = fila[3].ToString();
-                    filaN[5] = fila[4].ToString();
-                    filaN[6] = fila[5].ToString();
-                    filaN[7] = fila[6].ToString();
-                    filaN[8] = DetEstado((int)fila[7], 1);
-                    filaN[9] = DetEstado((int)fila[8], 1);
-                    filaN[10] = DetEstado((int)fila[9], 1);
-                    filaN[11] = DetEstado((int)fila[10], 3);
-                    filaN[12] = fila[12].ToString();
+                    filaN[1] = fila[0].ToString(); //Id
+                    filaN[2] = fila[1].ToString(); //Nombre
+                    filaN[3] = (double)fila[2]; //Version
+                    filaN[4] = (DateTime)fila[3]; //Fecha
+                    filaN[5] = fila[4].ToString(); //Descripción
+                    filaN[6] = fila[5].ToString(); //TiemMed
+                    filaN[7] = fila[6].ToString(); //TiemMax
+                    filaN[8] = fila[7].ToString(); //OcuMed
+                    filaN[9] = fila[8].ToString(); //OcuMax
+                    filaN[10] = DetEstado((int)fila[9], 1); //Prioridad
+                    filaN[11] = DetEstado((int)fila[10], 1); //Urgencia
+                    filaN[12] = DetEstado((int)fila[11], 1); //Estabilidad
+                    filaN[13] = DetEstado((int)fila[12], 3); //Estado
+                    filaN[14] = fila[14].ToString(); //Comentario
                     DTReqInfo.Rows.Add(filaN);
                 }
 
@@ -249,6 +258,8 @@ namespace ReadyReq.ViewModel
                 DTReqNFun.Columns.Add("IdW", Type.GetType("System.String"));
                 DTReqNFun.Columns.Add("Id", Type.GetType("System.Double"));
                 DTReqNFun.Columns.Add("Nombre", Type.GetType("System.String"));
+                DTReqNFun.Columns.Add("Version", Type.GetType("System.Double"));
+                DTReqNFun.Columns.Add("Fecha", Type.GetType("System.DateTime"));
                 DTReqNFun.Columns.Add("Descripcion", Type.GetType("System.String"));
                 DTReqNFun.Columns.Add("Prioridad", Type.GetType("System.String"));
                 DTReqNFun.Columns.Add("Urgencia", Type.GetType("System.String"));
@@ -260,16 +271,18 @@ namespace ReadyReq.ViewModel
                     fila = tabla.Rows[i];
                     filaN = DTReqNFun.NewRow();
                     filaN[0] = "NFR-" + RellenarCeros(i + 1 + "");
-                    filaN[1] = fila[0].ToString();
-                    filaN[2] = fila[1].ToString();
-                    filaN[3] = fila[2].ToString();
-                    filaN[4] = DetEstado((int)fila[3], 1);
-                    filaN[5] = DetEstado((int)fila[4], 1);
-                    filaN[6] = DetEstado((int)fila[5], 1);
-                    filaN[7] = DetEstado((int)fila[6], 3);
-                    filaN[8] = fila[8].ToString();
+                    filaN[1] = fila[0].ToString(); //Id
+                    filaN[2] = fila[1].ToString(); //Nombre
+                    filaN[3] = (double)fila[2]; //Version
+                    filaN[4] = (DateTime)fila[3]; //Fecha
+                    filaN[5] = fila[4].ToString(); //Descripción
+                    filaN[6] = DetEstado((int)fila[5], 1); //Prioridad
+                    filaN[7] = DetEstado((int)fila[6], 1); //Urgencia
+                    filaN[8] = DetEstado((int)fila[7], 1); //Estabilidad
+                    filaN[9] = DetEstado((int)fila[8], 3); //Estado
+                    filaN[10] = fila[9].ToString(); //Comentario
                     DTReqNFun.Rows.Add(filaN);
-                }*/
+                }
                 return 0;
             }
             catch
@@ -423,9 +436,9 @@ namespace ReadyReq.ViewModel
                     for (int i = 0; (i <= DTReqFun.Rows.Count - 1); i++)
                     {
                         fila = DTReqFun.Rows[i];
-                        if (fila2[0].ToString() == fila[4].ToString())
+                        if (fila2[0].ToString() == fila[6].ToString())
                         {
-                            Act = DTGrupo.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdAct From ReqAct Where IdReq = " + fila[1].ToString() + ";")), "IdW");
+                            Act = DTActores.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdAct From ReqAct Where IdReq = " + fila[1].ToString() + ";")), "IdW");
                             Auto = DTGrupo.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdAutor From ReqAuto Where IdReq = " + fila[1].ToString() + ";")), "IdW");
                             Fuen = DTGrupo.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdFuen From ReqFuen Where IdReq = " + fila[1].ToString() + ";")), "IdW");
                             Obj = DTObjetivos.Select(CadenaBusqueda(ClsBaseDatos.BDTable("Select IdObj From ReqObj Where IdReq = " + fila[1].ToString() + ";")), "IdW");
