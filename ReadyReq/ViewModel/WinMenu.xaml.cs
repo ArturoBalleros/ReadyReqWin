@@ -30,21 +30,21 @@ namespace ReadyReq.ViewModel
         private void WLoaded(object sender, RoutedEventArgs e)
         {
 
-            //if ((Convert.ToDateTime("01/06/2019") - Convert.ToDateTime(DateTime.Now.ToShortDateString())).TotalDays >= 0)
-            //{
-
-            //  if ((String.Compare(Environment.MachineName, "Asuka") == 0) && ((Convert.ToDateTime("01/08/2018") - Convert.ToDateTime(DateTime.Now.ToShortDateString())).TotalDays >= 0))            {
-            if (!ClsConf.Iniciar())
-                TxtCon.Text = "Configuración\nConfiguration";
-            else
+            if ((Convert.ToDateTime("01/08/2019") - Convert.ToDateTime(DateTime.Now.ToShortDateString())).TotalDays >= 0)
             {
-                Activo = true;
-                Idioma();
+
+
+                if (!ClsConf.Iniciar())
+                    TxtCon.Text = "Configuración\nConfiguration";
+                else
+                {
+                    Activo = true;
+                    Idioma();
+                }
+
+
             }
-
-
-            //}
-            //else { MessageBox.Show("O no es tu PC o se te han pasado los dias, asiq jodete y llamame. (TUS DATOS NO SE HAN BORRADO DE LA BASE DE DATOS)"); }
+            else { MessageBox.Show("O no es tu PC o se te han pasado los dias, asiq jodete y llamame. (TUS DATOS NO SE HAN BORRADO DE LA BASE DE DATOS)"); }
 
         }
         private void Idioma()
