@@ -192,7 +192,7 @@
         public const string ExpErrFic = "Error al insertar en el fichero";
 
         //WinWord
-        public const string TablaTraz = "Tablas de Trazabilidad";
+        public const string TablaTraz = "Tablas de Rastreabilidad";
         public const string Comenzar = "Comenzar";
         public const string MenErrRes = "No se pudieron generar resultados";
         public const string MenErrTab = "No se pudieron generar las tablas";

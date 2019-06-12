@@ -86,7 +86,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="ButEstim" Style="{StaticResource Button}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Click">
                 <DockPanel>
-                    <Image Source="/Image/Importar.png" Margin="35"/>
+                    <Image Source="/Image/Estimaciones.png" Margin="35"/>
                     <TextBlock x:Name="TxtEstim" FontSize="24" VerticalAlignment="Center"/>
                 </DockPanel>
             </Button>
