@@ -182,7 +182,7 @@ namespace ReadyReq.ViewModel
             {
                 Estim = new WinEstim();
                 Estim.Owner = this;
-                Estim.ShowDialog();
+                Estim.Show();
             }
 
         }
