@@ -35,7 +35,10 @@ namespace ReadyReq.ViewModel
 
 
                 if (!ClsConf.Iniciar())
+                {
                     TxtCon.Text = "Configuración\nConfiguration";
+                    TxtNuP.Text = "Nuevo Proyecto\nNew Project";
+                }
                 else
                 {
                     Activo = true;
@@ -150,11 +153,11 @@ namespace ReadyReq.ViewModel
                 Idioma();
             }
 
-            if (ctrl.Name.Equals("ButNuP") && !NuevoPro.IsLoaded && Activo)
-            {
+            if (ctrl.Name.Equals("ButNuP") && !NuevoPro.IsLoaded)
+            {               
                 NuevoPro = new WinNuePro();
                 NuevoPro.Owner = this;
-                NuevoPro.ShowDialog();
+                NuevoPro.ShowDialog();             
             }
 
             if (ctrl.Name.Equals("ButImp") && !Importar.IsLoaded && Activo)

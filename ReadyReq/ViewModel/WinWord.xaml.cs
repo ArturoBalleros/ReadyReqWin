@@ -3,6 +3,7 @@ using ReadyReq.Util;
 using System;
 using System.Collections;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -18,6 +19,7 @@ namespace ReadyReq.ViewModel
         DataTable DTReqNFun = new DataTable();
         string StrMenErr;
         string StrMenErrTab;
+        string StrMenVis;
         public WinWord()
         {
             InitializeComponent();
@@ -75,6 +77,7 @@ namespace ReadyReq.ViewModel
                 ButEmpezar.Content = Ingles.Start;
                 StrMenErr = Ingles.MenErrRes;
                 StrMenErrTab = Ingles.MenErrTab;
+                StrMenVis = Ingles.MenVis;
             }
             else
             {
@@ -90,6 +93,7 @@ namespace ReadyReq.ViewModel
                 ButEmpezar.Content = Español.Comenzar;
                 StrMenErr = Español.MenErrRes;
                 StrMenErrTab = Español.MenErrTab;
+                StrMenVis = Español.MenVis;
             }
         }
         private int CreaTablas()
@@ -310,7 +314,7 @@ namespace ReadyReq.ViewModel
                     ClsWord.Grupo(oWord, oDoc, fila);
                     PBProg.Value++; DoEvents();
                 }
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkGru.Content.ToString());
                 return 0;
             }
             catch
@@ -338,7 +342,7 @@ namespace ReadyReq.ViewModel
                     ClsWord.Objetivos(oWord, oDoc, fila, Auto, Fuen, SubObj);
                     PBProg.Value++; DoEvents();
                 }
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkObj.Content.ToString());
                 return 0;
             }
             catch
@@ -365,7 +369,7 @@ namespace ReadyReq.ViewModel
                     ClsWord.Actores(oWord, oDoc, fila, Auto, Fuen);
                     PBProg.Value++; DoEvents();
                 }
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkAct.Content.ToString());
                 return 0;
             }
             catch
@@ -403,7 +407,7 @@ namespace ReadyReq.ViewModel
                     ALReq.Clear();
                     PBProg.Value++; DoEvents();
                 }
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkReqN.Content.ToString());
                 return 0;
             }
             catch
@@ -461,7 +465,7 @@ namespace ReadyReq.ViewModel
                         }
                     }
                 }
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkReqF.Content.ToString());
                 return 0;
             }
             catch
@@ -500,7 +504,7 @@ namespace ReadyReq.ViewModel
                     ALReq.Clear();
                     PBProg.Value++; DoEvents();
                 }
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkReqI.Content.ToString());
                 return 0;
             }
             catch
@@ -554,7 +558,7 @@ namespace ReadyReq.ViewModel
                     ClsWord.RellenarFila(aRange, ClsWord.ObjRelacionados(tabla, DTObjetivos), i + 1, fila[0].ToString());
                     PBProg.Value++; DoEvents();
                 }
-                xlApp.Visible = true;
+                GuardarMostrarExcel(wb, xlApp, ChkTra.Content.ToString());
                 return 0;
             }
             catch
@@ -571,7 +575,7 @@ namespace ReadyReq.ViewModel
                 oWord = new Microsoft.Office.Interop.Word.Application();
                 oDoc = oWord.Documents.Add();
                 ClsWord.Estim(oWord, oDoc);
-                oWord.Visible = true;
+                GuardarMostrarWord(oDoc, oWord, ChkEstim.Content.ToString());
                 return 0;
             }
             catch
@@ -664,6 +668,36 @@ namespace ReadyReq.ViewModel
             }
             if (Busqueda == "Id = ") return "Id = -1";
             else return Busqueda;
+        }
+
+        private void GuardarMostrarWord(Microsoft.Office.Interop.Word.Document oDoc, Microsoft.Office.Interop.Word.Application oWord, string NameFile)
+        {
+            string folder = ExistFolder();
+            oDoc.SaveAs2(folder + NameFile + DefValues.FormatoWord);
+            if (MessageBox.Show(StrMenVis, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes) oWord.Visible = true;
+            else
+            {
+                oDoc.Close();
+                oWord.Quit();
+            }
+        }
+        private void GuardarMostrarExcel(Microsoft.Office.Interop.Excel.Workbook wb, Microsoft.Office.Interop.Excel.Application xlApp, string NameFile)
+        {
+            string folder = ExistFolder();
+            wb.SaveAs(folder + NameFile + DefValues.FormatoExcel);
+            if (MessageBox.Show(StrMenVis, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes)             xlApp.Visible = true;
+            else
+            {
+                wb.Close();
+                xlApp.Quit();
+            }
+        }
+        private string ExistFolder()
+        {
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\" + DefValues.ReadyReq;
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+            return folder + @"/";
         }
     }
 }

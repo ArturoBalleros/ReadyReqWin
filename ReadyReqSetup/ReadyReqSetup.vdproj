@@ -221,11 +221,6 @@
             "AssemblyAsmDisplayName" = "8:MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6D26F9602D971B070F5A1EBFFB3F6E06"
-                    {
-                    "Name" = "8:MySql.Data.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MySql.Data.dll"
             "TargetName" = "8:"
@@ -252,11 +247,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_78AC6CECF13E12FBD64E89426077B406"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -392,15 +382,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ReadyReqSetup"
-        "ProductCode" = "8:{1EFD34B5-915D-4158-8A06-6F283B1C7748}"
-        "PackageCode" = "8:{EDA1F9FE-DDC8-40F1-8BD4-A362B95D8E5E}"
-        "UpgradeCode" = "8:{573D34D3-9A56-498F-9EAA-B702D5B966C5}"
+        "ProductCode" = "8:{4F9F1613-6F71-4C5A-964C-CACD0B60F7BA}"
+        "PackageCode" = "8:{03FAA33B-7BCF-46AA-86C9-440AA43EE206}"
+        "UpgradeCode" = "8:{304DF6DB-06B0-4B76-90E5-1DBF0BA04451}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.25"
+        "ProductVersion" = "8:1.0.28"
         "Manufacturer" = "8:ReadyReq"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

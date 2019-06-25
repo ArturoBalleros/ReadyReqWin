@@ -196,6 +196,7 @@
         public const string Comenzar = "Comenzar";
         public const string MenErrRes = "No se pudieron generar resultados";
         public const string MenErrTab = "No se pudieron generar las tablas";
+        public const string MenVis = "¿Desea ver el resultado?";
 
         //WinNuePro
         public const string Servidor = "Servidor";
@@ -412,6 +413,7 @@
         public const string Start = "Start";
         public const string MenErrRes = "Could not generate results";
         public const string MenErrTab = "The tables could not be generated";
+        public const string MenVis = "Do you want to see the result?";
 
         //WinNuePro
         public const string Server = "Server";
@@ -443,6 +445,11 @@
         public const string DataRow = "DataRow";
         public const string ArrayList = "ArrayList";
         public const string DataTable = "DataTable";
+        public const string ReadyReq = "ReadyReq";
+        public const string Word = "Word";
+        public const string Excel = "Excel";
+        public const string FormatoWord = ".docx";
+        public const string FormatoExcel = ".xlsx";
         public const int ReqInfo = 1;
         public const int ReqNFun = 2;
         public const int ReqFun = 3;
