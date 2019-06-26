@@ -1,4 +1,7 @@
-﻿namespace ReadyReq.Util
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+namespace ReadyReq.Util
 {
     public struct Español
     {

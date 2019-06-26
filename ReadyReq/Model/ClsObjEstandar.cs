@@ -1,4 +1,7 @@
-﻿using System.Data;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using System.Data;
 
 namespace ReadyReq.Model
 {

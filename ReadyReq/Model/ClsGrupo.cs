@@ -1,4 +1,7 @@
-﻿using ReadyReq.Interface;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using ReadyReq.Interface;
 using ReadyReq.Util;
 using System;
 using System.Data;

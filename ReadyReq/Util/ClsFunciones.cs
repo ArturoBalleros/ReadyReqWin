@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using System;
 
 namespace ReadyReq.Util
 {

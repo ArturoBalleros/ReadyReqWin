@@ -1,4 +1,7 @@
-﻿using ReadyReq.Model;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using ReadyReq.Model;
 using ReadyReq.Util;
 using System;
 using System.Windows;

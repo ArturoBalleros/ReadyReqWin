@@ -1,4 +1,7 @@
-﻿namespace ReadyReq.Interface
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+namespace ReadyReq.Interface
 {
     public interface IObjReq : IObjEstandar
     {

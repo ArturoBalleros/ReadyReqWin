@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using Microsoft.Win32;
 using ReadyReq.Model;
 using ReadyReq.Util;
 using System;

@@ -1,4 +1,7 @@
-﻿using ReadyReq.Model;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using ReadyReq.Model;
 using ReadyReq.Util;
 using System;
 using System.Windows;
@@ -29,26 +32,16 @@ namespace ReadyReq.ViewModel
         }
         private void WLoaded(object sender, RoutedEventArgs e)
         {
-
-            if ((Convert.ToDateTime("01/08/2019") - Convert.ToDateTime(DateTime.Now.ToShortDateString())).TotalDays >= 0)
+            if (!ClsConf.Iniciar())
             {
-
-
-                if (!ClsConf.Iniciar())
-                {
-                    TxtCon.Text = "Configuración\nConfiguration";
-                    TxtNuP.Text = "Nuevo Proyecto\nNew Project";
-                }
-                else
-                {
-                    Activo = true;
-                    Idioma();
-                }
-
-
+                TxtCon.Text = "Configuración\nConfiguration";
+                TxtNuP.Text = "Nuevo Proyecto\nNew Project";
             }
-            else { MessageBox.Show("O no es tu PC o se te han pasado los dias, asiq jodete y llamame. (TUS DATOS NO SE HAN BORRADO DE LA BASE DE DATOS)"); }
-
+            else
+            {
+                Activo = true;
+                Idioma();
+            }
         }
         private void Idioma()
         {
@@ -154,10 +147,10 @@ namespace ReadyReq.ViewModel
             }
 
             if (ctrl.Name.Equals("ButNuP") && !NuevoPro.IsLoaded)
-            {               
+            {
                 NuevoPro = new WinNuePro();
                 NuevoPro.Owner = this;
-                NuevoPro.ShowDialog();             
+                NuevoPro.ShowDialog();
             }
 
             if (ctrl.Name.Equals("ButImp") && !Importar.IsLoaded && Activo)

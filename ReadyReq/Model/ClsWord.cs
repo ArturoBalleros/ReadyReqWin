@@ -1,4 +1,7 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using Microsoft.Office.Interop.Word;
 using ReadyReq.Util;
 using System;
 using System.Collections;

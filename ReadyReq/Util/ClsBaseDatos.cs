@@ -1,4 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using MySql.Data.MySqlClient;
 using ReadyReq.Util;
 using System;
 using System.Data;

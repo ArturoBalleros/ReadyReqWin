@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿/*
+ * Autor: Arturo Balleros Albillo
+ */
+using System.Collections.ObjectModel;
 
 namespace ReadyReq.Model
 {
