@@ -94,7 +94,7 @@ namespace ReadyReq.Model
                 oTable.Cell(7, 1).Range.Text = Español.Prioridad;
                 oTable.Cell(8, 1).Range.Text = Español.Urgencia;
                 oTable.Cell(9, 1).Range.Text = Español.Estabilidad;
-                oTable.Cell(10, 1).Range.Text = Español.Estabilidad;
+                oTable.Cell(10, 1).Range.Text = Español.Estado;
                 oTable.Cell(11, 1).Range.Text = Español.Comentario;
             }
             Negrita(oTable, 11);

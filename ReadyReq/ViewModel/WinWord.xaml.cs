@@ -669,7 +669,6 @@ namespace ReadyReq.ViewModel
             if (Busqueda == "Id = ") return "Id = -1";
             else return Busqueda;
         }
-
         private void GuardarMostrarWord(Microsoft.Office.Interop.Word.Document oDoc, Microsoft.Office.Interop.Word.Application oWord, string NameFile)
         {
             string folder = ExistFolder();
