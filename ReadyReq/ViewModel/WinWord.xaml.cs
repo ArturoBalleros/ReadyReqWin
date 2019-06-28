@@ -687,7 +687,7 @@ namespace ReadyReq.ViewModel
         {
             string folder = ExistFolder();
             wb.SaveAs(folder + NameFile + DefValues.FormatoExcel);
-            if (MessageBox.Show(StrMenVis, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes)             xlApp.Visible = true;
+            if (MessageBox.Show(StrMenVis, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes) xlApp.Visible = true;
             else
             {
                 wb.Close();

@@ -208,8 +208,8 @@ namespace ReadyReq.Util
         public const string Base_Datos = "Base de datos";
         public const string Puerto = "Puerto";
         public const string CreaBase = "¿Crear base de datos?";
-        public const string NPMenPar = "Ya existe un archivo con este nombre";
-        public const string NPMenExi = "Hay parámetros vacíos";
+        public const string NPMenExi = "Ya existe un archivo con este nombre";
+        public const string NPMenPar = "Hay parámetros vacíos";
         public const string NPMenCon = "No se pudo conectar al servidor";
         public const string NPMenPre = "¿Desea predeterminar el nuevo proyecto?";
         public const string NPMenFic = "Error inesperado al guardar la configuración";
@@ -219,6 +219,7 @@ namespace ReadyReq.Util
         public const string GuarSal = "Guardar/Salir";
         public const string DBFich = "Bases de datos (.accdb)";
         public const string MenConBD = "Error al conectarse a la base de datos, corríjalo, para continuar.";
+        public const string MenSal = "¿Desea cerrar la ventana?";
     }
 
     public struct Ingles
@@ -436,6 +437,7 @@ namespace ReadyReq.Util
         public const string SaveExit = "Save/Exit";
         public const string DBFile = "Databases (.accdb)";
         public const string MenConBD = "Error when connecting to the database, correct it, to continue.";
+        public const string MenSal = "Do you want to close de windows?";
     }
 
     public struct DefValues

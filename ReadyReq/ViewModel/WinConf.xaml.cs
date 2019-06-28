@@ -20,7 +20,7 @@ namespace ReadyReq.ViewModel
         string StrMenPar;
         string StrMenFic;
         string StrMenConBD = "Error al conectarse a la base de datos, corríjalo en 'Configuración', para continuar.\n\nError when connecting to the database, correct it in 'Configuration', to continue.";
-
+        string StrMenSal = "¿Desea cerrar la ventana?\n\nDo you want to close de windows?";
         public WinConf()
         {
             InitializeComponent();
@@ -129,7 +129,7 @@ namespace ReadyReq.ViewModel
                     if (string.IsNullOrEmpty(TxtHost.Text) || string.IsNullOrEmpty(TxtUsu.Text) || string.IsNullOrEmpty(TxtPassMS.Password) || string.IsNullOrEmpty(TxtBDMS.Text) || string.IsNullOrEmpty(TxtPortMS.Text))
                     {
                         MessageBox.Show(StrMenPar);
-                        return;
+                        if (MessageBox.Show(StrMenSal, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes) { Close(); return; } else return;
                     }
                     else
                     {
@@ -148,7 +148,7 @@ namespace ReadyReq.ViewModel
                     if (string.IsNullOrEmpty(RutaBD))
                     {
                         MessageBox.Show(StrMenPar);
-                        return;
+                        if (MessageBox.Show(StrMenSal, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes) { Close(); return; } else return;
                     }
                     else
                     {
@@ -160,13 +160,15 @@ namespace ReadyReq.ViewModel
                             ClsConf.PassAcc = TxtPassBD.Password;
                         }
                         else
-                        {
                             ClsConf.FlgPass = false;
-                        }
                     }
                 }
 
-                if (ClsConf.EscribirConf() == -1) MessageBox.Show(StrMenFic);
+                if (ClsConf.EscribirConf() == -1)
+                {
+                    MessageBox.Show(StrMenFic);
+                    if (MessageBox.Show(StrMenSal, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes) Close(); else return;
+                }
                 else
                 {
                     string OptionCon = Ingles.No;
@@ -180,7 +182,11 @@ namespace ReadyReq.ViewModel
                         else OptionCon += "Persist Security Info = False;";
                     }
 
-                    if (!ClsBaseDatos.BDConexion(OptionCon)) MessageBox.Show(StrMenConBD);
+                    if (!ClsBaseDatos.BDConexion(OptionCon))
+                    {
+                        MessageBox.Show(StrMenConBD);
+                        if (MessageBox.Show(StrMenSal, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes) Close();
+                    }
                     else Close();
                 }
             }
@@ -199,6 +205,7 @@ namespace ReadyReq.ViewModel
         {
             if (ClsConf.Idioma.Equals(DefValues.Ingles))
             {
+                Title = Ingles.Configuration;
                 ButRuta.Content = Ingles.Browse;
                 ButSalir.Content = Ingles.SaveExit;
                 LblHost.Content = Ingles.Server;
@@ -212,9 +219,11 @@ namespace ReadyReq.ViewModel
                 StrMenPar = Ingles.NPMenPar;
                 StrMenFic = Ingles.NPMenFic;
                 StrMenConBD = Ingles.MenConBD;
+                StrMenSal = Ingles.MenSal;
             }
             else
             {
+                Title = Español.Configuración;
                 ButRuta.Content = Español.Examinar;
                 ButSalir.Content = Español.GuarSal;
                 LblHost.Content = Español.Servidor;
@@ -228,6 +237,7 @@ namespace ReadyReq.ViewModel
                 StrMenPar = Español.NPMenPar;
                 StrMenFic = Español.NPMenFic;
                 StrMenConBD = Español.MenConBD;
+                StrMenSal = Español.MenSal;
             }
         }
         private void Presionar(object sender, KeyEventArgs e)

@@ -26,6 +26,7 @@ namespace ReadyReq.ViewModel
         WinNuePro NuevoPro = new WinNuePro();
         WinConf Configuracion = new WinConf();
         bool Activo = false;
+        string StrMenConf = "Configure el software en la ventana 'Configuración'\n\nConfigure the software in the 'Configuration' window";
         public WinMenu()
         {
             InitializeComponent();
@@ -151,6 +152,7 @@ namespace ReadyReq.ViewModel
                 NuevoPro = new WinNuePro();
                 NuevoPro.Owner = this;
                 NuevoPro.ShowDialog();
+                if (!Activo) MessageBox.Show(StrMenConf);
             }
 
             if (ctrl.Name.Equals("ButImp") && !Importar.IsLoaded && Activo)
